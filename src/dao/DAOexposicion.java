@@ -50,19 +50,29 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             Statement consulta = conexion.createStatement();
             ResultSet rs = consulta.executeQuery("INSERT INTO "+propiedadesBBDD.getTblExposicion()+" values ("+exposicion.getNombre()+", "+exposicion.getTematica()+","
             +exposicion.getFechainicio()+", "+exposicion.getFechafin()+", "+exposicion.getDescripcion()+", "+exposicion.getNumsala()+" )" );
-            JOptionPane.showMessageDialog(null, "Se ha registrado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se ha registrado la exposición exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             consulta.close();
 
 
         }catch(SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error al insertar ese cliente");
+            JOptionPane.showMessageDialog(null, "Error al insertar esa exposición");
         }
     }
 
     @Override
-    public void eliminarExposicion() {
+    public void eliminarExposicion(Exposicion exposicion) {
+        try{
+            String sql = "DELETE FROM "+propiedadesBBDD.getTblExposicion()+" WHERE Nombre = "+exposicion.getNombre();
+            Statement consulta = conexion.createStatement();
+            consulta.executeUpdate(sql);
+            consulta.close();
 
+
+        }catch(SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar esa exposición");
+        }
     }
 
     @Override
@@ -71,7 +81,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
     }
 
     @Override
-    public Exposicion buscarExposicion() {
+    public Exposicion buscarExposicion(Exposicion exposicion) {
         return null;
     }
 }

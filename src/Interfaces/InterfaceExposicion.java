@@ -8,8 +8,8 @@ public interface InterfaceExposicion {
 
     public interface InterfaceDAOExposicion{
         public void insertarExposicion(Exposicion exposicion);
-        public void eliminarExposicion();
+        public void eliminarExposicion(Exposicion exposicion);
         public ArrayList<Exposicion> listarExposiciones();
-        public Exposicion buscarExposicion();
+        public Exposicion buscarExposicion(Exposicion exposicion);
     }
 }
