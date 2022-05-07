@@ -7,10 +7,7 @@ import modelo.Exposicion;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import otros.PropertiesBBDD;
 
@@ -78,11 +75,57 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
 
     @Override
     public ArrayList<Exposicion> listarExposiciones() {
-        return null;
+        ArrayList<Exposicion> milista = new ArrayList<>();
+        Exposicion exposicion = null;
+
+        try{
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion());
+
+            while(rs.next()){
+                exposicion = new Exposicion();
+                exposicion.setNombre(rs.getString("Nombre"));
+                exposicion.setTematica(rs.getString("Tematica"));
+                exposicion.setFechainicio(rs.getDate("FechaInicio"));
+                exposicion.setFechafin(rs.getDate("FechaFin"));
+                exposicion.setDescripcion(rs.getString("Descripcion"));
+                exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
+
+                milista.add(exposicion);
+
+            }
+            rs.close();
+            consulta.close();
+
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar esa exposición");
+        }
+
+        return milista;
     }
 
     @Override
-    public Exposicion buscarExposicion(Exposicion exposicion) {
+    public Exposicion buscarExposicion(String nombre) {
+        Exposicion exposicion = null;
+
+        try{
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion()+" WHERE Nombre = "+nombre);
+
+            while(rs.next()){
+                exposicion = new Exposicion();
+                exposicion.setNombre(rs.getString("Nombre"));
+                exposicion.setTematica(rs.getString("Tematica"));
+                exposicion.setFechainicio(rs.getDate("FechaInicio"));
+                exposicion.setFechafin(rs.getDate("FechaFin"));
+                exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
+
+            }
+            return exposicion;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar esa exposición");
+        }
+
         return null;
     }
 }

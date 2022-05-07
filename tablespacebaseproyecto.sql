@@ -43,7 +43,7 @@ Create Table Exposicion(
     Tematica varchar2(30),
     FechaInicio date,
     FechaFin date,
-    Descipcion varchar2(100),
+    Descripcion varchar2(100),
     NumSala int,
     CONSTRAINT Expo_Pk PRIMARY KEY(Nombre),
     -- Constraint fechaexpo_ck check (FechaInicio>=CURRENT_DATE), 

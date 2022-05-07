@@ -10,6 +10,6 @@ public interface InterfaceExposicion {
         public void insertarExposicion(Exposicion exposicion);
         public void eliminarExposicion(Exposicion exposicion);
         public ArrayList<Exposicion> listarExposiciones();
-        public Exposicion buscarExposicion(Exposicion exposicion);
+        public Exposicion buscarExposicion(String nombre);
     }
 }
