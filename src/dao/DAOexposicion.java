@@ -57,6 +57,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         }catch(SQLException e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al insertar esa exposición");
+
         }
     }
 
