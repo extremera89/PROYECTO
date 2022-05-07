@@ -1,5 +1,6 @@
-package DAO;
+package dao;
 
+import Interfaces.InterfaceLogin;
 import conexion.Conexion;
 import modelo.Login;
 import otros.PropertiesBBDD;
@@ -11,12 +12,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginDAO{
+public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
 
     private static Connection conexion;
     private PropertiesBBDD propiedadesBBDD;
 
-    public LoginDAO() {
+    public DAOlogin() {
         try {
             conexion = Conexion.getConexion();
             propiedadesBBDD = new PropertiesBBDD();
@@ -35,7 +36,7 @@ public class LoginDAO{
         }
     }
 
-
+    @Override
     public boolean insertarNuevoUsuario(Login administrador) {
 
         String sql = "Insert into " + propiedadesBBDD.getTblLogin() + " values (?, ?, ?)";
@@ -53,6 +54,7 @@ public class LoginDAO{
         return filasAfectadas != 0;
     }
 
+    @Override
     public boolean borrarUsuario(Login administrador) {
 
         String sql = "Delete from "  + propiedadesBBDD.getTblLogin() + " where usuario=?;";
@@ -67,7 +69,26 @@ public class LoginDAO{
         return filasAfectadas != 0;
     }
 
-    public boolean borrarUsuario(String user) {
+    @Override
+    public String obtenerContraseniaPorUsuario(String usuario) {
+        String sql = "Select CONTRASENIA from "  + propiedadesBBDD.getTblLogin() + " where usuario=?";
+        String contraseniaObtenida = null;
+        try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {
+            pStatement.setString(1, usuario);
+            ResultSet rSet = pStatement.executeQuery();
+            while (rSet.next()) {
+                contraseniaObtenida = rSet.getString("contrasenia");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return contraseniaObtenida;
+
+    }
+
+        public boolean borrarUsuario(String user) {
 
         String sql = "Delete from "  + propiedadesBBDD.getTblLogin() + " where usuario=?";
         int filasAfectadas = 0;
@@ -80,8 +101,8 @@ public class LoginDAO{
         }
         return filasAfectadas != 0;
     }
-
-    public boolean cambiarContraseña(String user, String nuevaContrasenia) {
+    @Override
+    public boolean cambiarContrasenia(String user, String nuevaContrasenia) {
 
         String sql = "Update "  + propiedadesBBDD.getTblLogin() +  " set contrasenia=? where usuario=?";
         int filasAfectadas = 0;
@@ -114,7 +135,7 @@ public class LoginDAO{
         return filasAfectadas != 0;
 
     }
-
+    @Override
     public Login comprobarExistenciaUsuario(String usuario) {
         String sql = "Select * from " + propiedadesBBDD.getTblLogin() + " where usuario=?";
         Login adminPrueba = null;

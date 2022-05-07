@@ -18,7 +18,7 @@ public interface InterfaceLogin {
 
             public boolean insertarNuevoUsuario(Login administrador);
 
-            public boolean actualizarContrasenia(String usuarioAactualizar, String nuevaContrasenia);
+            public boolean cambiarContrasenia(String usuarioAactualizar, String nuevaContrasenia);
 
             public boolean borrarUsuario(Login administrador);
 

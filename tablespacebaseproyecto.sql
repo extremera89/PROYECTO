@@ -71,6 +71,17 @@ Create Table Persona(
 ALTER TABLE Persona MOVE TABLESPACE PROYECTOMUSEO;
 
 
+Create Table Cliente(
+    DNI Varchar2(9),
+    EsExpositor NUMBER(1,0),
+    CONSTRAINT Cliente_Pk Primary Key(DNI),
+    CONSTRAINT ClientePersona_Fk FOREIGN key(DNI) 
+                                 REFERENCES Persona(DNI) 
+                                 ON DELETE SET NULL
+);
+
+ALTER TABLE Cliente MOVE TABLESPACE PROYECTOMUSEO;
+
 Create Table Reserva(
     DNI varchar2(9),
     NumSala int,
@@ -86,24 +97,11 @@ Create Table Reserva(
                             REFERENCES Sala(numSala) 
                             ON DELETE SET NULL,
     CONSTRAINT ReserPersona_Fk FOREIGN KEY(DNI) 
-                               REFERENCES Persona(DNI) 
+                               REFERENCES Cliente(DNI) 
                                ON DELETE SET NULL
 );
 
 ALTER TABLE Reserva MOVE TABLESPACE PROYECTOMUSEO;
-
-
-Create Table Cliente(
-    DNI Varchar2(9),
-    EsExpositor NUMBER(1,0),
-    CONSTRAINT Cliente_Pk Primary Key(DNI),
-    CONSTRAINT ClientePersona_Fk FOREIGN key(DNI) 
-                                 REFERENCES Persona(DNI) 
-                                 ON DELETE SET NULL
-);
-
-ALTER TABLE Cliente MOVE TABLESPACE PROYECTOMUSEO;
-
 
 CREATE TABLE Monitor(
     Titulacion varchar2(30),
