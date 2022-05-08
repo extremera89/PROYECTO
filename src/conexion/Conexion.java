@@ -1,11 +1,10 @@
 package conexion;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class Conexion {
@@ -21,7 +20,8 @@ public class Conexion {
             String servidor = properties.getProperty("HOSTNAME");
             String puerto = properties.getProperty("PORT");
             String driver = properties.getProperty("DRIVER");
-            String url = "jdbc:oracle:thin:@localhost:1521:xe";
+            //String url = "jdbc:oracle:thin:@localhost:1521:xe";
+            String url = driver+"@"+servidor+":"+puerto+":xe";
             String username = properties.getProperty("USERNAME");
             String password = properties.getProperty("PASSWORD");
 
@@ -40,6 +40,16 @@ public class Conexion {
         try {
             Connection conexionDB = Conexion.getConexion();
             System.out.println(conexionDB);
+
+            //PRUEBA
+            /*
+            Statement st =conexion.createStatement();
+            ResultSet rs = st.executeQuery("select * from Exposicion");
+
+            if (rs.next()){
+                System.out.println(rs.getString("Nombre"));
+            }*/
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

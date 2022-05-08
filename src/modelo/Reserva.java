@@ -1,27 +1,27 @@
 package modelo;
 
-import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 public class Reserva {
 
-    private String DNI; // foranea de persona pk
-    private int NumSala; // foranea de sala pk
-    private Date FechaReserva; // pk
-    private Date FecahFin;
-    private boolean Confirmado;
-    private Time HoraApetrua;
-    private Time HoraCierre;
+    private String CodigoReserva; //pk
+    private String DNI; // foranea de persona
+    private int NumSala; // foranea de sala
+    private java.sql.Date FechaReserva;
+    private java.sql.Date FechaFin;
+    private int Confirmado;
     private String MotivoReserva;
 
-    public Reserva(String DNI, int numSala, Date fechaReserva, Date fecahFin, boolean confirmado, Time horaApetrua, Time horaCierre, String motivoReserva) {
+    public Reserva() {
+    }
+
+    public Reserva(String codigoReserva, String DNI, int numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva) {
+        CodigoReserva = codigoReserva;
         this.DNI = DNI;
         NumSala = numSala;
         FechaReserva = fechaReserva;
-        FecahFin = fecahFin;
+        FechaFin = fechaFin;
         Confirmado = confirmado;
-        HoraApetrua = horaApetrua;
-        HoraCierre = horaCierre;
         MotivoReserva = motivoReserva;
     }
 
@@ -49,36 +49,20 @@ public class Reserva {
         FechaReserva = fechaReserva;
     }
 
-    public Date getFecahFin() {
-        return FecahFin;
+    public Date getFechaFin() {
+        return FechaFin;
     }
 
-    public void setFecahFin(Date fecahFin) {
-        FecahFin = fecahFin;
+    public void setFechaFin(Date fechaFin) {
+        FechaFin = fechaFin;
     }
 
-    public boolean isConfirmado() {
+    public int getConfirmado() {
         return Confirmado;
     }
 
-    public void setConfirmado(boolean confirmado) {
+    public void setConfirmado(int confirmado) {
         Confirmado = confirmado;
-    }
-
-    public Time getHoraApetrua() {
-        return HoraApetrua;
-    }
-
-    public void setHoraApetrua(Time horaApetrua) {
-        HoraApetrua = horaApetrua;
-    }
-
-    public Time getHoraCierre() {
-        return HoraCierre;
-    }
-
-    public void setHoraCierre(Time horaCierre) {
-        HoraCierre = horaCierre;
     }
 
     public String getMotivoReserva() {
@@ -89,16 +73,23 @@ public class Reserva {
         MotivoReserva = motivoReserva;
     }
 
+    public String getCodigoReserva() {
+        return CodigoReserva;
+    }
+
+    public void setCodigoReserva(String codigoReserva) {
+        CodigoReserva = codigoReserva;
+    }
+
     @Override
     public String toString() {
         return "Reserva{" +
-                "DNI='" + DNI + '\'' +
+                "CodigoReserva='" + CodigoReserva + '\'' +
+                ", DNI='" + DNI + '\'' +
                 ", NumSala=" + NumSala +
                 ", FechaReserva=" + FechaReserva +
-                ", FecahFin=" + FecahFin +
+                ", FechaFin=" + FechaFin +
                 ", Confirmado=" + Confirmado +
-                ", HoraApetrua=" + HoraApetrua +
-                ", HoraCierre=" + HoraCierre +
                 ", MotivoReserva='" + MotivoReserva + '\'' +
                 '}';
     }

@@ -3,10 +3,13 @@ package modelo;
 public class Sala {
 
     private int NumSala; //pk
-    private boolean DadaAlta;
+    private int DadaAlta;
     private int Tamanio;
 
-    public Sala(int numSala, boolean dadaAlta, int tamanio) {
+    public Sala() {
+    }
+
+    public Sala(int numSala, int dadaAlta, int tamanio) {
         NumSala = numSala;
         DadaAlta = dadaAlta;
         Tamanio = tamanio;
@@ -20,11 +23,11 @@ public class Sala {
         NumSala = numSala;
     }
 
-    public boolean isDadaAlta() {
+    public int getDadaAlta() {
         return DadaAlta;
     }
 
-    public void setDadaAlta(boolean dadaAlta) {
+    public void setDadaAlta(int dadaAlta) {
         DadaAlta = dadaAlta;
     }
 

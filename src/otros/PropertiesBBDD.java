@@ -7,6 +7,8 @@ import java.util.Properties;
 public class PropertiesBBDD {
     private String tblLogin;
     private String tblExposicion;
+    private String tblSala;
+    private String tblReserva;
 
     public PropertiesBBDD() throws IOException {
         Properties properties = new Properties();
@@ -15,6 +17,8 @@ public class PropertiesBBDD {
 
         tblLogin = properties.getProperty("tblLogin");
         tblExposicion = properties.getProperty("tblExposicion");
+        tblSala = properties.getProperty("tblSala");
+        tblReserva = properties.getProperty("tblReserva");
 
     }
 
@@ -24,5 +28,13 @@ public class PropertiesBBDD {
 
     public String getTblExposicion() {
         return tblExposicion;
+    }
+
+    public String getTblSala() {
+        return tblSala;
+    }
+
+    public String getTblReserva() {
+        return tblReserva;
     }
 }
