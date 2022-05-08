@@ -142,14 +142,14 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
     }
 
     @Override
-    public Cliente modificarCliente(String cliente) {
+    public Cliente modificarCliente(Cliente cliente){
         return null;
     }
-    ArrayList<Cliente>listaCliente=new ArrayList<Cliente>();
 
     @Override
     public ArrayList<Cliente> listarClientes() {
         Cliente cliente;
+        ArrayList<Cliente>listaCliente=new ArrayList<Cliente>();
 
         try{
             Statement consulta= conexion.createStatement();
@@ -177,7 +177,6 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
                 catch (SQLException e){
                     e.printStackTrace();
                 }
-                System.out.println("pr");
                 listaCliente.add(cliente);
             }
             rs.close();
@@ -191,18 +190,11 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
         return listaCliente;
     }
 
-    public void listarMoni(){
-        for(int i=0;i<listarClientes().size();i++){
-            System.out.println(listaCliente.get(i));
+    public void listarClien(){
+        ArrayList<Cliente>prueba=listarClientes();
+        for(int i=0;i<prueba.size();i++){
+            System.out.println(prueba.get(i));
         }
     }
-
-    public static void main(String[] args) {
-        DAOcliente dao=new DAOcliente();
-        Cliente c=new Cliente("22222521H","Franciswco","pera","pesa","625621563","email@gmail.com",1);
-        //dao.insertarCliente(c);
-
-        dao.listarMoni();
-
-    }
+    
 }

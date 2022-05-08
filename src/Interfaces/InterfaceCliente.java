@@ -11,7 +11,7 @@ public interface InterfaceCliente {
         public void insertarCliente(Cliente cliente);
         public void eliminarCliente(String DNI);
         public Cliente buscarCliente(String DNI);
-        public Cliente modificarCliente(String cliente);
+        public Cliente modificarCliente(Cliente cliente);
         public ArrayList<Cliente> listarClientes();
     }
 
