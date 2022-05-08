@@ -14,7 +14,6 @@ public class GuiLogin {
         ControladorLogin controller=new ControladorLogin(dao,ventanaLogin);
         ventanaLogin.setControler(controller);
         ventanaLogin.iniciar();
-
     }
 
 }

@@ -4,6 +4,7 @@ import Interfaces.InterfaceLogin;
 import controladores.ControladorLogin;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,8 +30,6 @@ public class VistaLogin{
     public void setPanelPrincipal(JPanel panelPrincipal) {
         PanelPrincipal = panelPrincipal;
     }
-
-    public ControladorLogin controladorLogin;
 
     public JTextField getTxtUsuario() {
         return txtUsuario;

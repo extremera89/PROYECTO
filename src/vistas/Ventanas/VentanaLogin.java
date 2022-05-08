@@ -47,7 +47,7 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
             //controladorLogin.inicializaControlerPrincipal();
         }
         else{
-            errorAutenticacion();  //método estático
+            errorAutenticacion();
         }
 
     }

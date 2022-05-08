@@ -5,24 +5,22 @@ import dao.DAOlogin;
 import modelo.Login;
 import vistas.Paneles.VistaLogin;
 import vistas.Ventanas.VentanaLogin;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin {
+public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin, ActionListener {
 
     private VentanaLogin ventanaLogin;
 
-    private DAOlogin administradorDAO;
+    private DAOlogin dao;
 
     private Login login;
 
-    private VistaLogin vistaLogin;
 
     public ControladorLogin(DAOlogin dao, VentanaLogin ventanaLogin){
         this.ventanaLogin=ventanaLogin;
-        administradorDAO=new DAOlogin();
-        ventanaLogin=new VentanaLogin();
+        this.dao=dao;
     }
 
 
@@ -37,27 +35,29 @@ public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin
     @Override
     public boolean validadAdmin(){
 
-        String usuario = vistaLogin.getTxtUsuario().getText();
-        String password = vistaLogin.getTxtContrasenia().getText();
+        String usuario = ventanaLogin.guiLogin.getTxtUsuario().getText();
+        String password = ventanaLogin.guiLogin.getTxtContrasenia().getText();
 
-        if (
-                (usuario !=null) && (password != null) &&((login=administradorDAO.comprobarExistenciaUsuario(usuario))!=null)
-        ){
-            if (login.getContrasenia().matches(password)){
+        if ((usuario !=null) && (password != null)){
+            if ((login=dao.comprobarExistenciaUsuario(usuario))!=null && (login.getContrasenia().matches(password)==true)){
                 return true;
             }
             else{
-                login = null;  //Ese usuario no es válido.
+                login = null;
             }
         }
         return false;
     }
 
-
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("LIMPIAR")){
-            JOptionPane.showInputDialog(this,"hola");
+        if (e.getActionCommand().equals("LOGUEAR")) {
+            ventanaLogin.validaAdmin();
         }
+        else if (e.getActionCommand().equals("LIMPIAR")){
+            ventanaLogin.guiLogin.limpiarCampos();
+        }
+
     }
 
 }

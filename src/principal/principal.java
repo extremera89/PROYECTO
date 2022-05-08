@@ -11,8 +11,11 @@ import javax.swing.*;
 public class principal {
     public static void main(String[] args) {
 
-        VentanaLogin vl=new VentanaLogin();
-        vl.iniciar();
+        GuiLogin gl=new GuiLogin();
+
+        DAOlogin dao=new DAOlogin();
+
+        //System.out.println(dao.comprobarExistenciaUsuario("juan"));
 
 
 
