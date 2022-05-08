@@ -12,4 +12,12 @@ public interface InterfaceExposicion {
         public ArrayList<Exposicion> listarExposiciones();
         public Exposicion buscarExposicion(String nombre);
     }
+
+    public interface InterfaceVistaExposicion{
+
+    }
+
+
+
+
 }
