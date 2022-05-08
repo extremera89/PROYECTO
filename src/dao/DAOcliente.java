@@ -3,6 +3,7 @@ package dao;
 import conexion.Conexion;
 import Interfaces.InterfaceCliente;
 import modelo.Cliente;
+import modelo.Monitor;
 import otros.PropertiesBBDD;
 
 import javax.swing.*;
@@ -196,5 +197,11 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
             System.out.println(prueba.get(i));
         }
     }
-    
+
+    public static void main(String[] args) {
+        DAOcliente dao=new DAOcliente();
+        Cliente m=new Cliente("73777777L","pepe","mesa","martinez","687532894","email@email.com",1);
+dao.insertarCliente(m);
+        dao.listarClien();
+    }
 }
