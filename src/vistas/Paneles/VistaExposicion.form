@@ -73,7 +73,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="cb071" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="cb071" class="javax.swing.JTable" binding="tblExposicion">
                 <constraints/>
                 <properties/>
               </component>

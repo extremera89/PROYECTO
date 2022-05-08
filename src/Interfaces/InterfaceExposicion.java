@@ -1,5 +1,6 @@
 package Interfaces;
 
+import controladores.ControladorExposicion;
 import modelo.Exposicion;
 
 import java.util.ArrayList;
@@ -14,9 +15,13 @@ public interface InterfaceExposicion {
     }
 
     public interface InterfaceVistaExposicion{
-
+        public void setControler(ControladorExposicion controlador);
     }
 
+    public interface InterfaceControladorExposicion{
+        public void crearExposicion();
+        public void eliminarExposicion();
+    }
 
 
 

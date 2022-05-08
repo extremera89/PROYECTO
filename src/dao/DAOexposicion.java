@@ -45,8 +45,8 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
     public void insertarExposicion(Exposicion exposicion) {
         try{
             Statement consulta = conexion.createStatement();
-            ResultSet rs = consulta.executeQuery("INSERT INTO "+propiedadesBBDD.getTblExposicion()+" values ("+exposicion.getNombre()+", "+exposicion.getTematica()+","
-            +exposicion.getFechainicio()+", "+exposicion.getFechafin()+", "+exposicion.getDescripcion()+", "+exposicion.getNumsala()+" )" );
+            ResultSet rs = consulta.executeQuery("INSERT INTO "+propiedadesBBDD.getTblExposicion()+" values ('"+exposicion.getNombre()+"', '"+exposicion.getTematica()+"','"
+            +exposicion.getFechainicio()+"', '"+exposicion.getFechafin()+"', '"+exposicion.getDescripcion()+"', '"+exposicion.getNumsala()+"' )" );
             JOptionPane.showMessageDialog(null, "Se ha registrado la exposición exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             consulta.close();
 
