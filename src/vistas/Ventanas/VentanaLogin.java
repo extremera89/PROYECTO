@@ -17,6 +17,8 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
         guiLogin=new VistaLogin();
         guiLogin.asignaCommandBotones();
         this.setContentPane(guiLogin.PanelPrincipal);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Inicio de sesión");
         this.pack();
 
     }
@@ -44,6 +46,7 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
 
         if (adapter.validadAdmin()){
             this.setVisible(false);
+            VentanaPrincipal ventanaPrincipal=new VentanaPrincipal();
             //controladorLogin.inicializaControlerPrincipal();
         }
         else{

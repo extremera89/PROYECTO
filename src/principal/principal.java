@@ -13,9 +13,6 @@ public class principal {
 
         GuiLogin gl=new GuiLogin();
 
-        DAOlogin dao=new DAOlogin();
-
-        //System.out.println(dao.comprobarExistenciaUsuario("juan"));
 
 
 
