@@ -38,9 +38,9 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
     }
 
     @Override
-    public void insertarCliente(Cliente cliente){
+    public void insertarCliente(Cliente cliente) {
 
-        String sqlPersona="INSERT INTO "+propiedadesBBDD.getTblPersona()+" (DNI,NOMBRE,APELLIDO1,APELLIDO2,TELEFONO,EMAIL) values (?, ?, ?, ?, ?, ?)";
+        String sqlPersona = "INSERT INTO " + propiedadesBBDD.getTblPersona() + " (DNI,NOMBRE,APELLIDO1,APELLIDO2,TELEFONO,EMAIL) values (?, ?, ?, ?, ?, ?)";
         String sqlCliente = "Insert into " + propiedadesBBDD.getTblCliente() + " values (?, ?)";
         int filasAfectadas = 0;
         try (PreparedStatement pStatement = conexion.prepareStatement(sqlPersona);) {
@@ -52,45 +52,44 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
             pStatement.setString(6, cliente.getEmail());
             filasAfectadas = pStatement.executeUpdate();
 
-            if (filasAfectadas==1){
-                filasAfectadas=0;
-                try(PreparedStatement pStament = conexion.prepareStatement(sqlCliente);) {
-                    pStament.setString(1,cliente.getDNI());
-                    pStament.setInt(2,cliente.getEs_Expositor());
+            if (filasAfectadas == 1) {
+                filasAfectadas = 0;
+                try (PreparedStatement pStament = conexion.prepareStatement(sqlCliente);) {
+                    pStament.setString(1, cliente.getDNI());
+                    pStament.setInt(2, cliente.getEs_Expositor());
                     filasAfectadas = pStament.executeUpdate();
-                }
-                catch(SQLException e) {
+                } catch (SQLException e) {
                     System.out.println(e.getMessage());
-                    JOptionPane.showMessageDialog(null,"No se ha podido realizar el registro","error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No se ha podido realizar el registro", "error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
             //JOptionPane.showMessageDialog(null,"Se ha registrado Exitosamente", "Información",JOptionPane.INFORMATION_MESSAGE);
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"No se ha podido realizar el registro","error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se ha podido realizar el registro", "error", JOptionPane.ERROR_MESSAGE);
         }
 
         filasAfectadas = 0;
 
-}
+    }
 
     @Override
     public void eliminarCliente(String DNI) {
-        String sql = "Delete from "  + propiedadesBBDD.getTblCliente() + " where DNI=?";
+        String sql = "Delete from " + propiedadesBBDD.getTblCliente() + " where DNI=?";
         int filasAfectadas = 0;
         try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {
             pStatement.setString(1, DNI);
             filasAfectadas = pStatement.executeUpdate();
-            if (filasAfectadas==1) {
+            if (filasAfectadas == 1) {
                 filasAfectadas = 0;
-                String sqlPersona = "Delete from "  + propiedadesBBDD.getTblPersona() + " where DNI=?";
-                try(PreparedStatement pStatemt = conexion.prepareStatement(sqlPersona);) {
+                String sqlPersona = "Delete from " + propiedadesBBDD.getTblPersona() + " where DNI=?";
+                try (PreparedStatement pStatemt = conexion.prepareStatement(sqlPersona);) {
                     pStatemt.setString(1, DNI);
                     filasAfectadas = pStatemt.executeUpdate();
-                }catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -103,19 +102,19 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
     @Override
     public Cliente buscarCliente(String DNI) {
 
-        Cliente cliente=null;
+        Cliente cliente = null;
 
         try {
-            Statement consulta= conexion.createStatement();
-            ResultSet rs=consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblCliente()+" WHERE DNI='"+DNI+"'");
-            while (rs.next()){
-                cliente=new Cliente();
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblCliente() + " WHERE DNI='" + DNI + "'");
+            while (rs.next()) {
+                cliente = new Cliente();
                 cliente.setDNI(rs.getString("DNI"));
                 cliente.setEs_Expositor(Integer.parseInt(rs.getString("EsExpositor")));
                 try {
-                    Statement consulta2=conexion.createStatement();
-                    ResultSet rs2=consulta2.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblPersona()+" WHERE DNI='"+DNI+"'");
-                    while (rs2.next()){
+                    Statement consulta2 = conexion.createStatement();
+                    ResultSet rs2 = consulta2.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblPersona() + " WHERE DNI='" + DNI + "'");
+                    while (rs2.next()) {
                         cliente.setNombre(rs2.getString("Nombre"));
                         cliente.setApellido1(rs2.getString("Apellido1"));
                         cliente.setApellido2(rs2.getString("apellido2"));
@@ -124,9 +123,7 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
                     }
                     rs2.close();
                     consulta2.close();
-                }
-
-                catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
@@ -134,56 +131,52 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
             consulta.close();
             return cliente;
 
-        }
-        catch (SQLException e){
-            JOptionPane.showMessageDialog(null,"Error el encontrar dicho cliente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error el encontrar dicho cliente");
         }
 
         return null;
     }
 
     @Override
-    public Cliente modificarCliente(Cliente cliente){
+    public Cliente modificarCliente(Cliente cliente) {
         return null;
     }
 
     @Override
     public ArrayList<Cliente> listarClientes() {
         Cliente cliente;
-        ArrayList<Cliente>listaCliente=new ArrayList<Cliente>();
+        ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
 
-        try{
-            Statement consulta= conexion.createStatement();
-            ResultSet rs=consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblCliente());
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblCliente());
 
-            while (rs.next()){
-                cliente=new Cliente();
+            while (rs.next()) {
+                cliente = new Cliente();
                 cliente.setDNI(rs.getString("DNI"));
                 cliente.setEs_Expositor(Integer.parseInt(rs.getString("ESEXPOSITOR")));
 
                 try {
-                    Statement consulta2=conexion.createStatement();
-                    ResultSet rs2=consulta2.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblPersona());
-                    while (rs2.next()){
-                        cliente.setDNI(rs2.getString("dni"));
+                    Statement consulta2 = conexion.createStatement();
+                    ResultSet rs2 = consulta2.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblPersona() + " WHERE DNI='" + cliente.getDNI() + "'");
+                    while (rs2.next()) {
                         cliente.setNombre(rs2.getString("Nombre"));
                         cliente.setApellido1(rs2.getString("Apellido1"));
                         cliente.setApellido2(rs2.getString("apellido2"));
                         cliente.setTelefono(rs2.getString("Telefono"));
                         cliente.setEmail(rs2.getString("email"));
+                        listaCliente.add(cliente);
                     }
                     rs2.close();
                     consulta2.close();
-                }
-                catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                listaCliente.add(cliente);
             }
             rs.close();
             consulta.close();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -191,17 +184,10 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
         return listaCliente;
     }
 
-    public void listarClien(){
-        ArrayList<Cliente>prueba=listarClientes();
-        for(int i=0;i<prueba.size();i++){
+    public void listarClien() {
+        ArrayList<Cliente> prueba = listarClientes();
+        for (int i = 0; i < prueba.size(); i++) {
             System.out.println(prueba.get(i));
         }
-    }
-
-    public static void main(String[] args) {
-        DAOcliente dao=new DAOcliente();
-        Cliente m=new Cliente("73777777L","pepe","mesa","martinez","687532894","email@email.com",1);
-dao.insertarCliente(m);
-        dao.listarClien();
     }
 }

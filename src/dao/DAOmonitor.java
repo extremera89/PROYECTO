@@ -9,9 +9,7 @@ import otros.PropertiesBBDD;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
@@ -42,8 +40,8 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
     @Override
     public void insertarMonitor(Monitor monitor) {
 
-        String sqlPersona="INSERT INTO "+propiedadesBBDD.getTblPersona()+" (DNI,NOMBRE,APELLIDO1,APELLIDO2,TELEFONO,EMAIL) values (?, ?, ?, ?, ?, ?)";
-        String sqlMonitor = "Insert into " + propiedadesBBDD.getTblMonitor() + " values (?, ?)";
+        String sqlPersona = "INSERT INTO " + propiedadesBBDD.getTblPersona() + " (DNI,NOMBRE,APELLIDO1,APELLIDO2,TELEFONO,EMAIL) values (?, ?, ?, ?, ?, ?)";
+        String sqlMonitor = "INSERT INTO " + propiedadesBBDD.getTblMonitor() + " values (?, ? )";
         int filasAfectadas = 0;
         try (PreparedStatement pStatement = conexion.prepareStatement(sqlPersona);) {
             pStatement.setString(1, monitor.getDNI());
@@ -55,26 +53,24 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
             filasAfectadas = pStatement.executeUpdate();
 
 
-            if (filasAfectadas==1){
-                filasAfectadas=0;
-                try(PreparedStatement pStament = conexion.prepareStatement(sqlMonitor);) {
+            if (filasAfectadas == 1) {
+                filasAfectadas = 0;
+                try (PreparedStatement pStament = conexion.prepareStatement(sqlMonitor);) {
                     System.out.println("p");
-                    pStament.setString(1,monitor.getDNI());
-                    System.out.println("p");
+                    pStament.setString(1, monitor.getTitulación());
+                    pStament.setString(2, monitor.getDNI());
 
-                    pStament.setString(2, monitor.getTitulación());
                     filasAfectadas = pStament.executeUpdate();
-                }
-                catch(SQLException e) {
+                } catch (SQLException e) {
                     System.out.println(e.getMessage());
-                    JOptionPane.showMessageDialog(null,"No se ha podido realizar el registro","error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No se ha podido realizar el registro", "error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
             //JOptionPane.showMessageDialog(null,"Se ha registrado Exitosamente", "Información",JOptionPane.INFORMATION_MESSAGE);
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null,"No se ha podido realizar el registro","error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se ha podido realizar el registro", "error", JOptionPane.ERROR_MESSAGE);
         }
 
         filasAfectadas = 0;
@@ -83,27 +79,120 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
 
     @Override
     public void eliminarMonitor(String DNI) {
-
+        String sql = "Delete from " + propiedadesBBDD.getTblMonitor() + " where DNI=?";
+        int filasAfectadas = 0;
+        try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {
+            pStatement.setString(1, DNI);
+            filasAfectadas = pStatement.executeUpdate();
+            if (filasAfectadas == 1) {
+                filasAfectadas = 0;
+                String sqlPersona = "Delete from " + propiedadesBBDD.getTblPersona() + " where DNI=?";
+                try (PreparedStatement pStatemt = conexion.prepareStatement(sqlPersona);) {
+                    pStatemt.setString(1, DNI);
+                    filasAfectadas = pStatemt.executeUpdate();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public Cliente buscarMonitor(String DNI) {
+    public Monitor buscarMonitor(String DNI) {
+
+        Monitor monitor = null;
+
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblMonitor() + " WHERE DNI='" + DNI + "'");
+            while (rs.next()) {
+                monitor = new Monitor();
+                monitor.setTitulación(rs.getString("titulacion"));
+                monitor.setDNI(rs.getString("dni"));
+                try {
+                    Statement consulta2 = conexion.createStatement();
+                    ResultSet rs2 = consulta2.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblPersona() + " WHERE DNI='" + DNI + "'");
+                    while (rs2.next()) {
+                        monitor.setNombre(rs2.getString("Nombre"));
+                        monitor.setApellido1(rs2.getString("Apellido1"));
+                        monitor.setApellido2(rs2.getString("apellido2"));
+                        monitor.setTelefono(rs2.getString("Telefono"));
+                        monitor.setEmail(rs2.getString("email"));
+                    }
+                    rs2.close();
+                    consulta2.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            rs.close();
+            consulta.close();
+            return monitor;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error el encontrar dicho monitor");
+        }
+
         return null;
     }
 
     @Override
-    public Cliente modificarMonitor(Monitor monitor) {
+    public Monitor modificarMonitor(Monitor monitor) {
         return null;
     }
 
     @Override
-    public ArrayList<Cliente> listarMonitores() {
-        return null;
+    public ArrayList<Monitor> listarMonitores() {
+        Monitor monitor;
+        ArrayList<Monitor> listarMonitor = new ArrayList<Monitor>();
+
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblMonitor());
+
+            while (rs.next()) {
+                monitor = new Monitor();
+                monitor.setTitulación(rs.getString("titulacion"));
+                monitor.setDNI(rs.getString("dni"));
+
+                try {
+                    Statement consulta2 = conexion.createStatement();
+                    ResultSet rs2 = consulta2.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblPersona() + " WHERE DNI='" + monitor.getDNI() + "'");
+                    while (rs2.next()) {
+                        monitor.setNombre(rs2.getString("Nombre"));
+                        monitor.setApellido1(rs2.getString("Apellido1"));
+                        monitor.setApellido2(rs2.getString("apellido2"));
+                        monitor.setTelefono(rs2.getString("Telefono"));
+                        monitor.setEmail(rs2.getString("email"));
+                        listarMonitor.add(monitor);
+                    }
+                    rs2.close();
+                    consulta2.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            rs.close();
+            consulta.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return listarMonitor;
     }
 
-    public static void main(String[] args) {
-        Monitor m=new Monitor("77777777L","pepe","mesa","martinez","687532894","email@email.com","Físico");
-        DAOmonitor dao=new DAOmonitor();
-        dao.insertarMonitor(m);
+    public void listarMonis() {
+        ArrayList<Monitor> prueba = listarMonitores();
+        for (int i = 0; i < prueba.size(); i++) {
+            System.out.println(prueba.get(i));
+        }
     }
 }
+

@@ -10,9 +10,9 @@ public interface InterfaceMonitor {
     public interface InterfaceDaoMonitor{
         public void insertarMonitor(Monitor monitor);
         public void eliminarMonitor(String DNI);
-        public Cliente buscarMonitor(String DNI);
-        public Cliente modificarMonitor(Monitor monitor);
-        public ArrayList<Cliente> listarMonitores();
+        public Monitor buscarMonitor(String DNI);
+        public Monitor modificarMonitor(Monitor monitor);
+        public ArrayList<Monitor> listarMonitores();
     }
 
 
