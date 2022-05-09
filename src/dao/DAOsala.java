@@ -1,16 +1,16 @@
 package dao;
 
 import conexion.Conexion;
-import modelo.Exposicion;
 import modelo.Sala;
 import otros.PropertiesBBDD;
-
+import Interfaces.InterfaceSalas;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
-public class DAOsala {
+public class DAOsala implements InterfaceSalas.InterfaceDAOSala{
     private static Connection conexion;
     private PropertiesBBDD propiedadesBBDD;
 
@@ -75,6 +75,31 @@ public class DAOsala {
     }
 
 
+    public ArrayList<Sala> listarSala() {
+        ArrayList<Sala> miLista = new ArrayList<>();
+        Sala sala;
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("select * from " + propiedadesBBDD.getTblSala());
+
+            while (rs.next()) {
+                sala = new Sala();
+                sala.setNumSala(Integer.parseInt(rs.getString("NumSala")));
+                sala.setDadaAlta(Integer.parseInt(rs.getString("DadaAlta")));
+                sala.setTamanio(Integer.parseInt(rs.getString("Tamanio")));
+                miLista.add(sala);
+            }
+            rs.close();
+            consulta.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+        }
+        return miLista;
+    }
 
     public Sala buscarSala(int Numsala){
         Sala sala = new Sala();
@@ -90,9 +115,10 @@ public class DAOsala {
 
             }
             if (sala.getNumSala()==0 && sala.getTamanio()==0){
-                JOptionPane.showMessageDialog(null,"No se ha encotrado la sala");
+                //JOptionPane.showMessageDialog(null,"No se ha encotrado la sala error buscar sala");
                 return null;
             }
+
             return  sala;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"No se ha encontrado esa sala");
@@ -104,11 +130,13 @@ public class DAOsala {
 
             DAOsala salin = new DAOsala();
 
-            System.out.println(salin.buscarSala(30));
+
 
             Sala sal = new Sala(10,1,30);
 
             //salin.actualizarSala(10,0,100);
+
+        System.out.println(salin.listarSala());
 
     }
 
