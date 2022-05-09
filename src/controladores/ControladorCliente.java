@@ -32,19 +32,20 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void crearCliente() {
-        int expositor=0;
         String dni=ventanaCliente.guiClientes.getTxtDNI().getText();
         String nombre=ventanaCliente.guiClientes.getTxtNombre().getText();
         String apellido1=ventanaCliente.guiClientes.getTxtApellido1().getText();
         String apellido2=ventanaCliente.guiClientes.getTxtApellido2().getText();;
         String telefono=ventanaCliente.guiClientes.getTxtTelefono().getText();
         String email=ventanaCliente.guiClientes.getTxtEmail().getText();
-        expositor=Integer.parseInt(ventanaCliente.guiClientes.getTxtExpositor().getText());
+        String expositor=ventanaCliente.guiClientes.getTxtExpositor().getText();
 
-        if (dni!=null&&nombre!=null &&apellido1!=null &&apellido2!=null &&telefono!=null &&email!=null&&expositor!=0){
+
+        if (!dni.equals("")&&!nombre.equals("")&&!apellido1.equals("")&&!apellido2.equals("")&&!telefono.equals("")&&!email.equals("")&&!expositor.equals("")){
             if (dao.buscarCliente(dni)==null){
-                modeloTabla.crearCliente(dni,nombre,apellido1,apellido2,telefono,email,expositor);
-                dao.insertarCliente(new Cliente(dni,nombre,apellido1,apellido2,telefono,email,expositor));
+                int expositorI =Integer.parseInt(expositor);
+                modeloTabla.crearCliente(dni,nombre,apellido1,apellido2,telefono,email,expositorI);
+                dao.insertarCliente(new Cliente(dni,nombre,apellido1,apellido2,telefono,email,expositorI));
                 ventanaCliente.guiClientes.desactivarBotonGuardar();
                 ventanaCliente.guiClientes.limpiarCampoTxt();
                 ventanaCliente.guiClientes.activaCamposTxt();

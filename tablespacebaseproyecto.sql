@@ -154,6 +154,6 @@ CREATE TABLE Login(
 );
 ALTER TABLE Login MOVE TABLESPACE PROYECTOMUSEO;
 
-insert into Login values('paco','paco',1);
+
 
 select * from Login;
