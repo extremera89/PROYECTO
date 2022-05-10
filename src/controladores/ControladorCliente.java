@@ -53,9 +53,6 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         String rExpositor="[0|1]";
 
 
-
-
-
         if (!dni.equals("")&&!nombre.equals("")&&!apellido1.equals("")&&!apellido2.equals("")&&!telefono.equals("")&&!email.equals("")&&!expositor.equals("")) {
             if ((Pattern.matches(rDNI, dni) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rTexto, apellido1) == true) && (Pattern.matches(rTexto, apellido2) == true)
                     && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true) && (Pattern.matches(rExpositor, expositor) == true)) {
@@ -84,6 +81,16 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void actualizarCliente() {
+        String dni=ventanaCliente.guiClientes.getTxtDNI().getText();
+        String nombre=ventanaCliente.guiClientes.getTxtNombre().getText();
+        String apellido1=ventanaCliente.guiClientes.getTxtApellido1().getText();
+        String apellido2=ventanaCliente.guiClientes.getTxtApellido2().getText();
+        String telefono=ventanaCliente.guiClientes.getTxtTelefono().getText();
+        String email=ventanaCliente.guiClientes.getTxtEmail().getText();
+        int expositor=Integer.parseInt(ventanaCliente.guiClientes.getTxtExpositor().getText());
+        dao.modificarCliente(dni,nombre,apellido1,apellido2,telefono,email,expositor);
+        modeloTabla.fireTableDataChanged();
+        ventanaCliente.guiClientes.activarBotonLimpiar();
     }
 
     @Override
@@ -97,21 +104,28 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("NUEVO"))
+        if (e.getActionCommand().equals("NUEVO")) {
+            System.out.println("p");
             añadirCliente();
-        else if (e.getActionCommand().equals("ELIMINAR"))
+        }
+        else if (e.getActionCommand().equals("ELIMINAR")){
+            System.out.println("p");
             eliminarCliente();
-        else if (e.getActionCommand().equals("GUARDAR"))
+        }else if (e.getActionCommand().equals("GUARDAR")) {
+            System.out.println("p");
             crearCliente();
-        else if(e.getActionCommand().equals("LIMPIAR")){
+        }else if(e.getActionCommand().equals("LIMPIAR")){
+            System.out.println("p");
             ventanaCliente.guiClientes.limpiarCampoTxt();
         }
-        else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
-            actualizarTabla();
-        }
-        else if (e.getActionCommand().equals("ACTUALIZAR_DATOS")){
+        else if(e.getActionCommand().equals("ACTUALIZAR")){
             actualizarCliente();
         }
+        else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
+            System.out.println("p");
+            actualizarTabla();
+        }
+
     }
 
     @Override
@@ -124,8 +138,11 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         ventanaCliente.guiClientes.getTxtTelefono().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,4).toString());
         ventanaCliente.guiClientes.getTxtEmail().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,5).toString());
         ventanaCliente.guiClientes.getTxtExpositor().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,6).toString());
-        ventanaCliente.guiClientes.dasactivarCampoTxt();
+        ventanaCliente.guiClientes.desactivarBotonLimpiar();
+        ventanaCliente.guiClientes.activaCamposTxt();
+        ventanaCliente.guiClientes.desactivarTXTNIF();
         ventanaCliente.guiClientes.activarBotonEliminar();
+        ventanaCliente.guiClientes.activarBotonActualizar();
         ventanaCliente.guiClientes.desactivarBotonGuardar();
         filaPulsada = row;
 

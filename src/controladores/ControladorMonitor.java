@@ -82,7 +82,16 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
 
     @Override
     public void actualizarMonitor() {
-
+        String dni=ventanaMonitor.guiMonitor.getTxtDNI().getText();
+        String nombre=ventanaMonitor.guiMonitor.getTxtNombre().getText();
+        String apellido1=ventanaMonitor.guiMonitor.getTxtApellido1().getText();
+        String apellido2=ventanaMonitor.guiMonitor.getTxtApellido2().getText();
+        String telefono=ventanaMonitor.guiMonitor.getTxtTelefono().getText();
+        String email=ventanaMonitor.guiMonitor.getTxtEmail().getText();
+        String titulacion=ventanaMonitor.guiMonitor.getTxtTitulacion().getText();
+        dao.modificarMonitor(dni,nombre,apellido1,apellido2,telefono,email,titulacion);
+        modeloTabla.fireTableDataChanged();
+        ventanaMonitor.guiMonitor.activarBotonLimpiar();
     }
 
     @Override
@@ -108,7 +117,8 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
             actualizarTabla();
         }
-        else if (e.getActionCommand().equals("ACTUALIZAR_DATOS")){
+        else if (e.getActionCommand().equals("ACTUALIZAR")){
+            System.out.println("p");
             actualizarMonitor();
         }
     }
@@ -123,8 +133,11 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         ventanaMonitor.guiMonitor.getTxtTelefono().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,4).toString());
         ventanaMonitor.guiMonitor.getTxtEmail().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,5).toString());
         ventanaMonitor.guiMonitor.getTxtTitulacion().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,6).toString());
-        ventanaMonitor.guiMonitor.dasactivarCampoTxt();
+        ventanaMonitor.guiMonitor.desactivarBotonLimpiar();
+        ventanaMonitor.guiMonitor.activaCamposTxt();
+        ventanaMonitor.guiMonitor.desactivarTXTNIF();
         ventanaMonitor.guiMonitor.activarBotonEliminar();
+        ventanaMonitor.guiMonitor.activarBotonActualizar();
         ventanaMonitor.guiMonitor.desactivarBotonGuardar();
         filaPulsada = row;
     }

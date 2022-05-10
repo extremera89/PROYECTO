@@ -2,7 +2,6 @@ package dao;
 
 import Interfaces.InterfaceMonitor;
 import conexion.Conexion;
-import modelo.Cliente;
 import modelo.Monitor;
 import otros.PropertiesBBDD;
 
@@ -57,7 +56,7 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
                 filasAfectadas = 0;
                 try (PreparedStatement pStament = conexion.prepareStatement(sqlMonitor);) {
                     System.out.println("p");
-                    pStament.setString(1, monitor.getTitulación());
+                    pStament.setString(1, monitor.getTitulacion());
                     pStament.setString(2, monitor.getDNI());
 
                     filasAfectadas = pStament.executeUpdate();
@@ -111,7 +110,7 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
             ResultSet rs = consulta.executeQuery("SELECT * FROM " + propiedadesBBDD.getTblMonitor() + " WHERE DNI='" + DNI + "'");
             while (rs.next()) {
                 monitor = new Monitor();
-                monitor.setTitulación(rs.getString("titulacion"));
+                monitor.setTitulacion(rs.getString("titulacion"));
                 monitor.setDNI(rs.getString("dni"));
                 try {
                     Statement consulta2 = conexion.createStatement();
@@ -141,8 +140,36 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
     }
 
     @Override
-    public Monitor modificarMonitor(Monitor monitor) {
-        return null;
+    public void modificarMonitor(String DNI, String nombre, String apellido1, String apellido2, String telefono, String email, String titulación){
+        PreparedStatement pStatement=null;
+        try {
+            String sqlPersona="UPDATE "+propiedadesBBDD.getTblPersona()+" SET "+ "DNI=?, NOMBRE=?,APELLIDO1=?,APELLIDO2=?,TELEFONO=?,EMAIL=? WHERE DNI='"+DNI+"'";
+            pStatement=conexion.prepareStatement(sqlPersona);
+            pStatement.setString(1,DNI);
+            pStatement.setString(2,nombre);
+            pStatement.setString(3,apellido1);
+            pStatement.setString(4,apellido2);
+            pStatement.setString(5,telefono);
+            pStatement.setString(6,email);
+
+            pStatement.executeUpdate();
+            try {
+                PreparedStatement pStatement2=null;
+                String sqlMonitor="UPDATE "+propiedadesBBDD.getTblMonitor()+" SET "+ "DNI=?, ESEXPOSITOR=? WHERE DNI='"+DNI+"'";
+                pStatement2=conexion.prepareStatement(sqlPersona);
+                pStatement2.setString(1,DNI);
+                pStatement2.setString(2,titulación);
+
+                pStatement2.executeUpdate();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar el cliente");
+        }
     }
 
     @Override
@@ -156,7 +183,7 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
 
             while (rs.next()) {
                 monitor = new Monitor();
-                monitor.setTitulación(rs.getString("titulacion"));
+                monitor.setTitulacion(rs.getString("titulacion"));
                 monitor.setDNI(rs.getString("dni"));
 
                 try {

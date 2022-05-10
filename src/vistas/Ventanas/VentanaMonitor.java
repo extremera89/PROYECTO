@@ -38,6 +38,8 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
         guiMonitor.getBtnNuevo().addActionListener(controller);
         guiMonitor.getBtnActualizarTabla().addActionListener(controller);
         guiMonitor.getTablaMonitores().addMouseListener(controller);
+        guiMonitor.getBtnActulizarDatos().addActionListener(controller);
+
     }
 
     @Override

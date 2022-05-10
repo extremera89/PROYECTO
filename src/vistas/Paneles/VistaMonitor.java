@@ -96,7 +96,7 @@ public class VistaMonitor extends JFrame{
         btnEliminar.setActionCommand("ELIMINAR");
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
-        btnActualizarTabla.setActionCommand("ACTUALIZAR_DATOS");
+        btnActulizarDatos.setActionCommand("ACTUALIZAR");
     }
 
     public void limpiarCampoTxt(){
@@ -148,4 +148,9 @@ public class VistaMonitor extends JFrame{
     public void desactivarBotonActualizar(){btnActulizarDatos.setEnabled(false);}
     public void activarBotonActualizar(){btnActulizarDatos.setEnabled(true);}
 
+    public void desactivarBotonLimpiar(){btnLimpiar.setEnabled(false);}
+    public void activarBotonLimpiar(){btnLimpiar.setEnabled(true);}
+
+    public void desactivarTXTNIF(){txtDNI.setEnabled(false);}
+    public void activarTXTNIF(){txtDNI.setEnabled(true);}
 }

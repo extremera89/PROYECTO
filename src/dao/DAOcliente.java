@@ -139,8 +139,37 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
     }
 
     @Override
-    public Cliente modificarCliente(Cliente cliente) {
-        return null;
+    public void modificarCliente(String DNI, String nombre, String apellido1, String apellido2, String telefono, String email, int es_Expositor) {
+        
+        PreparedStatement pStatement=null;
+        try {
+            String sqlPersona="UPDATE "+propiedadesBBDD.getTblPersona()+" SET "+ "DNI=?, NOMBRE=?,APELLIDO1=?,APELLIDO2=?,TELEFONO=?,EMAIL=? WHERE DNI='"+DNI+"'";
+            pStatement=conexion.prepareStatement(sqlPersona);
+            pStatement.setString(1,DNI);
+            pStatement.setString(2,nombre);
+            pStatement.setString(3,apellido1);
+            pStatement.setString(4,apellido2);
+            pStatement.setString(5,telefono);
+            pStatement.setString(6,email);
+
+            pStatement.executeUpdate();
+            try {
+                PreparedStatement pStatement2=null;
+                String sqlCliente="UPDATE "+propiedadesBBDD.getTblCliente()+" SET "+ "DNI=?, ESEXPOSITOR=? WHERE DNI='"+DNI+"'";
+                pStatement2=conexion.prepareStatement(sqlCliente);
+                pStatement2.setString(1,DNI);
+                pStatement2.setInt(2,es_Expositor);
+
+                pStatement2.executeUpdate();
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar el cliente");
+        }
     }
 
     @Override
@@ -190,4 +219,10 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
             System.out.println(prueba.get(i));
         }
     }
+
+    public static void main(String[] args) {
+        DAOcliente dao=new DAOcliente();
+        dao.modificarCliente("70611743H","Francisco","Mesa","Mesa","600000000","",0);
+    }
+
 }

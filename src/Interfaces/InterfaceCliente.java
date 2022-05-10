@@ -12,7 +12,7 @@ public interface InterfaceCliente {
         public void insertarCliente(Cliente cliente);
         public void eliminarCliente(String DNI);
         public Cliente buscarCliente(String DNI);
-        public Cliente modificarCliente(Cliente cliente);
+        public void modificarCliente(String DNI, String nombre, String apellido1, String apellido2, String telefono, String email, int es_Expositor);
         public ArrayList<Cliente> listarClientes();
     }
 

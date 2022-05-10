@@ -86,13 +86,17 @@ public class VistaClientes{
         return tablaClientes;
     }
 
+    public JButton getBtnActulizarDatos() {
+        return btnActulizarDatos;
+    }
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
         btnEliminar.setActionCommand("ELIMINAR");
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
-        btnActualizarTabla.setActionCommand("ACTUALIZAR_DATOS");
+        btnActulizarDatos.setActionCommand("ACTUALIZAR");
     }
 
     public void limpiarCampoTxt(){
@@ -143,5 +147,11 @@ public class VistaClientes{
 
     public void desactivarBotonActualizar(){btnActulizarDatos.setEnabled(false);}
     public void activarBotonActualizar(){btnActulizarDatos.setEnabled(true);}
+
+    public void desactivarBotonLimpiar(){btnLimpiar.setEnabled(false);}
+    public void activarBotonLimpiar(){btnLimpiar.setEnabled(true);}
+
+    public void desactivarTXTNIF(){txtDNI.setEnabled(false);}
+    public void activarTXTNIF(){txtDNI.setEnabled(true);}
 
 }

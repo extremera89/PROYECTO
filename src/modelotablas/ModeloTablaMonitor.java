@@ -61,7 +61,7 @@ public class ModeloTablaMonitor extends AbstractTableModel {
             case 5:
                 return listaMonitores.get(fila).getEmail();
             case 6:
-                return listaMonitores.get(fila).getTitulación();
+                return listaMonitores.get(fila).getTitulacion();
             default:
                 return null;
         }
@@ -84,7 +84,7 @@ public class ModeloTablaMonitor extends AbstractTableModel {
             case 5:
                 listaMonitores.get(fila).setEmail(aValue.toString());
             case 6:
-                listaMonitores.get(fila).setTitulación(aValue.toString());
+                listaMonitores.get(fila).setTitulacion(aValue.toString());
             default:
                 ;
         }

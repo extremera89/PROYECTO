@@ -1,6 +1,5 @@
 package Interfaces;
 
-import controladores.ControladorCliente;
 import controladores.ControladorMonitor;
 import modelo.Monitor;
 
@@ -12,7 +11,7 @@ public interface InterfaceMonitor {
         public void insertarMonitor(Monitor monitor);
         public void eliminarMonitor(String DNI);
         public Monitor buscarMonitor(String DNI);
-        public Monitor modificarMonitor(Monitor monitor);
+        public void modificarMonitor(String DNI, String nombre, String apellido1, String apellido2, String telefono, String email, String titulación);
         public ArrayList<Monitor> listarMonitores();
     }
     public interface InterfaceControladorMonitor{
