@@ -13,11 +13,10 @@ public class ModeloTablaCliente extends AbstractTableModel {
     private String[] nombreColumnas;
     private DAOcliente dao;
     public ModeloTablaCliente (DAOcliente dao){
-        listaClientes = new ArrayList(); //creamos los alumnos
+        listaClientes = new ArrayList();
         tipoColumnas = new Class [] {String.class, String.class, String.class,String.class,String.class,String.class,Integer.class};
         nombreColumnas = new String [] {"DNI", "Nombre", "Apellido", "Apellido2", "Telefono", "Email", "Expositor"};
         this.dao = dao;
-
     }
 
     public void setClientes(ArrayList<Cliente>clientes){

@@ -64,7 +64,6 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         ventanaCliente.guiClientes.desactivarBotonEliminar();
         ventanaCliente.guiClientes.limpiarCampoTxt();
         filaPulsada=-1;
-
     }
 
     @Override
@@ -101,9 +100,6 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-        System.out.println("HOLA");
-
-        System.out.println("p");
         int row = ventanaCliente.guiClientes.getTablaClientes().rowAtPoint(evt.getPoint());
         ventanaCliente.guiClientes.getTxtDNI().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 0).toString());
         ventanaCliente.guiClientes.getTxtNombre().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,1).toString());
@@ -121,7 +117,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("o");
+
     }
 
     @Override
