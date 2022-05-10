@@ -7,7 +7,7 @@ public class VistaClientes{
     private JPanel PanelSuperior;
     private JPanel PanelIzquierdo;
     private JPanel PanelDerecho;
-    private JTable table1;
+    private JTable tablaClientes;
     private JTextField txtDNI;
     private JTextField txtNombre;
     private JTextField txtApellido1;
@@ -80,6 +80,10 @@ public class VistaClientes{
 
     public JButton getBtnEliminar() {
         return btnEliminar;
+    }
+
+    public JTable getTablaClientes() {
+        return tablaClientes;
     }
 
     public void asignaCommandBotones(){

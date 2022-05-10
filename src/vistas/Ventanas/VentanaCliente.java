@@ -35,11 +35,12 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
         guiClientes.getBtnLimpiar().addActionListener(controller);
         guiClientes.getBtnNuevo().addActionListener(controller);
         guiClientes.getBtnActualizarTabla().addActionListener(controller);
-
+        guiClientes.getTablaClientes().addMouseListener(controller);
     }
 
     @Override
     public void iniciar() {
+        controller.listarClietes();
         this.setVisible(true);
     }
 }

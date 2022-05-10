@@ -9,8 +9,10 @@ import vistas.Ventanas.VentanaCliente;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class ControladorCliente implements InterfaceCliente.InterfaceControladorCliente, ActionListener {
+public class ControladorCliente implements InterfaceCliente.InterfaceControladorCliente, ActionListener, MouseListener {
 
     private DAOcliente dao;
     private VentanaCliente ventanaCliente;
@@ -21,7 +23,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         this.dao=dao;
         this.ventanaCliente=guiCliente;
         modeloTabla=new ModeloTablaCliente(dao);
-
+        ventanaCliente.guiClientes.getTablaClientes().setModel(modeloTabla);
     }
 
     public void añadirCliente(){
@@ -57,17 +59,25 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void eliminarCliente() {
+        dao.eliminarCliente(ventanaCliente.guiClientes.getTablaClientes().getValueAt(filaPulsada,0).toString());
+        modeloTabla.eliminarCliente(filaPulsada);
+        ventanaCliente.guiClientes.desactivarBotonEliminar();
+        ventanaCliente.guiClientes.limpiarCampoTxt();
+        filaPulsada=-1;
 
     }
 
     @Override
     public void actualizarCliente() {
-
     }
 
     @Override
     public void listarClietes() {
+        modeloTabla.setClientes(dao.listarClientes());
+    }
 
+    public void actualizarTabla(){
+        modeloTabla.fireTableDataChanged();
     }
 
     @Override
@@ -81,5 +91,48 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         else if(e.getActionCommand().equals("LIMPIAR")){
             ventanaCliente.guiClientes.limpiarCampoTxt();
         }
+        else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
+            actualizarTabla();
+        }
+        else if (e.getActionCommand().equals("ACTUALIZAR_DATOS")){
+            actualizarCliente();
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent evt) {
+        System.out.println("HOLA");
+
+        System.out.println("p");
+        int row = ventanaCliente.guiClientes.getTablaClientes().rowAtPoint(evt.getPoint());
+        ventanaCliente.guiClientes.getTxtDNI().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 0).toString());
+        ventanaCliente.guiClientes.getTxtNombre().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,1).toString());
+        ventanaCliente.guiClientes.getTxtApellido1().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 2).toString());
+        ventanaCliente.guiClientes.getTxtApellido2().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 3).toString());
+        ventanaCliente.guiClientes.getTxtTelefono().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,4).toString());
+        ventanaCliente.guiClientes.getTxtEmail().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,5).toString());
+        ventanaCliente.guiClientes.getTxtExpositor().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,6).toString());
+        ventanaCliente.guiClientes.dasactivarCampoTxt();
+        ventanaCliente.guiClientes.activarBotonEliminar();
+        ventanaCliente.guiClientes.desactivarBotonGuardar();
+        filaPulsada = row;
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("o");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }

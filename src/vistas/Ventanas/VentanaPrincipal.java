@@ -19,4 +19,9 @@ public class VentanaPrincipal extends JFrame {
         this.setTitle("Proyecto Museum");
         activar();
     }
+
+    public void añadirPestaña(JPanel vista, String titulo){
+        guiPrincipal.addPestania(vista,titulo);
+    }
+
 }
