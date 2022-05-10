@@ -31,7 +31,6 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
 
     @Override
     public void setController(ControladorMonitor controller) {
-        /*
         this.controller=controller;
         guiMonitor.getBtnEliminar().addActionListener(controller);
         guiMonitor.getBtnGuardar().addActionListener(controller);
@@ -39,12 +38,11 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
         guiMonitor.getBtnNuevo().addActionListener(controller);
         guiMonitor.getBtnActualizarTabla().addActionListener(controller);
         guiMonitor.getTablaMonitores().addMouseListener(controller);
-*/
     }
 
     @Override
     public void iniciar() {
-
-        this.setVisible(true);
+        controller.listarMonitores();
+        //this.setVisible(true);
     }
 }

@@ -2,6 +2,7 @@ package controladores;
 
 import Interfaces.InterfaceCliente;
 import dao.DAOcliente;
+import dao.DAOmonitor;
 import modelo.Cliente;
 import modelotablas.ModeloTablaCliente;
 import vistas.Ventanas.VentanaCliente;
@@ -11,10 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.regex.Pattern;
 
 public class ControladorCliente implements InterfaceCliente.InterfaceControladorCliente, ActionListener, MouseListener {
 
     private DAOcliente dao;
+    private DAOmonitor daoMonitor=new DAOmonitor();
     private VentanaCliente ventanaCliente;
     private ModeloTablaCliente modeloTabla;
     private int filaPulsada=-1;
@@ -42,19 +45,32 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         String email=ventanaCliente.guiClientes.getTxtEmail().getText();
         String expositor=ventanaCliente.guiClientes.getTxtExpositor().getText();
 
+        //COMPROBACION CON EXPRESIONES REGULARES
+        String rDNI="[0-9]{8}[A-Z]";
+        String rTexto="^[a-zA-Z]+$";
+        String rTelefono="^[6|7|9][0-9]{8}$";
+        String rCorreo="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        String rExpositor="[0|1]";
 
-        if (!dni.equals("")&&!nombre.equals("")&&!apellido1.equals("")&&!apellido2.equals("")&&!telefono.equals("")&&!email.equals("")&&!expositor.equals("")){
-            if (dao.buscarCliente(dni)==null){
-                int expositorI =Integer.parseInt(expositor);
-                modeloTabla.crearCliente(dni,nombre,apellido1,apellido2,telefono,email,expositorI);
-                dao.insertarCliente(new Cliente(dni,nombre,apellido1,apellido2,telefono,email,expositorI));
-                ventanaCliente.guiClientes.desactivarBotonGuardar();
-                ventanaCliente.guiClientes.limpiarCampoTxt();
-                ventanaCliente.guiClientes.activaCamposTxt();
-            }
-            else JOptionPane.showMessageDialog(null, "Ya se cuenta con un cliente con dichos datos");
-        }
-        else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+
+
+
+
+        if (!dni.equals("")&&!nombre.equals("")&&!apellido1.equals("")&&!apellido2.equals("")&&!telefono.equals("")&&!email.equals("")&&!expositor.equals("")) {
+            if ((Pattern.matches(rDNI, dni) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rTexto, apellido1) == true) && (Pattern.matches(rTexto, apellido2) == true)
+                    && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true) && (Pattern.matches(rExpositor, expositor) == true)) {
+                if (daoMonitor.buscarMonitor(dni) == null) {
+                    if (dao.buscarCliente(dni) == null) {
+                        int expositorI = Integer.parseInt(expositor);
+                        modeloTabla.crearCliente(dni, nombre, apellido1, apellido2, telefono, email, expositorI);
+                        dao.insertarCliente(new Cliente(dni, nombre, apellido1, apellido2, telefono, email, expositorI));
+                        ventanaCliente.guiClientes.desactivarBotonGuardar();
+                        ventanaCliente.guiClientes.limpiarCampoTxt();
+                        ventanaCliente.guiClientes.activaCamposTxt();
+                    } else JOptionPane.showMessageDialog(null, "Ya se cuenta con un cliente con dichos datos");
+                } else JOptionPane.showMessageDialog(null, "No se puede registrar este cliente");
+            } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");
+        }else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
     }
 
     @Override

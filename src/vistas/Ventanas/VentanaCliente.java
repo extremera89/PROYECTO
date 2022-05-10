@@ -41,6 +41,6 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
     @Override
     public void iniciar() {
         controller.listarClietes();
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 }

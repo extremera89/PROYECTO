@@ -1,5 +1,6 @@
 package vistas.Ventanas;
 
+import principal.GuiCliente;
 import vistas.Paneles.VistaPrincipal;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class VentanaPrincipal extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Proyecto Museum");
         activar();
+        this.setSize(900,500);
     }
 
     public void añadirPestaña(JPanel vista, String titulo){
