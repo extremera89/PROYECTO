@@ -85,12 +85,36 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
     }
 
+    public void modificarExposicion() throws ParseException {
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+
+        String nombre = ventana.getVista().getTxtNombre().getText();
+        String tematica = ventana.getVista().getTxtTematica().getText();
+        Date fechainicio = formatter1.parse(ventana.getVista().getTxtFechainicio().getText());
+        Date fechafin = formatter1.parse(ventana.getVista().getTxtFechafin().getText());
+        String desc = ventana.getVista().getTxtDescripcion().getText();
+        int numsala = Integer.parseInt(ventana.getVista().getTxtNumsala().getText());
+        Exposicion prueba = new Exposicion(nombre, tematica, fechainicio, fechafin, desc, numsala);
+
+        dao.modificarExposicion(prueba);
+        tabla.actualizarExposicion(filapul, prueba);
+
+
+    }
+
     public void listarExposiciones(){
         tabla.setExposiciones(dao.listarExposiciones());
     }
 
     @Override
     public void eliminarExposicion() {
+        Exposicion prueba = new Exposicion();
+        prueba.setNombre(ventana.getVista().getTable1().getValueAt(filapul, 0).toString());
+        dao.eliminarExposicion(prueba);
+        tabla.eliminarExposicion(filapul);
+        ventana.getVista().desactivarBotonEliminar();
+        ventana.getVista().activaCamposTxt();
+        filapul = -1;
 
     }
 
@@ -99,13 +123,25 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         if(e.getActionCommand().equals("NUEVO")){
             anyadirExposicion();
         }
-        if(e.getActionCommand().equals("GUARDAR")){
+        else if(e.getActionCommand().equals("GUARDAR")){
             try {
                 crearExposicion();
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }
         }
+        else if(e.getActionCommand().equals("ELIMINAR")){
+            eliminarExposicion();
+        }
+        else if(e.getActionCommand().equals("ACTUALIZAR")){
+            ventana.getVista().activaCamposTxt();
+            try {
+                modificarExposicion();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
 
     @Override
@@ -117,6 +153,11 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         ventana.getVista().getTxtFechafin().setText(ventana.getVista().getTable1().getValueAt(row, 3).toString());
         ventana.getVista().getTxtDescripcion().setText(ventana.getVista().getTable1().getValueAt(row, 4).toString());
         ventana.getVista().getTxtNumsala().setText(ventana.getVista().getTable1().getValueAt(row, 5).toString());
+        ventana.getVista().activarBotonActualizar();
+        ventana.getVista().activarBotonEliminar();
+        ventana.getVista().desactivarBotonGuardar();
+
+
 
         filapul = row;
     }

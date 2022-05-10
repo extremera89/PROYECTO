@@ -13,6 +13,7 @@ public interface InterfaceExposicion {
         public void eliminarExposicion(Exposicion exposicion);
         public ArrayList<Exposicion> listarExposiciones();
         public Exposicion buscarExposicion(String nombre);
+        public void modificarExposicion(Exposicion exposicion);
     }
 
     public interface InterfaceVistaExposicion{

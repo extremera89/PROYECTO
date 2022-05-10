@@ -31,6 +31,8 @@ public class VistaExposicion {
     private JPanel panelTabla;
     private JPanel panelFormulario;
 
+
+
     public void asignaCommandBotones(){
         this.btnActualizarDatos.setActionCommand("ACTUALIZAR");
         this.btnActualizarTabla.setActionCommand("ACTUALIZAR TABLA");
@@ -74,15 +76,15 @@ public class VistaExposicion {
     }
 
     public void activarBotonEliminar(){
-        btnEliminar.setEnabled(true);
+        this.btnEliminar.setEnabled(true);
     }
 
     public void desactivarBotonNuevo(){
-        btnNuevo.setEnabled(false);
+        this.btnNuevo.setEnabled(false);
     }
 
     public void activarBotonNuevo(){
-        btnNuevo.setEnabled(true);
+        this.btnNuevo.setEnabled(true);
     }
 
     public void desactivarBotonGuardar(){

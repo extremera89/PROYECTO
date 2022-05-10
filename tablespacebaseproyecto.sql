@@ -1,5 +1,4 @@
 CREATE TABLESPACE PROYECTOMUSEO DATAFILE 'F:\base de datos\PROYECTO\proyectomuseo.DBF' SIZE 600M;
-
 CREATE USER administrador IDENTIFIED BY administrador;
 
 GRANT ALL PRIVILEGES TO administrador;

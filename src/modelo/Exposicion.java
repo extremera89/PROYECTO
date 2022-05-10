@@ -95,8 +95,8 @@ public class Exposicion {
         return "Exposicion{" +
                 "nombre='" + nombre + '\'' +
                 ", tematica='" + tematica + '\'' +
-                ", fechainicio=" +
-                ", fechafin=" +
+                ", fechainicio=" +fechainicio + '\'' +
+                ", fechafin=" + fechafin + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", numsala=" + numsala +
                 '}';

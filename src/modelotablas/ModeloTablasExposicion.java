@@ -13,18 +13,33 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
 
     private ArrayList<Exposicion> exposiciones;
+    private Class[] tipoColumnas;
     private String[] nombreColumnas;
     private DAOexposicion dao; //?
 
     public ModeloTablasExposicion (DAOexposicion dao){
         exposiciones = new ArrayList<>();
+        tipoColumnas = new Class[] {String.class, String.class, Date.class, Date.class, String.class, Integer.class};
         this.dao = dao;
         this.nombreColumnas = new String[] {"Nombre", "Temática", "Fecha de inicio", "Fecha de fin", "Descripción", "Número de sala"};
     }
 
 
     public void actualizarExposicion(int fila, Object expAct){
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
 
+        try {
+            exposiciones.get(fila).setNombre(expAct.toString());
+            exposiciones.get(fila).setNombre(expAct.toString());
+            exposiciones.get(fila).setTematica(expAct.toString());
+            //exposiciones.get(fila).setFechainicio(expAct.toString());
+            exposiciones.get(fila).setFechafin(formatter1.parse(expAct.toString()));
+            exposiciones.get(fila).setDescripcion(expAct.toString());
+            exposiciones.get(fila).setNumsala(Integer.parseInt(expAct.toString()));
+            fireTableDataChanged();
+        }catch(java.text.ParseException e){
+            e.printStackTrace();
+        }
     }
 
     public void eliminarExposicion(int pos){
@@ -57,15 +72,16 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int fila, int columna) {
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
         switch (columna){
             case 0:
                 return exposiciones.get(fila).getNombre();
             case 1:
                 return exposiciones.get(fila).getTematica();
             case 2:
-                return exposiciones.get(fila).getFechainicio();
+                return formatter1.format(exposiciones.get(fila).getFechainicio());
             case 3:
-                return exposiciones.get(fila).getFechafin();
+                return formatter1.format(exposiciones.get(fila).getFechafin());
             case 4:
                 return exposiciones.get(fila).getDescripcion();
             case 5:
@@ -86,22 +102,16 @@ public class ModeloTablasExposicion extends AbstractTableModel {
             switch (columna) {
                 case 0:
                     exposiciones.get(fila).setNombre(aValue.toString());
-                    break;
                 case 1:
                     exposiciones.get(fila).setTematica(aValue.toString());
-                    break;
                 case 2:
                     exposiciones.get(fila).setFechainicio(formatter1.parse(aValue.toString()));
-                    break;
                 case 3:
                     exposiciones.get(fila).setFechafin(formatter1.parse(aValue.toString()));
-                    break;
                 case 4:
                     exposiciones.get(fila).setDescripcion(aValue.toString());
-                    break;
                 case 5:
                     exposiciones.get(fila).setNumsala(Integer.parseInt(aValue.toString()));
-                    break;
 
 
                 default:
@@ -118,12 +128,12 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return false;
     }
 
     @Override
     public String getColumnName(int column) {
-        return null;
+        return nombreColumnas[column];
     }
 
 

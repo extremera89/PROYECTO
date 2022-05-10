@@ -5,9 +5,11 @@ import conexion.Conexion;
 import modelo.Exposicion;
 
 import javax.swing.*;
+import javax.swing.undo.AbstractUndoableEdit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import otros.PropertiesBBDD;
 import java.util.Date;
@@ -46,8 +48,8 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
     public void insertarExposicion(Exposicion exposicion) {
         String nombre = exposicion.getNombre();
         String tematica = exposicion.getTematica();
-        java.util.Date fechainicio = exposicion.getFechainicio();
-        java.util.Date fechafin = exposicion.getFechafin();
+        Date fechainicio = exposicion.getFechainicio();
+        Date fechafin = exposicion.getFechafin();
         String desc = exposicion.getDescripcion();
         int numsala = exposicion.getNumsala();
 
@@ -57,13 +59,13 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         try{
             Statement consulta = conexion.createStatement();
             consulta.executeQuery(sql);
-            JOptionPane.showMessageDialog(null, "Se ha registrado la exposición exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se ha actualizado la exposición exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             consulta.close();
 
 
         }catch(SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error al insertar esa exposición");
+            JOptionPane.showMessageDialog(null, "Error al modificar esa exposición");
 
         }
     }
@@ -85,20 +87,21 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
 
     @Override
     public ArrayList<Exposicion> listarExposiciones() {
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
         ArrayList<Exposicion> milista = new ArrayList<>();
         Exposicion exposicion = null;
 
         try{
             Statement consulta = conexion.createStatement();
             ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion());
-            System.out.println("prueba");
 
             while(rs.next()){
+                System.out.println("prueba listar exposiciones");
                 exposicion = new Exposicion();
                 exposicion.setNombre(rs.getString("Nombre"));
                 exposicion.setTematica(rs.getString("Tematica"));
-                //exposicion.setFechainicio(rs.getDate("FechaInicio"));
-                //exposicion.setFechafin(rs.getDate("FechaFin"));
+                exposicion.setFechainicio(rs.getDate("FechaInicio"));
+                exposicion.setFechafin(rs.getDate("FechaFin"));
                 exposicion.setDescripcion(rs.getString("Descripcion"));
                 exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
 
@@ -124,7 +127,6 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion()+" WHERE Nombre = '"+nombre+"'");
 
             while(rs.next()){
-                System.out.println("prueba");
                 exposicion = new Exposicion();
                 exposicion.setNombre(rs.getString("Nombre"));
                 exposicion.setTematica(rs.getString("Tematica"));
@@ -144,15 +146,39 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         return null;
     }
 
+    @Override
+    public void modificarExposicion(Exposicion exposicion) {
+        String nombre = exposicion.getNombre();
+        String tematica = exposicion.getTematica();
+        Date fechainicio = exposicion.getFechainicio();
+        Date fechafin = exposicion.getFechafin();
+        String desc = exposicion.getDescripcion();
+        int numsala = exposicion.getNumsala();
+
+        String sql = "UPDATE "+propiedadesBBDD+" SET Nombre="+nombre+", Tematica="+tematica+", FechaInicio="+fechainicio+", FechaFin="+fechafin+", Descripcion="+desc+", NumSala="+numsala+
+                " WHERE Nombre="+nombre;
+        PreparedStatement update = null;
+        try{
+            update = conexion.prepareStatement(sql);
+            update.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Se ha actualizado la exposición exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            update.close();
+
+
+        }catch(SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al modificar esa exposición");
+
+        }
+    }
+
+
+
+
+
     public static void main(String[] args) {
         DAOexposicion dao = new DAOexposicion();
-
-        dao.buscarExposicion("Ars Noveau");
-
-        /*for(Exposicion prueba: dao.listarExposiciones()){
-            System.out.println(prueba.toString());
-        }*/
-
-
+        dao.insertarExposicion(new Exposicion("Prueba", "Prueba", new Date(23/7/1998),new Date(23/9/1998), "prueba", 5 ));
     }
+
 }

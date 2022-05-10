@@ -2,17 +2,20 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="vistas.Paneles.VistaExposicion">
   <grid id="27dc6" binding="panelPrincipal" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="848" height="575"/>
+      <xy x="20" y="20" width="1490" height="575"/>
     </constraints>
     <properties>
-      <preferredSize width="829" height="516"/>
+      <inheritsPopupMenu value="true"/>
+      <preferredSize width="1500" height="720"/>
     </properties>
     <border type="none"/>
     <children>
       <grid id="a4f98" binding="PanelSuperior" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="North"/>
-        <properties/>
+        <properties>
+          <preferredSize width="137" height="100"/>
+        </properties>
         <border type="none"/>
         <children>
           <grid id="f02e4" binding="panelTitulo" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -29,7 +32,7 @@
                 </constraints>
                 <properties>
                   <font name="Arial" size="24" style="1"/>
-                  <text value="Exposición"/>
+                  <text value="Exposiciones"/>
                 </properties>
               </component>
             </children>
@@ -39,7 +42,9 @@
       <grid id="e0b37" binding="PanelIzquierdo" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="West"/>
-        <properties/>
+        <properties>
+          <preferredSize width="1100" height="400"/>
+        </properties>
         <border type="none"/>
         <children>
           <scrollpane id="815d0">

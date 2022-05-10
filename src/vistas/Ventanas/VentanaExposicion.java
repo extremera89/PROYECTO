@@ -25,7 +25,6 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Exposiciones.");
         this.pack();
-        this.setVisible(true);
     }
 
 
@@ -47,31 +46,26 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
 
     @Override
     public void setControler(ControladorExposicion controlador) {
+        this.controlador = controlador;
         this.vista.getBtnActualizarDatos().addActionListener(controlador);
         this.vista.getBtnActualizarTabla().addActionListener(controlador);
         this.vista.getBtnGuardar().addActionListener(controlador);
         this.vista.getBtnLimpiar().addActionListener(controlador);
         this.vista.getBtnNuevo().addActionListener(controlador);
         this.vista.getBtnEliminar().addActionListener(controlador);
+        this.vista.getTable1().addMouseListener(controlador);
+    }
+
+    public void iniciar(){
+        controlador.listarExposiciones();
+        this.setVisible(true);
+        System.out.println("prueba iniciar");
     }
 
 
 
-
-
     public static void main(String[] args) {
-        DAOexposicion dao = new DAOexposicion();
-        //VentanaExposicion menu = new VentanaExposicion();
-        //ControladorExposicion controlador = new ControladorExposicion(dao, menu);
-        //menu.setControler(controlador);
-        //Date fechainicio = new Date(24/7/1994);
-        //dao.insertarExposicion(new Exposicion("Ars Noveau","Arte",fechainicio,new Date(22/8/1995),"Una exposicion de cuadros de artistas franceses",10));
 
-        for(Exposicion prueba: dao.listarExposiciones()){
-            System.out.println(prueba.toString());
-        }
-
-        //new VentanaExposicion();
 
 
     }
