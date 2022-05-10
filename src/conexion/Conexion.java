@@ -43,11 +43,11 @@ public class Conexion {
 
             //PRUEBA
 
-            /*Statement st =conexion.createStatement();
+            Statement st =conexion.createStatement();
             ResultSet rs = st.executeQuery("select * from Exposicion");
             if (rs.next()){
                 System.out.println(rs.getString("Nombre"));
-            }*/
+            }
 
         } catch (IOException e) {
             // TODO Auto-generated catch block

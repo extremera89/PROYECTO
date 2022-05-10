@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import otros.PropertiesBBDD;
+import java.util.Date;
 
 
 public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion {
@@ -43,10 +44,19 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
 
     @Override
     public void insertarExposicion(Exposicion exposicion) {
+        String nombre = exposicion.getNombre();
+        String tematica = exposicion.getTematica();
+        java.util.Date fechainicio = exposicion.getFechainicio();
+        java.util.Date fechafin = exposicion.getFechafin();
+        String desc = exposicion.getDescripcion();
+        int numsala = exposicion.getNumsala();
+
+
+        String sql = "INSERT INTO "+propiedadesBBDD.getTblExposicion()+" values ('"+nombre+"', '"+tematica+"','"
+                +fechainicio+"', '"+fechafin+"', '"+desc+"', '"+numsala+"')" ;
         try{
             Statement consulta = conexion.createStatement();
-            ResultSet rs = consulta.executeQuery("INSERT INTO "+propiedadesBBDD.getTblExposicion()+" values ('"+exposicion.getNombre()+"', '"+exposicion.getTematica()+"','"
-            +exposicion.getFechainicio()+"', '"+exposicion.getFechafin()+"', '"+exposicion.getDescripcion()+"', '"+exposicion.getNumsala()+"' )" );
+            consulta.executeQuery(sql);
             JOptionPane.showMessageDialog(null, "Se ha registrado la exposición exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             consulta.close();
 
@@ -81,13 +91,14 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         try{
             Statement consulta = conexion.createStatement();
             ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion());
+            System.out.println("prueba");
 
             while(rs.next()){
                 exposicion = new Exposicion();
                 exposicion.setNombre(rs.getString("Nombre"));
                 exposicion.setTematica(rs.getString("Tematica"));
-                exposicion.setFechainicio(rs.getDate("FechaInicio"));
-                exposicion.setFechafin(rs.getDate("FechaFin"));
+                //exposicion.setFechainicio(rs.getDate("FechaInicio"));
+                //exposicion.setFechafin(rs.getDate("FechaFin"));
                 exposicion.setDescripcion(rs.getString("Descripcion"));
                 exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
 
@@ -110,22 +121,38 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
 
         try{
             Statement consulta = conexion.createStatement();
-            ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion()+" WHERE Nombre = "+nombre);
+            ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion()+" WHERE Nombre = '"+nombre+"'");
 
             while(rs.next()){
+                System.out.println("prueba");
                 exposicion = new Exposicion();
                 exposicion.setNombre(rs.getString("Nombre"));
                 exposicion.setTematica(rs.getString("Tematica"));
                 exposicion.setFechainicio(rs.getDate("FechaInicio"));
                 exposicion.setFechafin(rs.getDate("FechaFin"));
+                exposicion.setDescripcion(rs.getString("Descripcion"));
                 exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
 
             }
+            rs.close();
+            consulta.close();
             return exposicion;
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Error al consultar esa exposición");
         }
 
         return null;
+    }
+
+    public static void main(String[] args) {
+        DAOexposicion dao = new DAOexposicion();
+
+        dao.buscarExposicion("Ars Noveau");
+
+        /*for(Exposicion prueba: dao.listarExposiciones()){
+            System.out.println(prueba.toString());
+        }*/
+
+
     }
 }

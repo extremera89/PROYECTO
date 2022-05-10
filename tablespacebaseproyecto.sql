@@ -26,6 +26,7 @@ drop table Sala;
 
 drop table Login;
 
+SELECT * from exposicion;
 
 Create Table Sala(
     NumSala int,

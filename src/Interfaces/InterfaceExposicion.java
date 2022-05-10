@@ -3,6 +3,7 @@ package Interfaces;
 import controladores.ControladorExposicion;
 import modelo.Exposicion;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public interface InterfaceExposicion {
@@ -19,7 +20,7 @@ public interface InterfaceExposicion {
     }
 
     public interface InterfaceControladorExposicion{
-        public void crearExposicion();
+        public void crearExposicion() throws ParseException;
         public void eliminarExposicion();
     }
 

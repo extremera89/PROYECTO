@@ -1,6 +1,7 @@
 package modelo;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 public class Exposicion {
 
@@ -94,8 +95,8 @@ public class Exposicion {
         return "Exposicion{" +
                 "nombre='" + nombre + '\'' +
                 ", tematica='" + tematica + '\'' +
-                ", fechainicio=" + fechainicio +
-                ", fechafin=" + fechafin +
+                ", fechainicio=" +
+                ", fechafin=" +
                 ", descripcion='" + descripcion + '\'' +
                 ", numsala=" + numsala +
                 '}';

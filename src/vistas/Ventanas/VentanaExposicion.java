@@ -3,12 +3,11 @@ package vistas.Ventanas;
 import Interfaces.InterfaceExposicion;
 import controladores.ControladorExposicion;
 import dao.DAOexposicion;
+import modelo.Exposicion;
 import vistas.Paneles.VistaExposicion;
-import vistas.Paneles.VistaModalExp;
-import vistas.Paneles.VistaModalExposicion;
 
 import javax.swing.*;
-import javax.swing.undo.AbstractUndoableEdit;
+import java.util.Date;
 
 public class VentanaExposicion extends JFrame implements InterfaceExposicion.InterfaceVistaExposicion {
     private ControladorExposicion controlador;
@@ -17,11 +16,14 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
 
     public VentanaExposicion(){
         vista = new VistaExposicion();
+        this.vista.asignaCommandBotones();
+        this.vista.desactivaCamposTexto();
+        this.vista.desactivarBotonEliminar();
+        this.vista.desactivarBotonGuardar();
+        this.vista.desactivarBotonActualizar();
         this.setContentPane(vista.getPanelPrincipal());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Exposiciones.");
-        vista.getBtnInsertar().setActionCommand("Insertar");
-        vista.getVolver().setActionCommand("Volver");
         this.pack();
         this.setVisible(true);
     }
@@ -45,8 +47,12 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
 
     @Override
     public void setControler(ControladorExposicion controlador) {
-        this.vista.getVolver().addActionListener(controlador);
-        this.vista.getBtnInsertar().addActionListener(controlador);
+        this.vista.getBtnActualizarDatos().addActionListener(controlador);
+        this.vista.getBtnActualizarTabla().addActionListener(controlador);
+        this.vista.getBtnGuardar().addActionListener(controlador);
+        this.vista.getBtnLimpiar().addActionListener(controlador);
+        this.vista.getBtnNuevo().addActionListener(controlador);
+        this.vista.getBtnEliminar().addActionListener(controlador);
     }
 
 
@@ -55,10 +61,17 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
 
     public static void main(String[] args) {
         DAOexposicion dao = new DAOexposicion();
-        VentanaExposicion menu = new VentanaExposicion();
-        VistaModalExp modal = new VistaModalExp(menu, true);
-        ControladorExposicion controlador = new ControladorExposicion(dao, menu, modal);
-        menu.setControler(controlador);
+        //VentanaExposicion menu = new VentanaExposicion();
+        //ControladorExposicion controlador = new ControladorExposicion(dao, menu);
+        //menu.setControler(controlador);
+        //Date fechainicio = new Date(24/7/1994);
+        //dao.insertarExposicion(new Exposicion("Ars Noveau","Arte",fechainicio,new Date(22/8/1995),"Una exposicion de cuadros de artistas franceses",10));
+
+        for(Exposicion prueba: dao.listarExposiciones()){
+            System.out.println(prueba.toString());
+        }
+
+        //new VentanaExposicion();
 
 
     }
