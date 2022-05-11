@@ -2,12 +2,9 @@ package vistas.Ventanas;
 
 import Interfaces.InterfaceExposicion;
 import controladores.ControladorExposicion;
-import dao.DAOexposicion;
-import modelo.Exposicion;
 import vistas.Paneles.VistaExposicion;
 
 import javax.swing.*;
-import java.util.Date;
 
 public class VentanaExposicion extends JFrame implements InterfaceExposicion.InterfaceVistaExposicion {
     private ControladorExposicion controlador;

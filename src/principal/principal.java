@@ -22,9 +22,5 @@ public class principal {
         menu.iniciar();
 
 
-
-
-
-
     }
 }

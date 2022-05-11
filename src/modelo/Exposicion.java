@@ -17,12 +17,8 @@ public class Exposicion {
     public Exposicion() {
     }
 
-    public Exposicion(String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion) {
+    public Exposicion(String nombre) {
         this.nombre = nombre;
-        this.tematica = tematica;
-        this.fechainicio = fechainicio;
-        this.fechafin = fechafin;
-        this.descripcion = descripcion;
     }
 
     public Exposicion(String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion, int numsala) {
@@ -90,15 +86,5 @@ public class Exposicion {
         this.sala = sala;
     }*/
 
-    @Override
-    public String toString() {
-        return "Exposicion{" +
-                "nombre='" + nombre + '\'' +
-                ", tematica='" + tematica + '\'' +
-                ", fechainicio=" +fechainicio + '\'' +
-                ", fechafin=" + fechafin + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", numsala=" + numsala +
-                '}';
-    }
+
 }

@@ -2,8 +2,10 @@ package modelotablas;
 
 import dao.DAOexposicion;
 import modelo.Exposicion;
+import vistas.Ventanas.VentanaExposicion;
 
 import javax.swing.table.AbstractTableModel;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,21 +27,14 @@ public class ModeloTablasExposicion extends AbstractTableModel {
     }
 
 
-    public void actualizarExposicion(int fila, Object expAct){
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+    public void actualizarExposicion(int fila, Object expAct) throws ParseException {
+        exposiciones.get(fila).setNombre(((Exposicion)expAct).getNombre());
+        exposiciones.get(fila).setTematica(((Exposicion)expAct).getTematica());
+        exposiciones.get(fila).setFechainicio(((Exposicion)expAct).getFechainicio());
+        exposiciones.get(fila).setFechafin(((Exposicion)expAct).getFechafin());
+        exposiciones.get(fila).setDescripcion(((Exposicion)expAct).getDescripcion());
+        exposiciones.get(fila).setNumsala(((Exposicion)expAct).getNumsala());
 
-        try {
-            exposiciones.get(fila).setNombre(expAct.toString());
-            exposiciones.get(fila).setNombre(expAct.toString());
-            exposiciones.get(fila).setTematica(expAct.toString());
-            //exposiciones.get(fila).setFechainicio(expAct.toString());
-            exposiciones.get(fila).setFechafin(formatter1.parse(expAct.toString()));
-            exposiciones.get(fila).setDescripcion(expAct.toString());
-            exposiciones.get(fila).setNumsala(Integer.parseInt(expAct.toString()));
-            fireTableDataChanged();
-        }catch(java.text.ParseException e){
-            e.printStackTrace();
-        }
     }
 
     public void eliminarExposicion(int pos){
@@ -57,6 +52,9 @@ public class ModeloTablasExposicion extends AbstractTableModel {
         this.exposiciones = exposiciones;
     }
 
+    public void actualizarTabla(){
+        fireTableDataChanged();
+    }
 
 
 
@@ -72,16 +70,15 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int fila, int columna) {
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
         switch (columna){
             case 0:
                 return exposiciones.get(fila).getNombre();
             case 1:
                 return exposiciones.get(fila).getTematica();
             case 2:
-                return formatter1.format(exposiciones.get(fila).getFechainicio());
+                return (exposiciones.get(fila).getFechainicio());
             case 3:
-                return formatter1.format(exposiciones.get(fila).getFechafin());
+                return (exposiciones.get(fila).getFechafin());
             case 4:
                 return exposiciones.get(fila).getDescripcion();
             case 5:
@@ -96,30 +93,25 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int fila, int columna) {
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
             switch (columna) {
                 case 0:
-                    exposiciones.get(fila).setNombre(aValue.toString());
+                    exposiciones.get(fila).setNombre(((Exposicion)aValue).getNombre());
                 case 1:
-                    exposiciones.get(fila).setTematica(aValue.toString());
+                    exposiciones.get(fila).setTematica(((Exposicion)aValue).getTematica());
                 case 2:
-                    exposiciones.get(fila).setFechainicio(formatter1.parse(aValue.toString()));
+                    exposiciones.get(fila).setFechainicio(((Exposicion)aValue).getFechainicio());
                 case 3:
-                    exposiciones.get(fila).setFechafin(formatter1.parse(aValue.toString()));
+                    exposiciones.get(fila).setFechafin(((Exposicion)aValue).getFechafin());
                 case 4:
-                    exposiciones.get(fila).setDescripcion(aValue.toString());
+                    exposiciones.get(fila).setDescripcion(((Exposicion)aValue).getDescripcion());
                 case 5:
-                    exposiciones.get(fila).setNumsala(Integer.parseInt(aValue.toString()));
+                    exposiciones.get(fila).setNumsala(((Exposicion)aValue).getNumsala());
 
 
                 default:
 
             }
-        }catch(java.text.ParseException e){
-            e.printStackTrace();
-        }
+
 
         this.fireTableCellUpdated(fila,columna);
         this.fireTableRowsUpdated(fila,columna);

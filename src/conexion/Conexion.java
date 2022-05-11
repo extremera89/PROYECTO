@@ -44,9 +44,9 @@ public class Conexion {
             //PRUEBA
 
             Statement st =conexion.createStatement();
-            ResultSet rs = st.executeQuery("select * from Exposicion");
-            if (rs.next()){
-                System.out.println(rs.getString("Nombre"));
+            ResultSet rs = st.executeQuery("select * from Sala");
+            while (rs.next()){
+                System.out.println(rs.getString("NumSala"));
             }
 
         } catch (IOException e) {

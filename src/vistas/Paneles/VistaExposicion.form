@@ -43,7 +43,7 @@
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="West"/>
         <properties>
-          <preferredSize width="1100" height="400"/>
+          <preferredSize width="700" height="400"/>
         </properties>
         <border type="none"/>
         <children>
