@@ -70,15 +70,20 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int fila, int columna) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        java.sql.Date fechainicio = new java.sql.Date(exposiciones.get(fila).getFechainicio().getTime());
+        java.sql.Date fechafin = new java.sql.Date(exposiciones.get(fila).getFechafin().getTime());
+
         switch (columna){
             case 0:
                 return exposiciones.get(fila).getNombre();
             case 1:
                 return exposiciones.get(fila).getTematica();
             case 2:
-                return (exposiciones.get(fila).getFechainicio());
+                return format.format(fechainicio);
             case 3:
-                return (exposiciones.get(fila).getFechafin());
+                return format.format(fechafin);
             case 4:
                 return exposiciones.get(fila).getDescripcion();
             case 5:
