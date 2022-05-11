@@ -2,6 +2,7 @@ package vistas.Ventanas;
 
 import Interfaces.InterfaceLogin;
 import controladores.ControladorLogin;
+import principal.GuiPrincipal;
 import vistas.Paneles.VistaLogin;
 
 import javax.swing.*;
@@ -44,9 +45,9 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
     @Override
     public void validaAdmin(){
 
-        if (adapter.validadAdmin()){
+        if (adapter.validadAdmin()&&adapter.getTipoUser()>-50){
             this.setVisible(false);
-            VentanaPrincipal ventanaPrincipal=new VentanaPrincipal();
+            GuiPrincipal  guiPrincipal=new GuiPrincipal();
             //controladorLogin.inicializaControlerPrincipal();
         }
         else{

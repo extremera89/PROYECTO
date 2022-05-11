@@ -3,6 +3,7 @@ package vistas.Ventanas;
 import Interfaces.InterfaceCliente;
 import controladores.ControladorCliente;
 import controladores.ControladorLogin;
+import dao.DAOlogin;
 import vistas.Paneles.VistaClientes;
 
 import javax.swing.*;
@@ -12,6 +13,10 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
 
     private ControladorCliente controller;
     public VistaClientes guiClientes;
+
+    DAOlogin daOlogin=new DAOlogin();
+    VentanaLogin ventanaLogin=new VentanaLogin();
+    ControladorLogin controladorLogin=new ControladorLogin(daOlogin,ventanaLogin);
 
     public VentanaCliente(){
         guiClientes=new VistaClientes();
@@ -24,6 +29,8 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Clientes");
         this.pack();
+        desactivarBotones();
+
     }
 
 
@@ -43,5 +50,12 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
     public void iniciar() {
         controller.listarClietes();
         //this.setVisible(true);
+    }
+
+    public void desactivarBotones(){
+        System.out.println(controladorLogin.getPerfilAdministrador());
+        if (controladorLogin.getPerfilAdministrador()==0){
+            guiClientes.getBtnNuevo().setEnabled(false);
+        }
     }
 }

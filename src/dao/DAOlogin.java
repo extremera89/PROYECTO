@@ -17,6 +17,8 @@ public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
     private static Connection conexion;
     private PropertiesBBDD propiedadesBBDD;
 
+    String user;
+
     public DAOlogin() {
         try {
             conexion = Conexion.getConexion();
@@ -88,6 +90,24 @@ public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
 
     }
 
+    public int obtenerContraseniaTipoUsuario(Login login) {
+        String sql = "Select TIPOUSUARIO from "  + propiedadesBBDD.getTblLogin() + " where usuario=?";
+        int tipo = -1;
+        try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {
+            pStatement.setString(1, login.getUsuario());
+            ResultSet rSet = pStatement.executeQuery();
+            while (rSet.next()) {
+                tipo = Integer.parseInt(rSet.getString("tipousuario"));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return tipo;
+
+    }
+
         public boolean borrarUsuario(String user) {
 
         String sql = "Delete from "  + propiedadesBBDD.getTblLogin() + " where usuario=?";
@@ -137,6 +157,7 @@ public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
     }
     @Override
     public Login comprobarExistenciaUsuario(String usuario) {
+        user=usuario;
         String sql = "Select * from " + propiedadesBBDD.getTblLogin() + " where usuario=?";
         Login adminPrueba = null;
         try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {
@@ -158,6 +179,12 @@ public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
         } else {
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        DAOlogin das = new DAOlogin();
+        Login log=new Login("admin","admin",1);
+        System.out.println(das.obtenerContraseniaTipoUsuario(log));
     }
 
 }
