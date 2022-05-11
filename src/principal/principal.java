@@ -15,7 +15,8 @@ public class principal {
         vl.iniciar();
         */
 
-        GuiSalas gs = new GuiSalas();
+        //GuiSalas gs = new GuiSalas();
+        GuiReserva gr = new GuiReserva();
 
     }
 }

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 public interface InterfaceSalas {
 
-
-
     public interface InterfaceDAOSala{
         public void insertarSala(Sala sala);
         public void eliminarSala(int NumSala);

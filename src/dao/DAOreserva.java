@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DAOreserva {
     private static Connection conexion;
@@ -100,8 +101,8 @@ public class DAOreserva {
                 reser.setMotivoReserva(rs.getString("MotivoReserva"));
 
             }
-            if (reser.getDNI()==null){
-                JOptionPane.showMessageDialog(null,"No se ha encotrado la reserva");
+            if (reser.getCodigoReserva()==null){
+                //JOptionPane.showMessageDialog(null,"No se ha encotrado la reserva");
                 return null;
             }
             return  reser;
@@ -110,6 +111,38 @@ public class DAOreserva {
         }
         return null;
     }
+
+    public ArrayList<Reserva> listarReserva() {
+        ArrayList<Reserva> miLista = new ArrayList<>();
+        Reserva reserva;
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("select * from " + propiedadesBBDD.getTblReserva());
+
+            while (rs.next()) {
+                reserva = new Reserva();
+
+                reserva.setCodigoReserva(rs.getString("CodigoReserva"));
+                reserva.setDNI(rs.getString("DNI"));
+                reserva.setNumSala(Integer.parseInt(rs.getString("NumSala")));
+                reserva.setFechaReserva((rs.getDate("FechaReserva")));
+                reserva.setFechaFin((rs.getDate("FechaFin")));
+                reserva.setConfirmado(Integer.parseInt(rs.getString("Confirmado")));
+                reserva.setMotivoReserva(rs.getString("MotivoReserva"));
+                miLista.add(reserva);
+            }
+            rs.close();
+            consulta.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+        }
+        return miLista;
+    }
+
 
     public static void main(String[] args) {
 
