@@ -23,6 +23,9 @@ public interface InterfaceExposicion {
     public interface InterfaceControladorExposicion{
         public void crearExposicion() throws ParseException;
         public void eliminarExposicion();
+        public void anyadirExposicion();
+        public void modificarExposicion() throws ParseException;
+
     }
 
 

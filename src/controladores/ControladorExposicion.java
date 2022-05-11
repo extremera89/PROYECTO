@@ -50,13 +50,6 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
     @Override
     public void crearExposicion() throws ParseException {
-
-        /*try {
-            numSala = Integer.parseInt(this.ventana.getVista().getTxtNumsala().getText());
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Debes poner un campo numérico");
-        }*/
-
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         String nombre = this.ventana.getVista().getTxtNombre().getText();
@@ -71,23 +64,24 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
         String descripcion = this.ventana.getVista().getTxtDescripcion().getText();
         String numsala = this.ventana.getVista().getTxtNumsala().getText();
-
-        if(!nombre.equals("") && !tematica.equals("") && !fechainicio.equals("") && !fechafin.equals("") && !descripcion.equals("") && !numsala.equals("")){
-            if(dao.buscarExposicion(nombre)==null){
+    try {
+        if (!nombre.equals("") && !tematica.equals("") && !fechainicio.equals("") && !fechafin.equals("") && !descripcion.equals("") && !numsala.equals("")) {
+            if (dao.buscarExposicion(nombre) == null) {
                 int numSala = Integer.parseInt(numsala);
                 tabla.crearExposicion(nombre, tematica, fechainicio, fechafin, descripcion, numSala);
                 dao.insertarExposicion(new Exposicion(nombre, tematica, fechainicio, fechafin, descripcion, numSala));
                 ventana.getVista().limpiarCampoTxt();
 
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Ya existe esa exposición");
             }
 
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
         }
+    }catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(null, "No has rellenado el campo numérico con un número");
+    }
 
 
     }
@@ -96,21 +90,13 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         String nombre = ventana.getVista().getTxtNombre().getText();
         String tematica = ventana.getVista().getTxtTematica().getText();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-
         Date fechain = format.parse(this.ventana.getVista().getTxtFechainicio().getText());
         Date fechaf = format.parse(this.ventana.getVista().getTxtFechafin().getText());
-
         java.sql.Date fechainicio = new java.sql.Date(fechain.getTime());
         java.sql.Date fechafin = new java.sql.Date(fechaf.getTime());
-
-        /*Date fechainicio = new Date(ventana.getVista().getTxtFechainicio().getText());
-        Date fechafin = new Date(ventana.getVista().getTxtFechafin().getText());*/
-
-
-
         String desc = ventana.getVista().getTxtDescripcion().getText();
         int numsala = Integer.parseInt(ventana.getVista().getTxtNumsala().getText());
+
 
         Exposicion prueba = new Exposicion(nombre, tematica, fechainicio, fechafin, desc, numsala);
         dao.modificarExposicion(prueba);
@@ -142,10 +128,12 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("NUEVO")){
             anyadirExposicion();
+            ventana.getVista().activarBotonLimpiar();
         }
         else if(e.getActionCommand().equals("GUARDAR")){
             try {
                 crearExposicion();
+                ventana.getVista().activarBotonLimpiar();
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }
@@ -153,6 +141,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         }
         else if(e.getActionCommand().equals("ELIMINAR")){
             eliminarExposicion();
+            ventana.getVista().activarBotonLimpiar();
         }
         else if(e.getActionCommand().equals("ACTUALIZAR")){
             ventana.getVista().activaCamposTxt();
@@ -185,6 +174,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         ventana.getVista().activarBotonEliminar();
         ventana.getVista().desactivarBotonGuardar();
         ventana.getVista().activaCamposTxt();
+        ventana.getVista().desactivarBotonLimpiar();
 
 
 
