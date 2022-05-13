@@ -27,6 +27,8 @@ public class VistaExposicion {
     private JButton btnGuardar;
     private JButton btnLimpiar;
     private JButton btnActualizarDatos;
+    private JTextField txtNumExp;
+    private JLabel lblNumExp;
     private JPanel panelTitulo;
     private JPanel panelTabla;
     private JPanel panelFormulario;
@@ -48,6 +50,7 @@ public class VistaExposicion {
         txtFechafin.setEnabled(false);
         txtDescripcion.setEnabled(false);
         txtNumsala.setEnabled(false);
+        txtNumExp.setEnabled(false);
 
     }
 
@@ -67,8 +70,15 @@ public class VistaExposicion {
         txtFechafin.setText("");
         txtTematica.setText("");
         txtFechainicio.setText("");
+        txtNumExp.setText("");
 
     }
+
+    public void desactivarNumExp(){
+        txtNumExp.setEnabled(false);
+    }
+
+
 
     public void desactivarBotonEliminar(){
         btnEliminar.setEnabled(false);
@@ -110,7 +120,21 @@ public class VistaExposicion {
     }
 
 
+    public JTextField getTxtNumExp() {
+        return txtNumExp;
+    }
 
+    public void setTxtNumExp(JTextField txtNumExp) {
+        this.txtNumExp = txtNumExp;
+    }
+
+    public JLabel getLblNumExp() {
+        return lblNumExp;
+    }
+
+    public void setLblNumExp(JLabel lblNumExp) {
+        this.lblNumExp = lblNumExp;
+    }
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;

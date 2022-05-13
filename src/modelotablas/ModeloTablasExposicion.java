@@ -23,11 +23,12 @@ public class ModeloTablasExposicion extends AbstractTableModel {
         exposiciones = new ArrayList<>();
         tipoColumnas = new Class[] {String.class, String.class, Date.class, Date.class, String.class, Integer.class};
         this.dao = dao;
-        this.nombreColumnas = new String[] {"Nombre", "Temática", "Fecha de inicio", "Fecha de fin", "Descripción", "Número de sala"};
+        this.nombreColumnas = new String[] {"Número exposición", "Nombre", "Temática", "Fecha de inicio", "Fecha de fin", "Descripción", "Número de sala"};
     }
 
 
-    public void actualizarExposicion(int fila, Object expAct) throws ParseException {
+    public void actualizarExposicion(int fila, Object expAct){
+        exposiciones.get(fila).setNumExp(((Exposicion)expAct).getNumExp());
         exposiciones.get(fila).setNombre(((Exposicion)expAct).getNombre());
         exposiciones.get(fila).setTematica(((Exposicion)expAct).getTematica());
         exposiciones.get(fila).setFechainicio(((Exposicion)expAct).getFechainicio());
@@ -43,8 +44,8 @@ public class ModeloTablasExposicion extends AbstractTableModel {
     }
 
 
-    public void crearExposicion(String nombre, String tematica, Date fechain, Date fechafin, String desc, int numSala){
-        exposiciones.add(new Exposicion(nombre, tematica, fechain, fechafin, desc, numSala));
+    public void crearExposicion(Exposicion exposicion){
+        exposiciones.add(exposicion);
         fireTableDataChanged();
     }
 
@@ -77,16 +78,21 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
         switch (columna){
             case 0:
-                return exposiciones.get(fila).getNombre();
+                return exposiciones.get(fila).getNumExp();
             case 1:
-                return exposiciones.get(fila).getTematica();
+                return exposiciones.get(fila).getNombre();
             case 2:
-                return format.format(fechainicio);
+                return exposiciones.get(fila).getTematica();
             case 3:
-                return format.format(fechafin);
+                return format.format(fechainicio);
+
             case 4:
-                return exposiciones.get(fila).getDescripcion();
+                return format.format(fechafin);
+
             case 5:
+                return exposiciones.get(fila).getDescripcion();
+
+            case 6:
                 return exposiciones.get(fila).getNumsala();
 
             default:
@@ -100,16 +106,24 @@ public class ModeloTablasExposicion extends AbstractTableModel {
     public void setValueAt(Object aValue, int fila, int columna) {
             switch (columna) {
                 case 0:
-                    exposiciones.get(fila).setNombre(((Exposicion)aValue).getNombre());
+                    exposiciones.get(fila).setNumExp(((Exposicion)aValue).getNumExp());
+
                 case 1:
-                    exposiciones.get(fila).setTematica(((Exposicion)aValue).getTematica());
+                    exposiciones.get(fila).setNombre(((Exposicion)aValue).getNombre());
+
                 case 2:
-                    exposiciones.get(fila).setFechainicio(((Exposicion)aValue).getFechainicio());
+                    exposiciones.get(fila).setTematica(((Exposicion)aValue).getTematica());
+
                 case 3:
-                    exposiciones.get(fila).setFechafin(((Exposicion)aValue).getFechafin());
+                    exposiciones.get(fila).setFechainicio(((Exposicion)aValue).getFechainicio());
+
                 case 4:
-                    exposiciones.get(fila).setDescripcion(((Exposicion)aValue).getDescripcion());
+                    exposiciones.get(fila).setFechafin(((Exposicion)aValue).getFechafin());
+
                 case 5:
+                    exposiciones.get(fila).setDescripcion(((Exposicion)aValue).getDescripcion());
+
+                case 6:
                     exposiciones.get(fila).setNumsala(((Exposicion)aValue).getNumsala());
 
 

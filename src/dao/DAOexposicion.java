@@ -25,9 +25,8 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
     private PropertiesBBDD propiedadesBBDD;
 
 
-
-    public DAOexposicion(){
-        try{
+    public DAOexposicion() {
+        try {
 
             conexion = Conexion.getConexion();
             propiedadesBBDD = new PropertiesBBDD();
@@ -35,31 +34,40 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
+    public int getNumExp(Exposicion prueba) {
+        int numexp=0;
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT NumExp FROM Exposicion WHERE Nombre='" + prueba.getNombre() + "' AND Tematica='" + prueba.getTematica() + "' AND NumSala=" + prueba.getNumsala());
+                while (rs.next()) {
+                    prueba.setNumExp(rs.getInt("NumExp"));
+                    numexp = prueba.getNumExp();
+                }
+            rs.close();
+            consulta.close();
+            }catch(SQLException e){
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "ERROR, no tiene numEXP");
+            }
+        System.out.println(numexp);
+        return numexp;
 
+    }
     @Override
     public void insertarExposicion(Exposicion exposicion) {
-        //DATESQL hola = new DATESQL(DATEJAVA.getTime());
-        /*String sql = "INSERT INTO "+propiedadesBBDD.getTblExposicion()+" values ('"+nombre+"', '"+tematica+"','"
-                +formato.format(fechainicio)+"', '"+formato.format(fechafin)+"', '"+desc+"', "+numsala+")" ;*/
-
-
-
 
         PreparedStatement ps = null;
-        String sql = "INSERT INTO "+ propiedadesBBDD.getTblExposicion()+ "(Nombre, Tematica, FechaInicio, FechaFin, Descripcion, NumSala) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ propiedadesBBDD.getTblExposicion()+ "(NumExp, Nombre, Tematica, FechaInicio, FechaFin, Descripcion, NumSala) VALUES (NUMEXP.nextval,?,?,?,?,?,?)";
 
         try{
             ps = conexion.prepareStatement(sql);
@@ -79,17 +87,20 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al insertar esa exposición");
 
+
         }
     }
+
+
 
     @Override
     public void eliminarExposicion(Exposicion exposicion) {
         PreparedStatement ps = null;
-        String sql = "DELETE FROM "+propiedadesBBDD.getTblExposicion()+" WHERE Nombre=?";
+        String sql = "DELETE FROM "+propiedadesBBDD.getTblExposicion()+" WHERE NumExp=?";
 
         try{
             ps = conexion.prepareStatement(sql);
-            ps.setString(1, exposicion.getNombre());
+            ps.setInt(1, exposicion.getNumExp());
             ps.executeQuery();
             JOptionPane.showMessageDialog(null, "Se ha eliminado la exposición exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 
@@ -102,7 +113,6 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
 
     @Override
     public ArrayList<Exposicion> listarExposiciones() {
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
         ArrayList<Exposicion> milista = new ArrayList<>();
         Exposicion exposicion = null;
 
@@ -111,8 +121,8 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblExposicion());
 
             while(rs.next()){
-                System.out.println("prueba listar exposiciones");
                 exposicion = new Exposicion();
+                exposicion.setNumExp(rs.getInt("NumExp"));
                 exposicion.setNombre(rs.getString("Nombre"));
                 exposicion.setTematica(rs.getString("Tematica"));
                 exposicion.setFechainicio(rs.getDate("FechaInicio"));
@@ -192,26 +202,11 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
 
 
     public static void main(String[] args) throws ParseException {
-        DAOexposicion dao = new DAOexposicion();
-        //Date fechainicio = new Date(System.currentTimeMillis());
-        /*long input = 1220227200;
-        long milliseconds = ( input * 10000L );
 
-
-
-        Date fechafin = new Date(milliseconds);*/
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date parsed = format.parse("20/10/2001");
-        Date parseds = format.parse("20/10/2002");
-
-        java.sql.Date fechainicio = new java.sql.Date(parsed.getTime());
-        java.sql.Date fechafin = new java.sql.Date(parseds.getTime());
-
-        System.out.println(fechafin);
-        dao.insertarExposicion(new Exposicion("Prueba22", "Prueba", fechainicio, fechafin, "prueba", 5 ));
         //dao.modificarExposicion(new Exposicion("Prueba2", "Prueba2", fechainicio, fechafin, "prueba2222", 6));
         //dao.eliminarExposicion(new Exposicion("Prueba"));
     }
+
 
 
 }

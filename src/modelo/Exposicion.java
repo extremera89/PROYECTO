@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Exposicion {
 
+    private int numExp;
     private String nombre;
     private String tematica;
     private Date fechainicio;
@@ -76,6 +77,14 @@ public class Exposicion {
 
     public void setNumsala(int numsala) {
         this.numsala = numsala;
+    }
+
+    public int getNumExp() {
+        return numExp;
+    }
+
+    public void setNumExp(int numExp) {
+        this.numExp = numExp;
     }
 
     /*public Sala getSala() {

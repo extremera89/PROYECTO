@@ -56,7 +56,6 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
     public void iniciar(){
         controlador.listarExposiciones();
         this.setVisible(true);
-        System.out.println("prueba iniciar");
     }
 
 
