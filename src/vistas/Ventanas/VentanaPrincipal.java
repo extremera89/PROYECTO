@@ -9,17 +9,24 @@ public class VentanaPrincipal extends JFrame {
 
     public VistaPrincipal guiPrincipal;
 
+
     public void activar(){
         this.setVisible(true);
     }
     public VentanaPrincipal(){
+        int tipoperfil = VentanaLogin.tipoPerfil;
         guiPrincipal=new VistaPrincipal();
         this.setContentPane(guiPrincipal.PanelPrincipal);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Proyecto Museum");
+        if(tipoperfil==0){
+            this.setTitle("Proyecto Museo - INVITADO");
+        }
+        else
+            this.setTitle("Proyecto Museo - ADMINISTRADOR");
         activar();
         this.setSize(900,500);
+
     }
 
     public void añadirPestaña(JPanel vista, String titulo){

@@ -26,6 +26,7 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
         guiClientes.desactivarBotonGuardar();
         guiClientes.desactivarBotonEliminar();
         guiClientes.desactivarBotonActualizar();
+        guiClientes.insertarImagenes();
         this.setContentPane(guiClientes.getPanelPrincipal());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Clientes");

@@ -19,17 +19,14 @@ public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin
     public String getUser() {
         return user;
     }
-    boolean prueba=false;
+
+    boolean prueba = false;
 
     public void setUser(String user) {
         this.user = user;
     }
 
     String user;
-
-
-
-
 
 
     private int getUser;
@@ -42,42 +39,37 @@ public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin
         this.getUser = getUser;
     }
 
-    public ControladorLogin(DAOlogin dao, VentanaLogin ventanaLogin){
-        this.ventanaLogin=ventanaLogin;
-        this.dao=dao;
+    public ControladorLogin(DAOlogin dao, VentanaLogin ventanaLogin) {
+        this.ventanaLogin = ventanaLogin;
+        this.dao = dao;
     }
 
     @Override
-    public int validadAdmin(){
+    public int validadAdmin() {
 
         String usuario = ventanaLogin.guiLogin.getTxtUsuario().getText();
         String password = ventanaLogin.guiLogin.getTxtContrasenia().getText();
         int tipoUsuario = -1;
 
-        if ((usuario !=null) && (password != null)){
-            if ((login=dao.comprobarExistenciaUsuario(usuario))!=null && (login.getContrasenia().matches(password) && login.getPerUsuario()==1)){
+        if ((usuario != null) && (password != null)) {
+            if ((login = dao.comprobarExistenciaUsuario(usuario)) != null && (login.getContrasenia().matches(password) && login.getPerUsuario() == 1)) {
                 tipoUsuario = 1;
-            }
-            else if((login=dao.comprobarExistenciaUsuario(usuario))!=null && (login.getContrasenia().matches(password) && login.getPerUsuario()==0)){
+            } else if ((login = dao.comprobarExistenciaUsuario(usuario)) != null && (login.getContrasenia().matches(password) && login.getPerUsuario() == 0)) {
                 tipoUsuario = 0;
             }
         }
         return tipoUsuario;
     }
 
-    public void g(){
+    public void g() {
         System.out.println(prueba);
     }
 
 
-
-
-
-    public int getPerfilAdministrador(){
+    public int getPerfilAdministrador() {
         g();
         return this.getUser;
     }
-
 
 
     @Override
@@ -85,14 +77,9 @@ public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin
         if (e.getActionCommand().equals("LOGUEAR")) {
             ventanaLogin.validaAdmin();
 
-        }
-        else if (e.getActionCommand().equals("LIMPIAR")){
+        } else if (e.getActionCommand().equals("LIMPIAR")) {
             ventanaLogin.guiLogin.limpiarCampos();
         }
-
-    }
-
-    public static void main(String[] args) {
 
     }
 

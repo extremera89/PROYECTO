@@ -19,6 +19,7 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
     public VentanaLogin(){
         guiLogin=new VistaLogin();
         guiLogin.asignaCommandBotones();
+        guiLogin.insertarImagenes();
         this.setContentPane(guiLogin.PanelPrincipal);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Inicio de sesión");
@@ -51,8 +52,6 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
             tipoPerfil = adapter.validadAdmin();
             this.setVisible(false);
             GuiPrincipal guiPrincipal=new GuiPrincipal();
-            System.out.println("El tipo de usuario es: " +adapter.validadAdmin());
-
         }
         else{
             errorAutenticacion();
