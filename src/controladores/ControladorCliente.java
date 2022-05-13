@@ -144,6 +144,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         ventanaCliente.guiClientes.activarBotonEliminar();
         ventanaCliente.guiClientes.activarBotonActualizar();
         ventanaCliente.guiClientes.desactivarBotonGuardar();
+        modeloTabla.fireTableDataChanged();
         filaPulsada = row;
 
     }

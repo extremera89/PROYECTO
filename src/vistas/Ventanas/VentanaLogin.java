@@ -12,6 +12,8 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
 
     public ControladorLogin adapter;
     public VistaLogin guiLogin;
+    public static int tipoPerfil;
+
 
 
     public VentanaLogin(){
@@ -45,10 +47,12 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
     @Override
     public void validaAdmin(){
 
-        if (adapter.validadAdmin()&&adapter.getTipoUser()>-50){
+        if (adapter.validadAdmin()>-1 && adapter.validadAdmin()<2){
+            tipoPerfil = adapter.validadAdmin();
             this.setVisible(false);
-            GuiPrincipal  guiPrincipal=new GuiPrincipal();
-            //controladorLogin.inicializaControlerPrincipal();
+            GuiPrincipal guiPrincipal=new GuiPrincipal();
+            System.out.println("El tipo de usuario es: " +adapter.validadAdmin());
+
         }
         else{
             errorAutenticacion();

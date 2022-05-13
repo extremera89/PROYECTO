@@ -90,7 +90,7 @@ public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
 
     }
 
-    public int obtenerContraseniaTipoUsuario(Login login) {
+    public int obtenerTipoUsuario(Login login) {
         String sql = "Select TIPOUSUARIO from "  + propiedadesBBDD.getTblLogin() + " where usuario=?";
         int tipo = -1;
         try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {
@@ -184,7 +184,7 @@ public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
     public static void main(String[] args) {
         DAOlogin das = new DAOlogin();
         Login log=new Login("admin","admin",1);
-        System.out.println(das.obtenerContraseniaTipoUsuario(log));
+        System.out.println(das.obtenerTipoUsuario(log));
     }
 
 }

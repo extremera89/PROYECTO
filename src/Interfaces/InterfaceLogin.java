@@ -35,7 +35,7 @@ public interface InterfaceLogin {
         }
 
         public  interface InterfaceControllerLogin {
-            public boolean validadAdmin();
+            public int validadAdmin();
         }
 
 

@@ -18,6 +18,7 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
     VentanaLogin ventanaLogin=new VentanaLogin();
     ControladorLogin controladorLogin=new ControladorLogin(daOlogin,ventanaLogin);
 
+
     public VentanaCliente(){
         guiClientes=new VistaClientes();
         guiClientes.asignaCommandBotones();
@@ -53,9 +54,15 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
     }
 
     public void desactivarBotones(){
-        System.out.println(controladorLogin.getPerfilAdministrador());
-        if (controladorLogin.getPerfilAdministrador()==0){
-            guiClientes.getBtnNuevo().setEnabled(false);
+        int tipoperfil = VentanaLogin.tipoPerfil;
+        if (tipoperfil==0){
+            guiClientes.dasactivarCampoTxt();
+            guiClientes.getBtnNuevo().setVisible(false);
+            guiClientes.getBtnEliminar().setVisible(false);
+            guiClientes.getBtnGuardar().setVisible(false);
+            guiClientes.getBtnLimpiar().setVisible(false);
+            guiClientes.getBtnActulizarDatos().setVisible(false);
+            guiClientes.getBtnActualizarTabla().setVisible(false);
         }
     }
 }

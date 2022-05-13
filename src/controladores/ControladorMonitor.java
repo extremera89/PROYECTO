@@ -118,7 +118,6 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
             actualizarTabla();
         }
         else if (e.getActionCommand().equals("ACTUALIZAR")){
-            System.out.println("p");
             actualizarMonitor();
         }
     }

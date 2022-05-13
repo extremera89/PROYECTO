@@ -3,9 +3,8 @@ package controladores;
 import Interfaces.InterfaceLogin;
 import dao.DAOlogin;
 import modelo.Login;
-import vistas.Paneles.VistaLogin;
 import vistas.Ventanas.VentanaLogin;
-import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,17 +15,24 @@ public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin
     private DAOlogin dao;
 
     private Login login;
-    Login log;
 
-    public Login getLog() {
-        return log;
+    public String getUser() {
+        return user;
+    }
+    boolean prueba=false;
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public void setLog(Login log) {
-        this.log = log;
-    }
+    String user;
 
-    private int getUser=1;
+
+
+
+
+
+    private int getUser;
 
     public int getGetUser() {
         return getUser;
@@ -42,48 +48,34 @@ public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin
     }
 
     @Override
-    public boolean validadAdmin(){
+    public int validadAdmin(){
 
         String usuario = ventanaLogin.guiLogin.getTxtUsuario().getText();
         String password = ventanaLogin.guiLogin.getTxtContrasenia().getText();
+        int tipoUsuario = -1;
 
         if ((usuario !=null) && (password != null)){
-            if ((login=dao.comprobarExistenciaUsuario(usuario))!=null && (login.getContrasenia().matches(password)==true)){
-                this.getUser=(dao.obtenerContraseniaTipoUsuario(login));
-                setGetUser(dao.obtenerContraseniaTipoUsuario(login));
-                return true;
+            if ((login=dao.comprobarExistenciaUsuario(usuario))!=null && (login.getContrasenia().matches(password) && login.getPerUsuario()==1)){
+                tipoUsuario = 1;
             }
-            else{
-                login = null;
+            else if((login=dao.comprobarExistenciaUsuario(usuario))!=null && (login.getContrasenia().matches(password) && login.getPerUsuario()==0)){
+                tipoUsuario = 0;
             }
         }
-        return false;
+        return tipoUsuario;
     }
 
-    public int getTipoUser(){
-        String usuario = ventanaLogin.guiLogin.getTxtUsuario().getText();
-        String password = ventanaLogin.guiLogin.getTxtContrasenia().getText();
-
-        if ((usuario !=null) && (password != null)){
-            if ((login=dao.comprobarExistenciaUsuario(usuario))!=null && (login.getContrasenia().matches(password)==true)){
-                this.getUser=(dao.obtenerContraseniaTipoUsuario(login));
-
-                System.out.println(getUser);
-                return getUser;
-
-            }
-            else{
-                login = null;
-            }
-        }
-        return getUser;
+    public void g(){
+        System.out.println(prueba);
     }
+
+
 
 
 
     public int getPerfilAdministrador(){
-        System.out.println(getTipoUser());
-        return getTipoUser();
+        g();
+        return this.getUser;
     }
 
 
@@ -97,6 +89,10 @@ public class ControladorLogin implements InterfaceLogin.InterfaceControllerLogin
         else if (e.getActionCommand().equals("LIMPIAR")){
             ventanaLogin.guiLogin.limpiarCampos();
         }
+
+    }
+
+    public static void main(String[] args) {
 
     }
 

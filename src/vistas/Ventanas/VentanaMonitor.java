@@ -25,6 +25,7 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Clientes");
         this.pack();
+        this.desactivarBotones();
     }
 
 
@@ -46,5 +47,18 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
     public void iniciar() {
         controller.listarMonitores();
         //this.setVisible(true);
+    }
+
+    public void desactivarBotones(){
+        int tipoperfil = VentanaLogin.tipoPerfil;
+        if (tipoperfil==0){
+            guiMonitor.dasactivarCampoTxt();
+            guiMonitor.getBtnNuevo().setVisible(false);
+            guiMonitor.getBtnEliminar().setVisible(false);
+            guiMonitor.getBtnGuardar().setVisible(false);
+            guiMonitor.getBtnLimpiar().setVisible(false);
+            guiMonitor.getBtnActulizarDatos().setVisible(false);
+            guiMonitor.getBtnActualizarTabla().setVisible(false);
+        }
     }
 }
