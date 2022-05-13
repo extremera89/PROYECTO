@@ -90,7 +90,7 @@ public class VistaReserva {
         btnEliminar.setActionCommand("ELIMINAR");
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
-        btnActualizarTabla.setActionCommand("ACTUALIZAR_DATOS");
+        btnActulizarDatos.setActionCommand("ACTUALIZAR");
     }
 
     public void limpiarCampoTxt(){
@@ -145,4 +145,13 @@ public class VistaReserva {
     public void activarBotonLimpiar(){btnLimpiar.setEnabled(true);}
     public void desactivarBotonLimpiar(){btnLimpiar.setEnabled(false);}
 
+    public void desactivarTXTCodigoReserva(){txtCodigoReserva.setEnabled(false);}
+
+    public JButton getBtnActulizarDatos() {
+        return btnActulizarDatos;
+    }
+
+    public void setBtnActulizarDatos(JButton btnActulizarDatos) {
+        this.btnActulizarDatos = btnActulizarDatos;
+    }
 }

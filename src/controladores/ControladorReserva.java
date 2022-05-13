@@ -2,6 +2,7 @@ package controladores;
 
 import Interfaces.InterfaceReserva;
 import dao.DAOreserva;
+import modelo.Exposicion;
 import modelo.Reserva;
 import modelotablas.ModeloTablaReserva;
 import vistas.Ventanas.VentanaReserva;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -34,20 +36,21 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         ventanaReserva.guiReservas.activarBotonGuardar();
         ventanaReserva.guiReservas.desactivarBotonEliminar();
         ventanaReserva.guiReservas.activarBotonLimpiar();
+        ventanaReserva.guiReservas.desactivarBotonActualizar();
     }
 
     @Override
     public void crearReserva() {
 
         try {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
             String CodigoReserva = (ventanaReserva.guiReservas.getTxtCodigoReserva().getText());
             String DNI = (ventanaReserva.guiReservas.getTxtDNI().getText());
             int NumSala = Integer.parseInt(ventanaReserva.guiReservas.getTxtNumeroSala().getText());
 
-            java.util.Date FechaReserva =  format.parse((ventanaReserva.guiReservas.getTxtFechaReserva().getText()));
-            Date FechaFin =  format.parse((ventanaReserva.guiReservas.getTxtFechaFin().getText()));
+            java.util.Date FechaReserva =  formatoFecha.parse((ventanaReserva.guiReservas.getTxtFechaReserva().getText()));
+            Date FechaFin =  formatoFecha.parse((ventanaReserva.guiReservas.getTxtFechaFin().getText()));
 
             java.sql.Date fechainicio = new java.sql.Date(FechaReserva.getTime());
             java.sql.Date fechafin = new java.sql.Date(FechaFin.getTime());
@@ -65,6 +68,7 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
                     ventanaReserva.guiReservas.desactivarBotonGuardar();
                     ventanaReserva.guiReservas.limpiarCampoTxt();
                     ventanaReserva.guiReservas.activaCamposTxt();
+                    ventanaReserva.guiReservas.desactivarBotonActualizar();
                 }
                 else JOptionPane.showMessageDialog(null, "Ya existe una Reserva con ese numero");
             }
@@ -81,12 +85,28 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         modeloTabla.eliminarReserva(filaPulsada);
         ventanaReserva.guiReservas.desactivarBotonEliminar();
         ventanaReserva.guiReservas.limpiarCampoTxt();
+        ventanaReserva.guiReservas.desactivarBotonActualizar();
         filaPulsada = -1;
     }
 
     @Override
-    public void actualizarReserva() {
+    public void actualizarReserva() throws ParseException {
+        String codigoReserva = ventanaReserva.guiReservas.getTxtCodigoReserva().getText();
+        String DNI = ventanaReserva.guiReservas.getTxtDNI().getText();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        int NumSala = Integer.parseInt(ventanaReserva.guiReservas.getTxtNumeroSala().getText());
+        Date fechaReserva = formatoFecha.parse(this.ventanaReserva.guiReservas.getTxtFechaReserva().getText());
+        Date fechaFin = formatoFecha.parse(this.ventanaReserva.guiReservas.getTxtFechaFin().getText());
+        java.sql.Date fechareserva = new java.sql.Date(fechaReserva.getTime());
+        java.sql.Date fechafin = new java.sql.Date(fechaFin.getTime());
+        int Confirmado = Integer.parseInt(ventanaReserva.guiReservas.getTxtConfirmado().getText());
+        String Motivo = ventanaReserva.guiReservas.getTxtMotivo().getText();
 
+
+        Reserva reserva = new Reserva(codigoReserva,DNI,NumSala,fechareserva,fechafin,Confirmado,Motivo);
+        dao.modificarReserva(reserva);
+
+        modeloTabla.actualizarReserva(filaPulsada, reserva);
     }
 
     @Override
@@ -102,8 +122,17 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
             eliminarReserva();
         else if (e.getActionCommand().equals("GUARDAR"))
             crearReserva();
+        else if (e.getActionCommand().equals("ACTUALIZAR")) {
+            try {
+                actualizarReserva();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
         else if(e.getActionCommand().equals("LIMPIAR")){
             ventanaReserva.guiReservas.limpiarCampoTxt();
+        }else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
+            modeloTabla.actualizarTabla();
         }
     }
 
@@ -119,7 +148,9 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         ventanaReserva.guiReservas.getTxtConfirmado().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,5).toString());
         ventanaReserva.guiReservas.getTxtMotivo().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,6).toString());
 
-        ventanaReserva.guiReservas.dasactivarCampoTxt();
+        ventanaReserva.guiReservas.activarBotonActualizar();
+        ventanaReserva.guiReservas.activaCamposTxt();
+        ventanaReserva.guiReservas.desactivarTXTCodigoReserva();
         ventanaReserva.guiReservas.activarBotonEliminar();
         ventanaReserva.guiReservas.desactivarBotonGuardar();
         ventanaReserva.guiReservas.desactivarBotonLimpiar();

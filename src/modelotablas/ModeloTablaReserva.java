@@ -5,6 +5,7 @@ import modelo.Reserva;
 
 import javax.swing.table.AbstractTableModel;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ModeloTablaReserva extends AbstractTableModel {
@@ -26,6 +27,18 @@ public class ModeloTablaReserva extends AbstractTableModel {
         listaReserva =Reserva;
     }
 
+
+    public void actualizarReserva(int fila, Object expAct) {
+        listaReserva.get(fila).setCodigoReserva(((Reserva)expAct).getCodigoReserva());
+        listaReserva.get(fila).setDNI(((Reserva)expAct).getDNI());
+        listaReserva.get(fila).setNumSala(((Reserva)expAct).getNumSala());
+        listaReserva.get(fila).setFechaReserva(((Reserva)expAct).getFechaReserva());
+        listaReserva.get(fila).setFechaFin(((Reserva)expAct).getFechaFin());
+        listaReserva.get(fila).setConfirmado(((Reserva)expAct).getConfirmado());
+        listaReserva.get(fila).setMotivoReserva(((Reserva)expAct).getMotivoReserva());
+
+    }
+
     public void eliminarReserva(int pos){
         listaReserva.remove(pos);
         fireTableDataChanged();
@@ -33,6 +46,10 @@ public class ModeloTablaReserva extends AbstractTableModel {
 
     public void crearReserva(String codigoReserva, String DNI, int numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva){
         listaReserva.add(new Reserva(codigoReserva,DNI,numSala,fechaReserva,fechaFin,confirmado,motivoReserva));
+        fireTableDataChanged();
+    }
+
+    public void actualizarTabla(){
         fireTableDataChanged();
     }
 
@@ -48,6 +65,12 @@ public class ModeloTablaReserva extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+
+        java.sql.Date fechaReserva = new java.sql.Date(listaReserva.get(rowIndex).getFechaReserva().getTime());
+        java.sql.Date fechaFin = new java.sql.Date(listaReserva.get(rowIndex).getFechaFin().getTime());
+
         switch (columnIndex) {
             case 0:
                 return listaReserva.get(rowIndex).getCodigoReserva();
@@ -56,9 +79,9 @@ public class ModeloTablaReserva extends AbstractTableModel {
             case 2:
                 return listaReserva.get(rowIndex).getNumSala();
             case 3:
-                return listaReserva.get(rowIndex).getFechaReserva();
+                return formatoFecha.format(fechaReserva);
             case 4:
-                return listaReserva.get(rowIndex).getFechaFin();
+                return formatoFecha.format(fechaFin);
             case 5:
                 return listaReserva.get(rowIndex).getConfirmado();
             case 6:

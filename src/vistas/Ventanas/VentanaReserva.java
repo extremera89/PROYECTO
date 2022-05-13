@@ -36,6 +36,7 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         guiReservas.getBtnNuevo().addActionListener(controller);
         guiReservas.getBtnActualizarTabla().addActionListener(controller);
         guiReservas.getTableReserva().addMouseListener(controller);
+        guiReservas.getBtnActulizarDatos().addActionListener(controller);
     }
 
 
