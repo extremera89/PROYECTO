@@ -1,6 +1,7 @@
 package dao;
 
 import conexion.Conexion;
+import modelo.Reserva;
 import modelo.Sala;
 import otros.PropertiesBBDD;
 import Interfaces.InterfaceSalas;
@@ -45,6 +46,7 @@ public class DAOsala implements InterfaceSalas.InterfaceDAOSala{
         }
     }
 
+    /*
     public void actualizarSala(int numSala,int DadaAlta,int Tamanio) {
 
         PreparedStatement ps = null;
@@ -58,8 +60,27 @@ public class DAOsala implements InterfaceSalas.InterfaceDAOSala{
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al actualizar la sala");
         }
-    }
+    }*/
 
+    public void modificarSala(Sala sala) {
+        PreparedStatement ps = null;
+        String sql = "UPDATE "+ propiedadesBBDD.getTblSala()+ " SET NumSala=?, DadaAlta=?, Tamanio=? WHERE NumSala=?";
+
+        try{
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, sala.getNumSala());
+            ps.setInt(2, sala.getDadaAlta());
+            ps.setInt(3, sala.getTamanio());
+            ps.setInt(4, sala.getNumSala());
+
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Se ha modificado la sala", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }catch(SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al modificar la sala");
+
+        }
+    }
 
     public void eliminarSala(int NumSala) {
         try{

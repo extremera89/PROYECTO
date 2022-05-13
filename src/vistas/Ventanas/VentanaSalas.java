@@ -36,6 +36,7 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
         guiSalas.getBtnNuevo().addActionListener(controller);
         guiSalas.getBtnActualizarTabla().addActionListener(controller);
         guiSalas.getTblSalas().addMouseListener(controller);
+        guiSalas.getBtnActulizarDatos().addActionListener(controller);
     }
 
     @Override

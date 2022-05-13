@@ -2,6 +2,7 @@ package controladores;
 
 import Interfaces.InterfaceSalas;
 import dao.DAOsala;
+import modelo.Reserva;
 import modelo.Sala;
 import modelotablas.ModeloTablaSala;
 import vistas.Ventanas.VentanaSalas;
@@ -10,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ControladorSala implements InterfaceSalas.InterfaceControladorSala, ActionListener , MouseListener {
 
@@ -31,6 +34,7 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         ventanaSala.guiSalas.activarBotonGuardar();
         ventanaSala.guiSalas.desactivarBotonEliminar();
         ventanaSala.guiSalas.activarBotonLimpiar();
+        ventanaSala.guiSalas.desactivarBotonActualizar();
     }
 
     @Override
@@ -54,6 +58,7 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
                 ventanaSala.guiSalas.desactivarBotonGuardar();
                 ventanaSala.guiSalas.limpiarCampoTxt();
                 ventanaSala.guiSalas.activaCamposTxt();
+                ventanaSala.guiSalas.desactivarBotonActualizar();
             }
             else JOptionPane.showMessageDialog(null, "Ya existe una Sala con ese numero");
         }
@@ -70,12 +75,19 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         modeloTabla.eliminarSala(filaPulsada);
         ventanaSala.guiSalas.desactivarBotonEliminar();
         ventanaSala.guiSalas.limpiarCampoTxt();
+        ventanaSala.guiSalas.desactivarBotonActualizar();
         filaPulsada = -1;
     }
 
     @Override
     public void actualizarSala() {
+        int numSala = Integer.parseInt(ventanaSala.guiSalas.getTxtNumSala().getText());
+        int dadaAlta = Integer.parseInt(ventanaSala.guiSalas.getTxtDadaAlta().getText());
+        int tamanio = Integer.parseInt(ventanaSala.guiSalas.getTxtTamanio().getText());
 
+        Sala sala = new Sala(numSala,dadaAlta,tamanio);
+        dao.modificarSala(sala);
+        modeloTabla.actualizarSala(filaPulsada, sala);
     }
 
     @Override
@@ -91,6 +103,11 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
             eliminarSala();
         else if (e.getActionCommand().equals("GUARDAR"))
             crearSala();
+        else if (e.getActionCommand().equals("ACTUALIZAR")) {
+            actualizarSala();
+        }else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
+            modeloTabla.actualizarTabla();
+        }
         else if(e.getActionCommand().equals("LIMPIAR")){
             ventanaSala.guiSalas.limpiarCampoTxt();
         }
@@ -103,12 +120,13 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         ventanaSala.guiSalas.getTxtDadaAlta().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,1).toString());//DadaAlta
         ventanaSala.guiSalas.getTxtTamanio().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,2).toString());//Tamanio
 
-        ventanaSala.guiSalas.dasactivarCampoTxt();
+        ventanaSala.guiSalas.activarBotonActualizar();
+        ventanaSala.guiSalas.activaCamposTxt();
+        ventanaSala.guiSalas.desactivarTXTNumSala();
         ventanaSala.guiSalas.activarBotonEliminar();
         ventanaSala.guiSalas.desactivarBotonGuardar();
         ventanaSala.guiSalas.desactivarBotonLimpiar();
         filaPulsada = row;
-
     }
 
     @Override

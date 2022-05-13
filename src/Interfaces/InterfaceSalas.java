@@ -14,7 +14,7 @@ public interface InterfaceSalas {
         public void insertarSala(Sala sala);
         public void eliminarSala(int NumSala);
         public Sala buscarSala(int NumSala);
-        public void actualizarSala(int numSala,int DadaAlta,int Tamanio);
+        //public void actualizarSala(int numSala,int DadaAlta,int Tamanio);
         public ArrayList<Sala> listarSala();
     }
 

@@ -2,6 +2,7 @@ package modelotablas;
 
 
 import dao.DAOsala;
+import modelo.Reserva;
 import modelo.Sala;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -33,6 +34,17 @@ public class ModeloTablaSala extends AbstractTableModel {
     public void crearSalas(int numSala, int dadaAlta, int tamanio){
         listaSalas.add(new Sala(numSala,dadaAlta,tamanio));
         fireTableDataChanged();
+    }
+
+    public void actualizarTabla(){
+        fireTableDataChanged();
+    }
+
+    public void actualizarSala(int fila, Object expAct) {
+        listaSalas.get(fila).setNumSala(((Sala)expAct).getNumSala());
+        listaSalas.get(fila).setDadaAlta(((Sala)expAct).getDadaAlta());
+        listaSalas.get(fila).setTamanio(((Sala)expAct).getTamanio());
+
     }
 
     @Override

@@ -72,7 +72,7 @@ public class VistaSalas {
         btnEliminar.setActionCommand("ELIMINAR");
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
-        btnActualizarTabla.setActionCommand("ACTUALIZAR_DATOS");
+        btnActulizarDatos.setActionCommand("ACTUALIZAR");
     }
 
     public void limpiarCampoTxt(){
@@ -115,4 +115,12 @@ public class VistaSalas {
 
     public void activarBotonLimpiar(){btnLimpiar.setEnabled(true);}
     public void desactivarBotonLimpiar(){btnLimpiar.setEnabled(false);}
+    public void desactivarTXTNumSala(){txtNumSala.setEnabled(false);}
+    public JButton getBtnActulizarDatos() {
+        return btnActulizarDatos;
+    }
+
+    public void setBtnActulizarDatos(JButton btnActulizarDatos) {
+        this.btnActulizarDatos = btnActulizarDatos;
+    }
 }

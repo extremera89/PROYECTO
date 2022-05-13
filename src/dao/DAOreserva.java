@@ -51,6 +51,7 @@ public class DAOreserva implements InterfaceReserva {
         }
     }
 
+    /*
     public void actualizarReserva(String CodigoReserva,String DNI, int numSala, Date fechaReserva, Date fecahFin, int confirmado, String motivoReserva) {
 
         PreparedStatement ps = null;
@@ -70,7 +71,7 @@ public class DAOreserva implements InterfaceReserva {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al actualizar la reserva");
         }
-    }
+    }*/
 
     public void eliminarReserva(String codigoReserva) {
         try{
