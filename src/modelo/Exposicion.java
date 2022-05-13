@@ -18,6 +18,16 @@ public class Exposicion {
     public Exposicion() {
     }
 
+    public Exposicion(int numExp, String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion, int numsala) {
+        this.numExp = numExp;
+        this.nombre = nombre;
+        this.tematica = tematica;
+        this.fechainicio = fechainicio;
+        this.fechafin = fechafin;
+        this.descripcion = descripcion;
+        this.numsala = numsala;
+    }
+
     public Exposicion(String nombre) {
         this.nombre = nombre;
     }

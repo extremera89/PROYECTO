@@ -100,6 +100,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
    public void modificarExposicion() throws ParseException {
 
         try {
+            int numexp = Integer.parseInt(ventana.getVista().getTxtNumExp().getText());
             String nombre = ventana.getVista().getTxtNombre().getText();
             String tematica = ventana.getVista().getTxtTematica().getText();
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -109,17 +110,16 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
             java.sql.Date fechafin = new java.sql.Date(fechaf.getTime());
             String desc = ventana.getVista().getTxtDescripcion().getText();
             int numsala = Integer.parseInt(ventana.getVista().getTxtNumsala().getText());
-            Exposicion prueba = new Exposicion(nombre, tematica, fechainicio, fechafin, desc, numsala);
+            Exposicion prueba = new Exposicion(numexp, nombre, tematica, fechainicio, fechafin, desc, numsala);
+
+
+
             dao.modificarExposicion(prueba);
             tabla.actualizarExposicion(filapul, prueba);
         }catch (NumberFormatException e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Has introducido un carácter que no es un número");
         }
-
-
-
-
     }
 
     public void listarExposiciones(){

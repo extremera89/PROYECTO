@@ -174,18 +174,18 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
     @Override
     public void modificarExposicion(Exposicion exposicion) {
         PreparedStatement ps = null;
-        String sql = "UPDATE "+ propiedadesBBDD.getTblExposicion()+ " SET Nombre=?, Tematica=?, FechaInicio=?, FechaFin=?, Descripcion=?, NumSala=? WHERE Nombre=?";
+        String sql = "UPDATE "+ propiedadesBBDD.getTblExposicion()+ " SET Nombre=?, Tematica=?, FechaInicio=?, FechaFin=?, Descripcion=?, NumSala=? WHERE NumExp=?";
 
         try{
             ps = conexion.prepareStatement(sql);
 
             ps.setString(1, exposicion.getNombre());
-            ps.setString(2, exposicion.getDescripcion());
+            ps.setString(2, exposicion.getTematica());
             ps.setDate(3, new java.sql.Date(exposicion.getFechainicio().getTime()));
             ps.setDate(4, new java.sql.Date(exposicion.getFechafin().getTime()));
             ps.setString(5, exposicion.getDescripcion());
             ps.setInt(6, exposicion.getNumsala());
-            ps.setString(7, exposicion.getNombre());
+            ps.setInt(7, exposicion.getNumExp());
 
 
             ps.executeUpdate();
