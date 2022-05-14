@@ -18,6 +18,7 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
         guiSalas.desactivarBotonGuardar();
         guiSalas.desactivarBotonEliminar();
         guiSalas.desactivarBotonActualizar();
+        guiSalas.insertarImagenes();
         this.setContentPane(guiSalas.getPanelPrincipal());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Salas");
@@ -40,6 +41,7 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
     @Override
     public void iniciar() {
         controller.listarSala();
-        this.setVisible(true);
+        //this.setVisible(true);
+
     }
 }

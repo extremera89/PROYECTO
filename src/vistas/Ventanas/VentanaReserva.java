@@ -20,6 +20,7 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         guiReservas.desactivarBotonGuardar();
         guiReservas.desactivarBotonEliminar();
         guiReservas.desactivarBotonActualizar();
+        guiReservas.insertarImagenes();
         this.setContentPane(guiReservas.getPanelPrincipal());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Reservas");
@@ -44,6 +45,6 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
     @Override
     public void iniciar() {
         controller.listarReserva();
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 }

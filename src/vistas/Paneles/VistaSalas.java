@@ -93,6 +93,15 @@ public class VistaSalas {
         txtTamanio.setEnabled(true);
     }
 
+    public void insertarImagenes() {
+        btnNuevo.setIcon(new ImageIcon("src\\imagenes\\iconoNuevo.png"));
+        btnEliminar.setIcon(new ImageIcon("src\\imagenes\\iconoEliminar.png"));
+        btnLimpiar.setIcon(new ImageIcon("src\\imagenes\\inconoLimpiar.png"));
+        btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
+        btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
+    }
+
     public void desactivarBotonEliminar(){
         btnEliminar.setEnabled(false);
     }

@@ -11,6 +11,8 @@ public class PropertiesBBDD {
     private String tblPersona;
     private String tblMonitor;
 
+    private String tblSala;
+    private String tblReserva;
     public PropertiesBBDD() throws IOException {
         Properties properties = new Properties();
         properties.load(new FileReader("config.bbdd.properties"));
@@ -21,6 +23,8 @@ public class PropertiesBBDD {
         tblCliente=properties.getProperty("tblCliente");
         tblPersona=properties.getProperty("tblPersona");
         tblMonitor=properties.getProperty("tblMonitor");
+        tblSala = properties.getProperty("tblSala");
+        tblReserva = properties.getProperty("tblReserva");
     }
 
     public String getTblLogin() {
@@ -39,5 +43,13 @@ public class PropertiesBBDD {
 
     public String getTblMonitor() {
         return tblMonitor;
+    }
+
+    public String getTblSala() {
+        return tblSala;
+    }
+
+    public String getTblReserva() {
+        return tblReserva;
     }
 }
