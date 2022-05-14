@@ -3,9 +3,7 @@ package vistas.Ventanas;
 import Interfaces.InterfaceSalas;
 import controladores.ControladorSala;
 import vistas.Paneles.VistaSalas;
-
 import javax.swing.*;
-import java.awt.event.MouseListener;
 
 public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVistaSala {
 

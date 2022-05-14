@@ -2,7 +2,6 @@ package controladores;
 
 import Interfaces.InterfaceSalas;
 import dao.DAOsala;
-import modelo.Reserva;
 import modelo.Sala;
 import modelotablas.ModeloTablaSala;
 import vistas.Ventanas.VentanaSalas;
@@ -11,8 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 public class ControladorSala implements InterfaceSalas.InterfaceControladorSala, ActionListener , MouseListener {
 

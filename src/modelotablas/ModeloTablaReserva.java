@@ -2,7 +2,6 @@ package modelotablas;
 
 import dao.DAOreserva;
 import modelo.Reserva;
-
 import javax.swing.table.AbstractTableModel;
 import java.sql.Date;
 import java.text.SimpleDateFormat;

@@ -3,7 +3,6 @@ package dao;
 import Interfaces.InterfaceReserva;
 import conexion.Conexion;
 import modelo.Reserva;
-import modelo.Sala;
 import otros.PropertiesBBDD;
 
 import javax.swing.*;

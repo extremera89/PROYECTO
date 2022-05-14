@@ -2,11 +2,9 @@ package controladores;
 
 import Interfaces.InterfaceReserva;
 import dao.DAOreserva;
-import modelo.Exposicion;
 import modelo.Reserva;
 import modelotablas.ModeloTablaReserva;
 import vistas.Ventanas.VentanaReserva;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

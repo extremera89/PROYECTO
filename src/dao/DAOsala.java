@@ -1,7 +1,6 @@
 package dao;
 
 import conexion.Conexion;
-import modelo.Reserva;
 import modelo.Sala;
 import otros.PropertiesBBDD;
 import Interfaces.InterfaceSalas;
