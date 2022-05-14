@@ -1,10 +1,7 @@
 package vistas.Ventanas;
 
-import Interfaces.InterfaceCliente;
 import Interfaces.InterfaceMonitor;
-import controladores.ControladorCliente;
 import controladores.ControladorMonitor;
-import vistas.Paneles.VistaClientes;
 import vistas.Paneles.VistaMonitor;
 
 import javax.swing.*;
@@ -17,7 +14,7 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
     public VentanaMonitor(){
         guiMonitor=new VistaMonitor();
         guiMonitor.asignaCommandBotones();
-        guiMonitor.dasactivarCampoTxt();
+        guiMonitor.desactivarCampoTxt();
         guiMonitor.desactivarBotonGuardar();
         guiMonitor.desactivarBotonEliminar();
         guiMonitor.desactivarBotonActualizar();
@@ -53,7 +50,7 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
     public void desactivarBotones(){
         int tipoperfil = VentanaLogin.tipoPerfil;
         if (tipoperfil==0){
-            guiMonitor.dasactivarCampoTxt();
+            guiMonitor.desactivarCampoTxt();
             guiMonitor.getBtnNuevo().setVisible(false);
             guiMonitor.getBtnEliminar().setVisible(false);
             guiMonitor.getBtnGuardar().setVisible(false);

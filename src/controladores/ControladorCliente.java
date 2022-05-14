@@ -6,6 +6,7 @@ import dao.DAOmonitor;
 import modelo.Cliente;
 import modelotablas.ModeloTablaCliente;
 import vistas.Ventanas.VentanaCliente;
+import vistas.Ventanas.VentanaLogin;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -89,10 +90,21 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         String apellido2=ventanaCliente.guiClientes.getTxtApellido2().getText();
         String telefono=ventanaCliente.guiClientes.getTxtTelefono().getText();
         String email=ventanaCliente.guiClientes.getTxtEmail().getText();
-        int expositor=Integer.parseInt(ventanaCliente.guiClientes.getTxtExpositor().getText());
-        dao.modificarCliente(dni,nombre,apellido1,apellido2,telefono,email,expositor);
-        modeloTabla.fireTableDataChanged();
-        ventanaCliente.guiClientes.activarBotonLimpiar();
+
+        String rDNI="[0-9]{8}[A-Z]";
+        String rTexto="^[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+$";
+        String rTelefono="^[6|7|9][0-9]{8}$";
+        String rCorreo="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        String rExpositor="[0|1]";
+        String expositor = (ventanaCliente.guiClientes.getTxtExpositor().getText());
+
+        if ((Pattern.matches(rDNI, dni) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rTexto, apellido1) == true)
+                && (Pattern.matches(rTexto, apellido2) == true) && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true) && (Pattern.matches(rExpositor, expositor) == true)) {
+            int exposi = Integer.parseInt(ventanaCliente.guiClientes.getTxtExpositor().getText());
+            dao.modificarCliente(dni, nombre, apellido1, apellido2, telefono, email, exposi);
+            modeloTabla.fireTableDataChanged();
+            ventanaCliente.guiClientes.activarBotonLimpiar();
+        } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");
     }
 
     @Override
@@ -127,23 +139,36 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-        int row = ventanaCliente.guiClientes.getTablaClientes().rowAtPoint(evt.getPoint());
-        ventanaCliente.guiClientes.getTxtDNI().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 0).toString());
-        ventanaCliente.guiClientes.getTxtNombre().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,1).toString());
-        ventanaCliente.guiClientes.getTxtApellido1().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 2).toString());
-        ventanaCliente.guiClientes.getTxtApellido2().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 3).toString());
-        ventanaCliente.guiClientes.getTxtTelefono().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,4).toString());
-        ventanaCliente.guiClientes.getTxtEmail().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,5).toString());
-        ventanaCliente.guiClientes.getTxtExpositor().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,6).toString());
-        ventanaCliente.guiClientes.desactivarBotonLimpiar();
-        ventanaCliente.guiClientes.activaCamposTxt();
-        ventanaCliente.guiClientes.desactivarTXTNIF();
-        ventanaCliente.guiClientes.activarBotonEliminar();
-        ventanaCliente.guiClientes.activarBotonActualizar();
-        ventanaCliente.guiClientes.desactivarBotonGuardar();
-        modeloTabla.fireTableDataChanged();
-        filaPulsada = row;
-
+        int tipoperfil = VentanaLogin.tipoPerfil;
+        if (tipoperfil==1) {
+            int row = ventanaCliente.guiClientes.getTablaClientes().rowAtPoint(evt.getPoint());
+            ventanaCliente.guiClientes.getTxtDNI().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 0).toString());
+            ventanaCliente.guiClientes.getTxtNombre().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 1).toString());
+            ventanaCliente.guiClientes.getTxtApellido1().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 2).toString());
+            ventanaCliente.guiClientes.getTxtApellido2().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 3).toString());
+            ventanaCliente.guiClientes.getTxtTelefono().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 4).toString());
+            ventanaCliente.guiClientes.getTxtEmail().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 5).toString());
+            ventanaCliente.guiClientes.getTxtExpositor().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 6).toString());
+            ventanaCliente.guiClientes.desactivarBotonLimpiar();
+            ventanaCliente.guiClientes.activaCamposTxt();
+            ventanaCliente.guiClientes.desactivarTXTNIF();
+            ventanaCliente.guiClientes.activarBotonEliminar();
+            ventanaCliente.guiClientes.activarBotonActualizar();
+            ventanaCliente.guiClientes.desactivarBotonGuardar();
+            modeloTabla.fireTableDataChanged();
+            filaPulsada = row;
+        }
+        else {
+            ventanaCliente.guiClientes.desactivarCampoTxt();
+            int row = ventanaCliente.guiClientes.getTablaClientes().rowAtPoint(evt.getPoint());
+            ventanaCliente.guiClientes.getTxtDNI().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 0).toString());
+            ventanaCliente.guiClientes.getTxtNombre().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 1).toString());
+            ventanaCliente.guiClientes.getTxtApellido1().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 2).toString());
+            ventanaCliente.guiClientes.getTxtApellido2().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 3).toString());
+            ventanaCliente.guiClientes.getTxtTelefono().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 4).toString());
+            ventanaCliente.guiClientes.getTxtEmail().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 5).toString());
+            ventanaCliente.guiClientes.getTxtExpositor().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row, 6).toString());
+        }
     }
 
     @Override

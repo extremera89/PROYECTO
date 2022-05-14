@@ -33,7 +33,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Arial" size="20" style="2"/>
+              <font name="Bodoni MT" size="20" style="2"/>
               <text value="Proyecto Museo"/>
               <verticalAlignment value="0"/>
             </properties>

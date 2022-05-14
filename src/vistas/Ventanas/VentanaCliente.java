@@ -22,7 +22,7 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
     public VentanaCliente(){
         guiClientes=new VistaClientes();
         guiClientes.asignaCommandBotones();
-        guiClientes.dasactivarCampoTxt();
+        guiClientes.desactivarCampoTxt();
         guiClientes.desactivarBotonGuardar();
         guiClientes.desactivarBotonEliminar();
         guiClientes.desactivarBotonActualizar();
@@ -57,7 +57,7 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
     public void desactivarBotones(){
         int tipoperfil = VentanaLogin.tipoPerfil;
         if (tipoperfil==0){
-            guiClientes.dasactivarCampoTxt();
+            guiClientes.desactivarCampoTxt();
             guiClientes.getBtnNuevo().setVisible(false);
             guiClientes.getBtnEliminar().setVisible(false);
             guiClientes.getBtnGuardar().setVisible(false);

@@ -109,7 +109,7 @@ public class VistaClientes{
             txtExpositor.setText("");
     }
 
-    public void dasactivarCampoTxt(){
+    public void desactivarCampoTxt(){
         txtDNI.setEnabled(false);
         txtNombre.setEnabled(false);
         txtApellido1.setEnabled(false);
