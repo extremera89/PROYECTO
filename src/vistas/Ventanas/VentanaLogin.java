@@ -24,6 +24,7 @@ public class VentanaLogin extends JFrame  implements InterfaceLogin.InterfaceVis
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Inicio de sesión");
         this.pack();
+        this.setResizable(false);
 
     }
 

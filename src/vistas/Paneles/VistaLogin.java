@@ -22,6 +22,8 @@ public class VistaLogin{
     public JButton btnIniciarSesion;
     public JButton btnLimpiar;
     public JLabel lblImagen;
+    private JLabel lblImagen2;
+    private JLabel lblImagenLogo;
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -80,6 +82,8 @@ public class VistaLogin{
         txtUsuario.setText("");
     }
     public void insertarImagenes() {
+        lblImagenLogo.setIcon(new ImageIcon("src\\imagenes\\logoInstituto.png"));
+        lblImagen2.setIcon(new ImageIcon("src\\imagenes\\fondoAzul.jpg"));
         lblImagen.setIcon(new ImageIcon("src\\imagenes\\ImagenMuseo.png"));
         btnIniciarSesion.setIcon(new ImageIcon("src\\imagenes\\iconoTick.png"));
         btnLimpiar.setIcon(new ImageIcon("src\\imagenes\\inconoLimpiar.png"));

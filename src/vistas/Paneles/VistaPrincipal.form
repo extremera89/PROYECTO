@@ -24,44 +24,7 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children>
-              <grid id="904e1" binding="ptPestania1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <tabbedpane title="Pestaña1"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-              <grid id="c0663" binding="ptPestania2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <tabbedpane title="Untitled"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-              <grid id="7127e" binding="ptPestania3" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <tabbedpane title="Pestaña3"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-              <grid id="2f0c9" binding="ptPestania4" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <tabbedpane title="Pestaña4"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-            </children>
+            <children/>
           </tabbedpane>
         </children>
       </grid>

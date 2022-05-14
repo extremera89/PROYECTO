@@ -21,6 +21,7 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
         guiMonitor.desactivarBotonGuardar();
         guiMonitor.desactivarBotonEliminar();
         guiMonitor.desactivarBotonActualizar();
+        guiMonitor.insertarImagenes();
         this.setContentPane(guiMonitor.getPanelPrincipal());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Clientes");

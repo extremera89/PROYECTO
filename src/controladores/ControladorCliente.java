@@ -33,6 +33,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         ventanaCliente.guiClientes.limpiarCampoTxt();
         ventanaCliente.guiClientes.activaCamposTxt();
         ventanaCliente.guiClientes.activarBotonGuardar();
+        ventanaCliente.guiClientes.activarBotonLimpiar();
     }
 
     @Override
@@ -68,6 +69,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
                 } else JOptionPane.showMessageDialog(null, "No se puede registrar este cliente");
             } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");
         }else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+
     }
 
     @Override
@@ -105,24 +107,19 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("NUEVO")) {
-            System.out.println("p");
             añadirCliente();
         }
         else if (e.getActionCommand().equals("ELIMINAR")){
-            System.out.println("p");
             eliminarCliente();
         }else if (e.getActionCommand().equals("GUARDAR")) {
-            System.out.println("p");
             crearCliente();
         }else if(e.getActionCommand().equals("LIMPIAR")){
-            System.out.println("p");
             ventanaCliente.guiClientes.limpiarCampoTxt();
         }
         else if(e.getActionCommand().equals("ACTUALIZAR")){
             actualizarCliente();
         }
         else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
-            System.out.println("p");
             actualizarTabla();
         }
 

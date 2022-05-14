@@ -135,6 +135,7 @@ public class VistaClientes{
         btnLimpiar.setIcon(new ImageIcon("src\\imagenes\\inconoLimpiar.png"));
         btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
+        btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
     }
 
     public void desactivarBotonEliminar(){

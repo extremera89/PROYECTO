@@ -15,13 +15,6 @@ import java.util.regex.Pattern;
 
 public class principal {
     public static void main(String[] args) {
-
         GuiLogin gl=new GuiLogin();
-        //GuiCliente gc=new GuiCliente();
-        //GuiMonitor gm=new GuiMonitor();
-
-        //GuiPrincipal gp=new GuiPrincipal();
-
-
     }
 }
