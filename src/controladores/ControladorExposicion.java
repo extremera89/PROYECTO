@@ -24,8 +24,6 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
     private VentanaExposicion ventana;
     private ModeloTablasExposicion tabla;
     private int filapul = -1;
-    int contador = 1;
-
 
     public ControladorExposicion(DAOexposicion dao, VentanaExposicion vista){
         this.dao = dao;
@@ -55,6 +53,10 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
     @Override
     public void crearExposicion() throws ParseException {
+
+
+
+    try {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         String nombre = this.ventana.getVista().getTxtNombre().getText();
@@ -70,8 +72,6 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         String descripcion = this.ventana.getVista().getTxtDescripcion().getText();
         String numsala = this.ventana.getVista().getTxtNumsala().getText();
 
-
-    try {
         if (!nombre.equals("") && !tematica.equals("") && !fechainicio.equals("") && !fechafin.equals("") && !descripcion.equals("") && !numsala.equals("")) {
             if (dao.buscarExposicion(nombre) == null) {
                 int numSala = Integer.parseInt(numsala);
@@ -92,6 +92,9 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         }
     }catch(NumberFormatException e){
         JOptionPane.showMessageDialog(null, "No has rellenado el campo numérico con un número");
+    }catch (ParseException e){
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null,"Has introducido la fecha de manera incorrecta");
     }
 
 
@@ -119,6 +122,9 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         }catch (NumberFormatException e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Has introducido un carácter que no es un número");
+        }catch (ParseException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Has introducido la fecha de manera incorrecta");
         }
     }
 
@@ -193,7 +199,10 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         ventana.getVista().activaCamposTxt();
         ventana.getVista().desactivarBotonLimpiar();
         ventana.getVista().desactivarNumExp();
-
+        if(ventana.getVista().getTable1().isColumnSelected(5))
+            ventana.getVista().getTable1().getColumnModel().getColumn(5).setPreferredWidth(1000);
+        else
+            ventana.getVista().getTable1().getColumnModel().getColumn(5).setPreferredWidth(100);
 
 
         filapul = row;

@@ -43,15 +43,15 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         }
 
     }
-
-    public int getNumExp(Exposicion prueba) {
+    @Override
+    public int getNumExp(Exposicion exposicion) {
         int numexp=0;
         try {
             Statement consulta = conexion.createStatement();
-            ResultSet rs = consulta.executeQuery("SELECT NumExp FROM Exposicion WHERE Nombre='" + prueba.getNombre() + "' AND Tematica='" + prueba.getTematica() + "' AND NumSala=" + prueba.getNumsala());
+            ResultSet rs = consulta.executeQuery("SELECT NumExp FROM Exposicion WHERE Nombre='" + exposicion.getNombre() + "' AND Tematica='" + exposicion.getTematica() + "' AND NumSala=" + exposicion.getNumsala());
                 while (rs.next()) {
-                    prueba.setNumExp(rs.getInt("NumExp"));
-                    numexp = prueba.getNumExp();
+                    exposicion.setNumExp(rs.getInt("NumExp"));
+                    numexp = exposicion.getNumExp();
                 }
             rs.close();
             consulta.close();

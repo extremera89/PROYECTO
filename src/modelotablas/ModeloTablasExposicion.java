@@ -23,7 +23,7 @@ public class ModeloTablasExposicion extends AbstractTableModel {
         exposiciones = new ArrayList<>();
         tipoColumnas = new Class[] {String.class, String.class, Date.class, Date.class, String.class, Integer.class};
         this.dao = dao;
-        this.nombreColumnas = new String[] {"Número exposición", "Nombre", "Temática", "Fecha de inicio", "Fecha de fin", "Descripción", "Número de sala"};
+        this.nombreColumnas = new String[] {"Número de exposición", "Nombre", "Temática", "Fecha de inicio", "Fecha de fin", "Descripción", "Número de sala"};
     }
 
 

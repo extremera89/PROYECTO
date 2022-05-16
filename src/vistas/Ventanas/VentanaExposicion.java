@@ -53,6 +53,7 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
         this.vista.getTable1().addMouseListener(controlador);
     }
 
+    @Override
     public void iniciar(){
         controlador.listarExposiciones();
         this.setVisible(true);
