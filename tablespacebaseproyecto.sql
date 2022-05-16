@@ -1,29 +1,6 @@
 CREATE TABLESPACE PROYECTOMUSEO DATAFILE 'F:\base de datos\PROYECTO\proyectomuseo.DBF' SIZE 600M;
+
 CREATE USER administrador IDENTIFIED BY administrador;
-
-
-insert into Sala values (1,0,20);
-insert into Sala values (2,1,20);
-insert into Sala values (3,1,40);
-insert into Sala values (4,0,40);
-insert into Sala values (5,1,20);
-insert into Sala values (6,0,20);
-insert into Sala values (7,1,30);
-insert into Sala values (8,0,40);
-insert into Sala values (9,1,30);
-insert into Sala values (10,1,40);
-insert into Sala values (11,0,20);
-insert into Sala values (12,1,20);
-insert into Sala values (13,1,40);
-insert into Sala values (14,0,40);
-insert into Sala values (15,1,20);
-insert into Sala values (16,0,20);
-insert into Sala values (17,1,30);
-insert into Sala values (18,0,40);
-insert into Sala values (19,1,30);
-insert into Sala values (20,1,40);
-
-select * from exposicion;
 
 GRANT ALL PRIVILEGES TO administrador;
 
@@ -49,7 +26,6 @@ drop table Sala;
 
 drop table Login;
 
-SELECT * from exposicion;
 
 Create Table Sala(
     NumSala int,

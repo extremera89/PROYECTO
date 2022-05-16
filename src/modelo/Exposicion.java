@@ -1,7 +1,6 @@
 package modelo;
 
-
-import java.util.Date;
+import java.sql.Date;
 
 public class Exposicion {
 
@@ -17,8 +16,12 @@ public class Exposicion {
     public Exposicion() {
     }
 
-    public Exposicion(String nombre) {
+    public Exposicion(String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion) {
         this.nombre = nombre;
+        this.tematica = tematica;
+        this.fechainicio = fechainicio;
+        this.fechafin = fechafin;
+        this.descripcion = descripcion;
     }
 
     public Exposicion(String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion, int numsala) {
@@ -86,5 +89,15 @@ public class Exposicion {
         this.sala = sala;
     }*/
 
-
+    @Override
+    public String toString() {
+        return "Exposicion{" +
+                "nombre='" + nombre + '\'' +
+                ", tematica='" + tematica + '\'' +
+                ", fechainicio=" + fechainicio +
+                ", fechafin=" + fechafin +
+                ", descripcion='" + descripcion + '\'' +
+                ", numsala=" + numsala +
+                '}';
+    }
 }
