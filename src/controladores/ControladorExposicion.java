@@ -33,7 +33,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
 
     }
-
+    @Override
     public void anyadirExposicion(){
         ventana.getVista().limpiarCampoTxt();
         ventana.getVista().activaCamposTxt();
@@ -99,7 +99,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
 
     }
-
+    @Override
    public void modificarExposicion() throws ParseException {
 
         try {
@@ -127,7 +127,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
             JOptionPane.showMessageDialog(null,"Has introducido la fecha de manera incorrecta");
         }
     }
-
+    @Override
     public void listarExposiciones(){
         tabla.setExposiciones(dao.listarExposiciones());
     }

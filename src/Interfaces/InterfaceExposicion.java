@@ -14,7 +14,6 @@ public interface InterfaceExposicion {
         public ArrayList<Exposicion> listarExposiciones();
         public Exposicion buscarExposicion(String nombre);
         public void modificarExposicion(Exposicion exposicion);
-
         public int getNumExp(Exposicion exposicion);
 
 
@@ -22,7 +21,6 @@ public interface InterfaceExposicion {
 
     public interface InterfaceVistaExposicion{
         public void setControler(ControladorExposicion controlador);
-
         public void iniciar();
 
 
@@ -34,6 +32,7 @@ public interface InterfaceExposicion {
         public void eliminarExposicion();
         public void anyadirExposicion();
         public void modificarExposicion() throws ParseException;
+        public void listarExposiciones();
 
     }
 

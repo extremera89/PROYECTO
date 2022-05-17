@@ -14,13 +14,6 @@ import javax.swing.*;
 
 public class principal {
     public static void main(String[] args) {
-
-        DAOexposicion dao = new DAOexposicion();
-        VentanaExposicion menu = new VentanaExposicion();
-        ControladorExposicion controlador = new ControladorExposicion(dao, menu);
-        menu.setControler(controlador);
-        menu.iniciar();
-
-
+        new GuiVisita();
     }
 }
