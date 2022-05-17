@@ -40,6 +40,14 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
     @Override
     public void iniciar() {
         //controlador.listarExposiciones();
-        this.setVisible(true);
+        //this.setVisible(true);
+    }
+
+    public VistaVisita getVista() {
+        return vista;
+    }
+
+    public void setVista(VistaVisita vista) {
+        this.vista = vista;
     }
 }

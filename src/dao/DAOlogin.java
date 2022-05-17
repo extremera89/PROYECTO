@@ -181,10 +181,4 @@ public class DAOlogin implements InterfaceLogin.InterfaceLoginDao {
         }
     }
 
-    public static void main(String[] args) {
-        DAOlogin das = new DAOlogin();
-        Login log=new Login("admin","admin",1);
-        System.out.println(das.obtenerTipoUsuario(log));
-    }
-
 }

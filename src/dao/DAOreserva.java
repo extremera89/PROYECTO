@@ -172,22 +172,5 @@ public class DAOreserva implements InterfaceReserva {
     }
 
 
-    public static void main(String[] args) {
 
-        DAOreserva reservin = new DAOreserva();
-
-        Date inicio = new Date(2010,3,21);
-        Date fin = new Date(2010,5,10);
-
-        Reserva reserv = new Reserva("POPOL","04276694M",5,inicio,fin,1,"Reserva para exponer arte");
-
-        //reservin.insertarReserva(reserv);
-        //reservin.actualizarReserva("POPOL","94465347T",15,inicio,fin,0,"Reserva para AAAAAAAAA");
-        //reservin.eliminarReserva("POPOL");
-
-        System.out.println(reservin.buscarReserva("sdffd"));
-
-
-
-    }
 }

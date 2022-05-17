@@ -11,13 +11,14 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
     private VistaExposicion vista;
 
 
-    public VentanaExposicion(){
+    public VentanaExposicion() {
         vista = new VistaExposicion();
         this.vista.asignaCommandBotones();
         this.vista.desactivaCamposTexto();
         this.vista.desactivarBotonEliminar();
         this.vista.desactivarBotonGuardar();
         this.vista.desactivarBotonActualizar();
+        this.vista.insertarImagenes();
         this.setContentPane(vista.getPanelPrincipal());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Exposiciones.");
@@ -54,17 +55,9 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
     }
 
     @Override
-    public void iniciar(){
+    public void iniciar() {
         controlador.listarExposiciones();
-        this.setVisible(true);
-    }
-
-
-
-    public static void main(String[] args) {
-
-
-
+        //this.setVisible(true);
     }
 
 }

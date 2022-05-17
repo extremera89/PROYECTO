@@ -146,19 +146,5 @@ public class DAOsala implements InterfaceSalas.InterfaceDAOSala{
         return null;
     }
 
-    public static void main(String[] args) {
-
-            DAOsala salin = new DAOsala();
-
-
-
-            Sala sal = new Sala(10,1,30);
-
-            //salin.actualizarSala(10,0,100);
-
-        System.out.println(salin.listarSala());
-
-    }
-
 
 }

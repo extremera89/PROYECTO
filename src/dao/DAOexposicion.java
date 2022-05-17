@@ -197,15 +197,12 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         }
     }
 
+    public static void main(String[] args) {
 
-
-
-
-    public static void main(String[] args) throws ParseException {
-
-        //dao.modificarExposicion(new Exposicion("Prueba2", "Prueba2", fechainicio, fechafin, "prueba2222", 6));
-        //dao.eliminarExposicion(new Exposicion("Prueba"));
     }
+
+
+
 
 
 

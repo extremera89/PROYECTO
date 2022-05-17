@@ -220,9 +220,4 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
         }
     }
 
-    public static void main(String[] args) {
-        DAOcliente dao=new DAOcliente();
-        dao.modificarCliente("70611743H","Francisco","Mesa","Mesa","600000000","",0);
-    }
-
 }
