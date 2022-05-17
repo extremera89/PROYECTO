@@ -8,18 +8,24 @@ public class VisitaGuiada {
     private Date fecha;
     private String centro;
     private String dnimonitor;
-    //private Monitor monitor;
+    private String dnicliente;
 
 
     public VisitaGuiada() {
     }
 
-    public VisitaGuiada(int numvisita, int numpersonas, Date fecha, String centro, String dnimonitor) {
-        this.numvisita = numvisita;
+    public VisitaGuiada( int numpersonas, Date fecha, String centro, String dnimonitor, String dnicliente) {
         this.numpersonas = numpersonas;
         this.fecha = fecha;
         this.centro = centro;
         this.dnimonitor = dnimonitor;
+        this.dnicliente = dnicliente;
+    }
+
+    public VisitaGuiada(int numpersonas, Date fecha, String centro) {
+        this.numpersonas = numpersonas;
+        this.fecha = fecha;
+        this.centro = centro;
     }
 
     public int getNumvisita() {
@@ -36,6 +42,14 @@ public class VisitaGuiada {
 
     public void setNumpersonas(int numpersonas) {
         this.numpersonas = numpersonas;
+    }
+
+    public String getDnicliente() {
+        return dnicliente;
+    }
+
+    public void setDnicliente(String dnicliente) {
+        this.dnicliente = dnicliente;
     }
 
     public Date getFecha() {
@@ -62,13 +76,7 @@ public class VisitaGuiada {
         this.dnimonitor = dnimonitor;
     }
 
-    /*public Monitor getMonitor() {
-        return monitor;
-    }
 
-    public void setMonitor(Monitor monitor) {
-        this.monitor = monitor;
-    }*/
 
     @Override
     public String toString() {
