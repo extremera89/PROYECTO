@@ -10,9 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static otros.AlphaNumericStringGenerator.getRandomString;
 
 public class ControladorReserva implements InterfaceReserva.InterfaceControladorReserva, ActionListener, MouseListener {
 
@@ -21,9 +24,9 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
     private ModeloTablaReserva modeloTabla;
     private int filaPulsada=-1;
 
-    public ControladorReserva(DAOreserva dao, VentanaReserva guiCliente){
+    public ControladorReserva(DAOreserva dao, VentanaReserva guiReserva){
         this.dao=dao;
-        this.ventanaReserva =guiCliente;
+        this.ventanaReserva =guiReserva;
         modeloTabla=new ModeloTablaReserva(dao);
         ventanaReserva.guiReservas.getTableReserva().setModel(modeloTabla);
     }
@@ -35,6 +38,7 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         ventanaReserva.guiReservas.desactivarBotonEliminar();
         ventanaReserva.guiReservas.activarBotonLimpiar();
         ventanaReserva.guiReservas.desactivarBotonActualizar();
+        ventanaReserva.guiReservas.desactivarTXTCodigoReserva();
     }
 
     @Override
@@ -42,8 +46,8 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
 
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-
-            String CodigoReserva = (ventanaReserva.guiReservas.getTxtCodigoReserva().getText());
+            String CodigoReserva = getRandomString(5);
+            //String CodigoReserva = (ventanaReserva.guiReservas.getTxtCodigoReserva().getText());
             String DNI = (ventanaReserva.guiReservas.getTxtDNI().getText());
             int NumSala = Integer.parseInt(ventanaReserva.guiReservas.getTxtNumeroSala().getText());
 
@@ -58,22 +62,29 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
 
             String NumSalaStr = ventanaReserva.guiReservas.getTxtNumeroSala().getText();
             String ConfirmadoStr = ventanaReserva.guiReservas.getTxtConfirmado().getText();
-
-            if (!CodigoReserva.equals("")&&!DNI.equals("")&&!NumSalaStr.equals("")&&!FechaReserva.equals("")&&!FechaFin.equals("")&&!MotivoReserva.equals("")&&!ConfirmadoStr.equals("")){
+            //20839184B
+            if (!DNI.equals("")&&!NumSalaStr.equals("")&&!FechaReserva.equals("")&&!FechaFin.equals("")&&!MotivoReserva.equals("")&&!ConfirmadoStr.equals("")){
                 if (dao.buscarReserva(CodigoReserva)==null){
-                    modeloTabla.crearReserva(CodigoReserva,DNI,NumSala,fechainicio,fechafin,Confirmado,MotivoReserva);
-                    dao.insertarReserva(new Reserva(CodigoReserva,DNI,NumSala,fechainicio,fechafin,Confirmado,MotivoReserva));
+                    Reserva nuevaReserva = new Reserva(CodigoReserva,DNI,NumSala,fechainicio,fechafin,Confirmado,MotivoReserva);
+                    dao.insertarReserva(nuevaReserva);
+                    if (dao.buscarReserva(nuevaReserva.getCodigoReserva())!=null) {
+                        modeloTabla.crearReserva(CodigoReserva,DNI,NumSala,fechainicio,fechafin,Confirmado,MotivoReserva);
+                    }
                     ventanaReserva.guiReservas.desactivarBotonGuardar();
                     ventanaReserva.guiReservas.limpiarCampoTxt();
                     ventanaReserva.guiReservas.activaCamposTxt();
                     ventanaReserva.guiReservas.desactivarBotonActualizar();
+                    ventanaReserva.guiReservas.dasactivarCampoTxt();
+
                 }
-                else JOptionPane.showMessageDialog(null, "Ya existe una Reserva con ese numero");
+                else JOptionPane.showMessageDialog(null, "Ya existe una Reserva con ese codigo");
             }
             else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
-
-        }catch (Exception e){
-            System.out.println("Error en crear Reserva del controlador");
+        }catch (ParseException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Fecha mal introducida");
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Algun campo numerico no fue rellenado con un numero");
         }
     }
 
@@ -89,6 +100,9 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
 
     @Override
     public void actualizarReserva() throws ParseException {
+
+      try {
+
         String codigoReserva = ventanaReserva.guiReservas.getTxtCodigoReserva().getText();
         String DNI = ventanaReserva.guiReservas.getTxtDNI().getText();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -102,9 +116,21 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
 
 
         Reserva reserva = new Reserva(codigoReserva,DNI,NumSala,fechareserva,fechafin,Confirmado,Motivo);
+
         dao.modificarReserva(reserva);
 
+        if (!dao.error){
         modeloTabla.actualizarReserva(filaPulsada, reserva);
+        }
+        this.dao.error = false;
+
+      }catch (NumberFormatException e){
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null,"Has introducido un carácter que no es un número");
+    }catch (ParseException e){
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null,"Has introducido la fecha de manera incorrecta");
+    }
     }
 
     @Override

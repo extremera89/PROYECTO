@@ -3,6 +3,7 @@ package dao;
 import Interfaces.InterfaceReserva;
 import conexion.Conexion;
 import modelo.Reserva;
+import otros.AlphaNumericStringGenerator;
 import otros.PropertiesBBDD;
 
 import javax.swing.*;
@@ -11,9 +12,12 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static otros.AlphaNumericStringGenerator.getRandomString;
+
 public class DAOreserva implements InterfaceReserva {
     private static Connection conexion;
     private PropertiesBBDD propiedadesBBDD;
+    public boolean error;
 
     public DAOreserva(){
         try {
@@ -31,6 +35,8 @@ public class DAOreserva implements InterfaceReserva {
     }
 
     public void insertarReserva(Reserva reserva) {
+
+
 
         String insert = "INSERT INTO "+propiedadesBBDD.getTblReserva()+" (CodigoReserva,DNI, NumSala, FechaReserva,FechaFin,Confirmado,MotivoReserva) " + "VALUES (?,?,?,?,?,?,?)";
         PreparedStatement ps = null;
@@ -87,10 +93,10 @@ public class DAOreserva implements InterfaceReserva {
 
 
     public Reserva buscarReserva(String CodigoReserva){
-        Reserva reser= new Reserva();
+        Reserva reser= null;
         try {
             Statement st = conexion.createStatement();
-            ResultSet rs = st.executeQuery("Select * from "+propiedadesBBDD.getTblReserva()+" where CodigoReserva like '"+CodigoReserva+"'");
+            ResultSet rs = st.executeQuery("Select * from "+propiedadesBBDD.getTblReserva()+" where CodigoReserva = '"+CodigoReserva+"'");
 
             while (rs.next()){
                 reser = new Reserva();
@@ -102,10 +108,7 @@ public class DAOreserva implements InterfaceReserva {
                 reser.setMotivoReserva(rs.getString("MotivoReserva"));
 
             }
-            if (reser.getCodigoReserva()==null){
-                //JOptionPane.showMessageDialog(null,"No se ha encotrado la reserva");
-                return null;
-            }
+            rs.close();
             return  reser;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"No se ha encontrado esa reserva");
@@ -113,7 +116,7 @@ public class DAOreserva implements InterfaceReserva {
         return null;
     }
 
-
+//20839184B
     public void modificarReserva(Reserva reserva) {
         PreparedStatement ps = null;
         String sql = "UPDATE "+ propiedadesBBDD.getTblReserva()+ " SET CodigoReserva=?, DNI=?, NumSala=?, FechaReserva=?, FechaFin=?, Confirmado=?,MotivoReserva=? WHERE CodigoReserva=?";
@@ -136,7 +139,7 @@ public class DAOreserva implements InterfaceReserva {
         }catch(SQLException e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al modificar la reserva");
-
+            this.error=true;
         }
     }
 
