@@ -23,6 +23,7 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Salas");
         this.pack();
+        this.desactivarBotones();
     }
 
 
@@ -43,5 +44,18 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
         controller.listarSala();
         //this.setVisible(true);
 
+    }
+
+    public void desactivarBotones(){
+        int tipoperfil = VentanaLogin.tipoPerfil;
+        if (tipoperfil==0){
+            guiSalas.dasactivarCampoTxt();
+            guiSalas.getBtnNuevo().setVisible(false);
+            guiSalas.getBtnEliminar().setVisible(false);
+            guiSalas.getBtnGuardar().setVisible(false);
+            guiSalas.getBtnLimpiar().setVisible(false);
+            guiSalas.getBtnActulizarDatos().setVisible(false);
+            guiSalas.getBtnActualizarTabla().setVisible(false);
+        }
     }
 }

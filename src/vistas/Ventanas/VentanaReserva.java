@@ -25,6 +25,7 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Reservas");
         this.pack();
+        this.desactivarBotones();
     }
 
 
@@ -46,5 +47,18 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
     public void iniciar() {
         controller.listarReserva();
         //this.setVisible(true);
+    }
+
+    public void desactivarBotones(){
+        int tipoperfil = VentanaLogin.tipoPerfil;
+        if (tipoperfil==0){
+            guiReservas.dasactivarCampoTxt();
+            guiReservas.getBtnNuevo().setVisible(false);
+            guiReservas.getBtnEliminar().setVisible(false);
+            guiReservas.getBtnGuardar().setVisible(false);
+            guiReservas.getBtnLimpiar().setVisible(false);
+            guiReservas.getBtnActulizarDatos().setVisible(false);
+            guiReservas.getBtnActualizarTabla().setVisible(false);
+        }
     }
 }
