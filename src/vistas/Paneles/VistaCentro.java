@@ -2,60 +2,30 @@ package vistas.Paneles;
 
 import javax.swing.*;
 
-public class VistaMonitor extends JFrame{
+public class VistaCentro {
     private JPanel PanelPrincipal;
     private JPanel PanelSuperior;
     private JLabel lblTitulo;
     private JPanel PanelIzquierdo;
-    private JTable tablaMonitores;
+    private JTable tablaCentros;
     private JButton btnActualizarTabla;
     private JButton btnEliminar;
     private JPanel PanelDerecho;
-    private JLabel lblDNI;
-    private JTextField txtDNI;
+    private JLabel lblCodCentro;
+    private JTextField txtCodCentro;
     private JLabel lblNombre;
     private JTextField txtNombre;
-    private JLabel lblApellido1;
-    private JTextField txtApellido1;
-    private JLabel lblApellido2;
-    private JTextField txtApellido2;
-    private JLabel lblTelefono;
-    private JTextField txtTelefono;
-    private JLabel lblEmail;
-    private JTextField txtEmail;
-    private JLabel lblTitulacion;
+    private JLabel lblNumVisita;
+    private JTextField txtNumVisita;
     private JButton btnNuevo;
     private JButton btnGuardar;
     private JButton btnLimpiar;
     private JButton btnActulizarDatos;
+    private JTextField txtDNICliente;
+    private JTextField txtDNIMonitor;
+    private JLabel lblDNICLiente;
+    private JLabel lblDNIMonitor;
 
-    public JComboBox getCmbox() {
-        return cmbox;
-    }
-
-    public void setCmbox(JComboBox cmbox) {
-        this.cmbox = cmbox;
-    }
-
-    public JTextField getTxtTitulacion() {
-        return txtTitulacion;
-    }
-
-    public void setTxtTitulacion(JTextField txtTitulacion) {
-        this.txtTitulacion = txtTitulacion;
-    }
-
-    private JComboBox cmbox;
-    private JTextField txtTitulacion;
-
-
-    public JPanel getPanelPrincipal() {
-        return PanelPrincipal;
-    }
-
-    public JTable getTablaMonitores() {
-        return tablaMonitores;
-    }
 
     public JButton getBtnActualizarTabla() {
         return btnActualizarTabla;
@@ -65,30 +35,17 @@ public class VistaMonitor extends JFrame{
         return btnEliminar;
     }
 
-    public JTextField getTxtDNI() {
-        return txtDNI;
+    public JTextField getTxtCodCentro() {
+        return txtCodCentro;
     }
 
     public JTextField getTxtNombre() {
         return txtNombre;
     }
 
-    public JTextField getTxtApellido1() {
-        return txtApellido1;
+    public JTextField getTxtNumVisita() {
+        return txtNumVisita;
     }
-
-    public JTextField getTxtApellido2() {
-        return txtApellido2;
-    }
-
-    public JTextField getTxtTelefono() {
-        return txtTelefono;
-    }
-
-    public JTextField getTxtEmail() {
-        return txtEmail;
-    }
-
 
     public JButton getBtnNuevo() {
         return btnNuevo;
@@ -106,6 +63,22 @@ public class VistaMonitor extends JFrame{
         return btnActulizarDatos;
     }
 
+    public JTextField getTxtDNICliente() {
+        return txtDNICliente;
+    }
+
+    public JTextField getTxtDNIMonitor() {
+        return txtDNIMonitor;
+    }
+
+    public JTable getTablaCentros() {
+        return tablaCentros;
+    }
+
+    public JPanel getPanelPrincipal() {
+        return PanelPrincipal;
+    }
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
@@ -116,31 +89,27 @@ public class VistaMonitor extends JFrame{
     }
 
     public void limpiarCampoTxt(){
-        txtDNI.setText("");
+        txtCodCentro.setText("");
         txtNombre.setText("");
-        txtApellido1.setText("");
-        txtApellido2.setText("");
-        txtTelefono.setText("");
-        txtEmail.setText("");
-        txtTitulacion.setText("");
+        txtNumVisita.setText("");
+        txtDNICliente.setText("");
+        txtDNIMonitor.setText("");
     }
 
     public void dasactivarCampoTxt(){
-        txtDNI.setEnabled(false);
+        txtCodCentro.setEnabled(false);
         txtNombre.setEnabled(false);
-        txtApellido1.setEnabled(false);
-        txtApellido2.setEnabled(false);
-        txtTelefono.setEnabled(false);
-        txtEmail.setEnabled(false);
+        txtNumVisita.setEnabled(false);
+        txtDNICliente.setEnabled(false);
+        txtDNIMonitor.setEnabled(false);
     }
 
     public void activaCamposTxt(){
-        txtDNI.setEnabled(true);
+        txtCodCentro.setEnabled(true);
         txtNombre.setEnabled(true);
-        txtApellido1.setEnabled(true);
-        txtApellido2.setEnabled(true);
-        txtTelefono.setEnabled(true);
-        txtEmail.setEnabled(true);
+        txtNumVisita.setEnabled(true);
+        txtDNICliente.setEnabled(true);
+        txtDNIMonitor.setEnabled(true);
     }
 
     public void insertarImagenes() {
@@ -150,16 +119,6 @@ public class VistaMonitor extends JFrame{
         btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
         btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
-    }
-
-    public void cargarCombobox(){
-        cmbox.addItem("Primaria");
-        cmbox.addItem("(ESO) Educación secudaria obligatoria");
-        cmbox.addItem("Bachillerato");
-        cmbox.addItem("Formación profesional");
-        cmbox.addItem("Grado");
-        cmbox.addItem("Master");
-        cmbox.addItem("Doctorado");
     }
 
     public void desactivarBotonEliminar(){
@@ -184,6 +143,6 @@ public class VistaMonitor extends JFrame{
     public void desactivarBotonLimpiar(){btnLimpiar.setEnabled(false);}
     public void activarBotonLimpiar(){btnLimpiar.setEnabled(true);}
 
-    public void desactivarTXTNIF(){txtDNI.setEnabled(false);}
-    public void activarTXTNIF(){txtDNI.setEnabled(true);}
+    public void desactivarbtnCodCentro(){txtCodCentro.setEnabled(false);}
+    public void activarbtnCodCentro(){txtCodCentro.setEnabled(true);}
 }

@@ -45,7 +45,7 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         String apellido2=ventanaMonitor.guiMonitor.getTxtApellido2().getText();;
         String telefono=ventanaMonitor.guiMonitor.getTxtTelefono().getText();
         String email=ventanaMonitor.guiMonitor.getTxtEmail().getText();
-        String titulacion=ventanaMonitor.guiMonitor.getTxtTitulacion().getText();
+        String titulacion= (String) ventanaMonitor.guiMonitor.getCmbox().getSelectedItem();
 
         //COMPROBACION CON EXPRESIONES REGULARES
         String rDNI="[0-9]{8}[A-Z]";
@@ -88,7 +88,7 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         String apellido2=ventanaMonitor.guiMonitor.getTxtApellido2().getText();
         String telefono=ventanaMonitor.guiMonitor.getTxtTelefono().getText();
         String email=ventanaMonitor.guiMonitor.getTxtEmail().getText();
-        String titulacion=ventanaMonitor.guiMonitor.getTxtTitulacion().getText();
+        String titulacion=(String) ventanaMonitor.guiMonitor.getCmbox().getSelectedItem();
         dao.modificarMonitor(dni,nombre,apellido1,apellido2,telefono,email,titulacion);
         modeloTabla.fireTableDataChanged();
         ventanaMonitor.guiMonitor.activarBotonLimpiar();

@@ -197,13 +197,5 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         }
     }
 
-    public static void main(String[] args) {
-
-    }
-
-
-
-
-
 
 }

@@ -14,9 +14,6 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
     private ControladorCliente controller;
     public VistaClientes guiClientes;
 
-    DAOlogin daOlogin=new DAOlogin();
-    VentanaLogin ventanaLogin=new VentanaLogin();
-    ControladorLogin controladorLogin=new ControladorLogin(daOlogin,ventanaLogin);
 
 
     public VentanaCliente(){

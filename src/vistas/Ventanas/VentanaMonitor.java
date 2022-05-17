@@ -21,7 +21,9 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
         guiMonitor.desactivarBotonGuardar();
         guiMonitor.desactivarBotonEliminar();
         guiMonitor.desactivarBotonActualizar();
+        guiMonitor.cargarCombobox();
         guiMonitor.insertarImagenes();
+        guiMonitor.getTxtTitulacion().setEnabled(false);
         this.setContentPane(guiMonitor.getPanelPrincipal());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Clientes");
@@ -60,6 +62,7 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
             guiMonitor.getBtnLimpiar().setVisible(false);
             guiMonitor.getBtnActulizarDatos().setVisible(false);
             guiMonitor.getBtnActualizarTabla().setVisible(false);
+            guiMonitor.getCmbox().setVisible(false);
         }
     }
 }
