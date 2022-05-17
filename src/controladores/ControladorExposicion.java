@@ -141,6 +141,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         dao.eliminarExposicion(prueba);
         tabla.eliminarExposicion(filapul);
         ventana.getVista().desactivarBotonEliminar();
+        ventana.getVista().limpiarCampoTxt();
         ventana.getVista().activaCamposTxt();
         filapul = -1;
 

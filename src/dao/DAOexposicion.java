@@ -73,7 +73,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             ps = conexion.prepareStatement(sql);
 
             ps.setString(1, exposicion.getNombre());
-            ps.setString(2, exposicion.getDescripcion());
+            ps.setString(2, exposicion.getTematica());
             ps.setDate(3, new java.sql.Date(exposicion.getFechainicio().getTime()));
             ps.setDate(4, new java.sql.Date(exposicion.getFechafin().getTime()));
             ps.setString(5, exposicion.getDescripcion());
