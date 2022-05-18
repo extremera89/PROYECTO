@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVistaCentro {
 
-    private ControladorCliente controller;
+    private ControladorCentro controller;
     public VistaCentro guiCentro;
 
     public VentanaCentro(){
@@ -24,13 +24,17 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Centros");
         this.pack();
+        guiCentro.getTxtDNICliente().setVisible(false);
+        guiCentro.getTxtDNIMonitor().setVisible(false);
     }
 
 
     @Override
     public void setController(ControladorCentro controller) {
-        /*
+
         this.controller=controller;
+        controller.cargarDNIClientes();
+        controller.cargarDNIMonitores();
         guiCentro.getBtnEliminar().addActionListener(controller);
         guiCentro.getBtnGuardar().addActionListener(controller);
         guiCentro.getBtnLimpiar().addActionListener(controller);
@@ -39,12 +43,11 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         guiCentro.getTablaCentros().addMouseListener(controller);
         guiCentro.getBtnActulizarDatos().addActionListener(controller);
 
-         */
     }
 
     @Override
     public void iniciar() {
-        //controller.listarMonitores();
+        controller.listarCentros();
         //this.setVisible(true);
     }
 

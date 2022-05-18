@@ -14,6 +14,7 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
     private ControladorMonitor controller;
     public VistaMonitor guiMonitor;
 
+
     public VentanaMonitor(){
         guiMonitor=new VistaMonitor();
         guiMonitor.asignaCommandBotones();

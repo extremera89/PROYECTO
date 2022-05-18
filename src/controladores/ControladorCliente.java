@@ -100,6 +100,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         modeloTabla.setClientes(dao.listarClientes());
     }
 
+
     public void actualizarTabla(){
         modeloTabla.fireTableDataChanged();
     }

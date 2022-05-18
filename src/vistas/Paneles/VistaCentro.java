@@ -1,5 +1,9 @@
 package vistas.Paneles;
 
+import controladores.ControladorCentro;
+import dao.DAOcentro;
+import modelo.Centro;
+
 import javax.swing.*;
 
 public class VistaCentro {
@@ -25,6 +29,8 @@ public class VistaCentro {
     private JTextField txtDNIMonitor;
     private JLabel lblDNICLiente;
     private JLabel lblDNIMonitor;
+    private JComboBox comBoxMonitor;
+    private JComboBox cmboxCliente;
 
 
     public JButton getBtnActualizarTabla() {
@@ -79,6 +85,23 @@ public class VistaCentro {
         return PanelPrincipal;
     }
 
+    public JComboBox getComBoxMonitor() {
+        return comBoxMonitor;
+    }
+
+    public void setComBoxMonitor(JComboBox comBoxMonitor) {
+        this.comBoxMonitor = comBoxMonitor;
+    }
+
+    public JComboBox getCmboxCliente() {
+        return cmboxCliente;
+    }
+
+    public void setCmboxCliente(JComboBox cmboxCliente) {
+        this.cmboxCliente = cmboxCliente;
+    }
+
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
@@ -108,8 +131,7 @@ public class VistaCentro {
         txtCodCentro.setEnabled(true);
         txtNombre.setEnabled(true);
         txtNumVisita.setEnabled(true);
-        txtDNICliente.setEnabled(true);
-        txtDNIMonitor.setEnabled(true);
+
     }
 
     public void insertarImagenes() {
@@ -120,6 +142,7 @@ public class VistaCentro {
         btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
         btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
     }
+
 
     public void desactivarBotonEliminar(){
         btnEliminar.setEnabled(false);

@@ -94,6 +94,19 @@ public class ModeloTablaMonitor extends AbstractTableModel {
 
     }
 
+    public int saberTitulacion(int fila, int columna){
+        int numCmbox=0;
+        ArrayList<Monitor> dniMonitor=dao.listarMonitores();
+        for(int i=0;i<dniMonitor.size();i++){
+            Monitor monitor= dniMonitor.get(i);
+            if (listaMonitores.get(fila).getTitulacion().equals(monitor.getTitulacion())){
+                return numCmbox;
+            }
+            numCmbox++;
+        }
+        return numCmbox;
+    }
+
     @Override
     public String getColumnName(int column) {
         return nombreColumnas[column];

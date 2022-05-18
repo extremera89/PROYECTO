@@ -1,8 +1,10 @@
 package modelotablas;
 
 import dao.DAOcentro;
+import dao.DAOcliente;
 import dao.DAOmonitor;
 import modelo.Centro;
+import modelo.Cliente;
 import modelo.Monitor;
 
 import javax.swing.table.AbstractTableModel;
@@ -78,6 +80,35 @@ public class ModeloTablaCentro extends AbstractTableModel {
         this.fireTableRowsUpdated(fila, columna);
 
     }
+
+    public int saberCmboxCliente(int fila, int columna){
+        int numCmbox=0;
+        DAOcliente daOcliente=new DAOcliente();
+        ArrayList<Cliente> dniCliente=daOcliente.listarClientes();
+        for(int i=0;i<dniCliente.size();i++){
+            Cliente cliente= dniCliente.get(i);
+            if (listaCentros.get(fila).getDniCliente().equals(cliente.getDNI())){
+                return numCmbox;
+            }
+            numCmbox++;
+        }
+        return numCmbox;
+    }
+
+    public int saberCmboxMonitor(int fila, int columna){
+        int numCmbox=0;
+        DAOmonitor daoMonitor=new DAOmonitor();
+        ArrayList<Monitor> dniMonitor=daoMonitor.listarMonitores();
+        for(int i=0;i<dniMonitor.size();i++){
+            Monitor monitor= dniMonitor.get(i);
+            if (listaCentros.get(fila).getDniMonitor().equals(monitor.getDNI())){
+                return numCmbox;
+            }
+            numCmbox++;
+        }
+        return numCmbox;
+    }
+
 
     @Override
     public int getRowCount() {

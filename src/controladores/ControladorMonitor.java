@@ -132,6 +132,7 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         ventanaMonitor.guiMonitor.getTxtTelefono().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,4).toString());
         ventanaMonitor.guiMonitor.getTxtEmail().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,5).toString());
         ventanaMonitor.guiMonitor.getTxtTitulacion().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,6).toString());
+        ventanaMonitor.guiMonitor.getCmbox().setSelectedIndex(modeloTabla.saberTitulacion(row,6));
         ventanaMonitor.guiMonitor.desactivarBotonLimpiar();
         ventanaMonitor.guiMonitor.activaCamposTxt();
         ventanaMonitor.guiMonitor.desactivarTXTNIF();

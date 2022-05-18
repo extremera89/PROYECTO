@@ -14,12 +14,15 @@ public class GuiPrincipal {
     GuiExposicion guiExposicion=new GuiExposicion();
     GuiVisita guiVisita=new GuiVisita();
 
+    GuiCentro guiCentro=new GuiCentro();
+
     public GuiPrincipal() {
         ventanaPrincipal=new VentanaPrincipal();
         ventanaPrincipal.añadirPestaña(guiExposicion.menu.getVista().getPanelPrincipal(), "Exposición");
         ventanaPrincipal.añadirPestaña(guiVisita.menu.getVista().getPanelPrincipal(),"Visita");
         ventanaPrincipal.añadirPestaña(guiReserva.ventanaReserva.guiReservas.getPanelPrincipal(),"Reservas");
         ventanaPrincipal.añadirPestaña(guiSalas.ventanaSalas.guiSalas.getPanelPrincipal(),"Salas");
+        ventanaPrincipal.añadirPestaña(guiCentro.ventanaCentro.guiCentro.getPanelPrincipal(),"Centros");
         ventanaPrincipal.añadirPestaña(guiCliente.ventanaCliente.guiClientes.getPanelPrincipal(),"Clientes");
         ventanaPrincipal.añadirPestaña(guiMonitor.ventanaMonitor.guiMonitor.getPanelPrincipal(),"Monitores");
 
