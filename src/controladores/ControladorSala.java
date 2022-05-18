@@ -44,15 +44,18 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         int numSala= Integer.parseInt(ventanaSala.guiSalas.getTxtNumSala().getText());
         int dadaAlta= Integer.parseInt(ventanaSala.guiSalas.getTxtDadaAlta().getText());
         int tamanio= Integer.parseInt(ventanaSala.guiSalas.getTxtTamanio().getText());
+        int aforo= Integer.parseInt(ventanaSala.guiSalas.getTxtAforo().getText());
+        int numPlanta= Integer.parseInt(ventanaSala.guiSalas.getTxtNumPlanta().getText());
         String numSalaStr= (ventanaSala.guiSalas.getTxtNumSala().getText());
         String dadaAltaStr=(ventanaSala.guiSalas.getTxtDadaAlta().getText());
         String tamanioStr= (ventanaSala.guiSalas.getTxtTamanio().getText());
+        String aforoStr=(ventanaSala.guiSalas.getTxtAforo().getText());
+        String numPlantatr= (ventanaSala.guiSalas.getTxtNumPlanta().getText());
 
-
-        if (!numSalaStr.equals("")&&!dadaAltaStr.equals("")&&!tamanioStr.equals("")){
+        if (!numSalaStr.equals("")&&!dadaAltaStr.equals("")&&!tamanioStr.equals("")&&!aforoStr.equals("")&&!numPlantatr.equals("")){
             if (dao.buscarSala(numSala)==null){
-                modeloTabla.crearSalas(numSala,dadaAlta,tamanio);
-                dao.insertarSala(new Sala(numSala,dadaAlta,tamanio));
+                modeloTabla.crearSalas(numSala,dadaAlta,tamanio,aforo,numPlanta);
+                dao.insertarSala(new Sala(numSala,dadaAlta,tamanio,aforo,numPlanta));
                 ventanaSala.guiSalas.desactivarBotonGuardar();
                 ventanaSala.guiSalas.limpiarCampoTxt();
                 ventanaSala.guiSalas.activaCamposTxt();
@@ -82,8 +85,10 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         int numSala = Integer.parseInt(ventanaSala.guiSalas.getTxtNumSala().getText());
         int dadaAlta = Integer.parseInt(ventanaSala.guiSalas.getTxtDadaAlta().getText());
         int tamanio = Integer.parseInt(ventanaSala.guiSalas.getTxtTamanio().getText());
+        int aforo= Integer.parseInt(ventanaSala.guiSalas.getTxtAforo().getText());
+        int numPlanta= Integer.parseInt(ventanaSala.guiSalas.getTxtNumPlanta().getText());
 
-        Sala sala = new Sala(numSala,dadaAlta,tamanio);
+        Sala sala = new Sala(numSala,dadaAlta,tamanio,aforo,numPlanta);
         dao.modificarSala(sala);
         modeloTabla.actualizarSala(filaPulsada, sala);
     }
@@ -114,9 +119,11 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
     @Override
     public void mouseClicked(MouseEvent e) {
         int row = ventanaSala.guiSalas.getTblSalas().rowAtPoint(e.getPoint());
-        ventanaSala.guiSalas.getTxtNumSala().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,0).toString());//Numsala
-        ventanaSala.guiSalas.getTxtDadaAlta().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,1).toString());//DadaAlta
-        ventanaSala.guiSalas.getTxtTamanio().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,2).toString());//Tamanio
+        ventanaSala.guiSalas.getTxtNumSala().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,0).toString());
+        ventanaSala.guiSalas.getTxtDadaAlta().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,1).toString());
+        ventanaSala.guiSalas.getTxtTamanio().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,2).toString());
+        ventanaSala.guiSalas.getTxtAforo().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,3).toString());
+        ventanaSala.guiSalas.getTxtNumPlanta().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,4).toString());
 
         ventanaSala.guiSalas.activarBotonActualizar();
         ventanaSala.guiSalas.activaCamposTxt();

@@ -25,6 +25,10 @@ public class VistaSalas {
     private JButton btnActualizarTabla;
     private JButton btnEliminar;
     private JLabel lblTitulo;
+    private JTextField txtAforo;
+    private JTextField txtNumPlanta;
+    private JLabel lblAforo;
+    private JLabel lblNumPlanta;
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -40,6 +44,14 @@ public class VistaSalas {
 
     public JTextField getTxtTamanio() {
         return txtTamanio;
+    }
+
+    public JTextField getTxtAforo() {
+        return txtAforo;
+    }
+
+    public JTextField getTxtNumPlanta() {
+        return txtNumPlanta;
     }
 
     public JTable getTblSalas() {
@@ -79,18 +91,24 @@ public class VistaSalas {
             txtNumSala.setText("");
             txtDadaAlta.setText("");
             txtTamanio.setText("");
+            txtAforo.setText("");
+            txtNumPlanta.setText("");
     }
 
     public void dasactivarCampoTxt(){
         txtNumSala.setEnabled(false);
         txtDadaAlta.setEnabled(false);
         txtTamanio.setEnabled(false);
+        txtAforo.setEnabled(false);
+        txtNumPlanta.setEnabled(false);
     }
 
     public void activaCamposTxt(){
         txtNumSala.setEnabled(true);
         txtDadaAlta.setEnabled(true);
         txtTamanio.setEnabled(true);
+        txtAforo.setEnabled(true);
+        txtNumPlanta.setEnabled(true);
     }
 
     public void insertarImagenes() {

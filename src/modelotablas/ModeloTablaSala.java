@@ -15,8 +15,8 @@ public class ModeloTablaSala extends AbstractTableModel {
 
     public ModeloTablaSala(DAOsala dao){
         listaSalas = new ArrayList();
-        tipoColumnas = new Class [] {Integer.class, Integer.class, Integer.class};
-        nombreColumnas = new String [] {"Numero de Sala", "Dada de Alta", "tamaño"};
+        tipoColumnas = new Class [] {Integer.class, Integer.class, Integer.class,Integer.class,Integer.class};
+        nombreColumnas = new String [] {"Numero de Sala", "Dada de Alta", "Tamaño","Aforo","Numero de planta"};
         this.dao = dao;
 
     }
@@ -30,8 +30,8 @@ public class ModeloTablaSala extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void crearSalas(int numSala, int dadaAlta, int tamanio){
-        listaSalas.add(new Sala(numSala,dadaAlta,tamanio));
+    public void crearSalas(int numSala, int dadaAlta, int tamanio,int Aforo,int NumPlanta){
+        listaSalas.add(new Sala(numSala,dadaAlta,tamanio,Aforo,NumPlanta));
         fireTableDataChanged();
     }
 
@@ -43,7 +43,8 @@ public class ModeloTablaSala extends AbstractTableModel {
         listaSalas.get(fila).setNumSala(((Sala)expAct).getNumSala());
         listaSalas.get(fila).setDadaAlta(((Sala)expAct).getDadaAlta());
         listaSalas.get(fila).setTamanio(((Sala)expAct).getTamanio());
-
+        listaSalas.get(fila).setAforo(((Sala)expAct).getAforo());
+        listaSalas.get(fila).setNumPlanta(((Sala)expAct).getNumPlanta());
     }
 
     @Override
@@ -67,7 +68,10 @@ public class ModeloTablaSala extends AbstractTableModel {
 
             case 2:
                 return listaSalas.get(rowIndex).getTamanio();
-
+            case 3:
+                return listaSalas.get(rowIndex).getAforo();
+            case 4:
+                return listaSalas.get(rowIndex).getNumPlanta();
             default:
                 return null;
 
@@ -90,6 +94,12 @@ public class ModeloTablaSala extends AbstractTableModel {
 
             case 2:
                 listaSalas.get(fila).setTamanio(Integer.parseInt(aValue.toString()));
+                break;
+            case 3:
+                listaSalas.get(fila).setAforo(Integer.parseInt(aValue.toString()));
+                break;
+            case 4:
+                listaSalas.get(fila).setNumPlanta(Integer.parseInt(aValue.toString()));
                 break;
 
             default: ;
