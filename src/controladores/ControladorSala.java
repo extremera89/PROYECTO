@@ -54,12 +54,17 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
 
         if (!numSalaStr.equals("")&&!dadaAltaStr.equals("")&&!tamanioStr.equals("")&&!aforoStr.equals("")&&!numPlantatr.equals("")){
             if (dao.buscarSala(numSala)==null){
-                modeloTabla.crearSalas(numSala,dadaAlta,tamanio,aforo,numPlanta);
-                dao.insertarSala(new Sala(numSala,dadaAlta,tamanio,aforo,numPlanta));
+                Sala nuevaSala = new Sala(numSala,dadaAlta,tamanio,aforo,numPlanta);
+                dao.insertarSala(nuevaSala);
+                if (dao.buscarSala(nuevaSala.getNumSala())!=null){
+                    modeloTabla.crearSalas(numSala,dadaAlta,tamanio,aforo,numPlanta);
+                }
+                //PROBAR
                 ventanaSala.guiSalas.desactivarBotonGuardar();
                 ventanaSala.guiSalas.limpiarCampoTxt();
                 ventanaSala.guiSalas.activaCamposTxt();
                 ventanaSala.guiSalas.desactivarBotonActualizar();
+                ventanaSala.guiSalas.dasactivarCampoTxt();
             }
             else JOptionPane.showMessageDialog(null, "Ya existe una Sala con ese numero");
         }
@@ -90,7 +95,11 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
 
         Sala sala = new Sala(numSala,dadaAlta,tamanio,aforo,numPlanta);
         dao.modificarSala(sala);
-        modeloTabla.actualizarSala(filaPulsada, sala);
+
+        if (!dao.error){
+            modeloTabla.actualizarSala(filaPulsada, sala);
+        }
+        this.dao.error = false;
     }
 
     @Override

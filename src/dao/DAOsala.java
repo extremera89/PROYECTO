@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class DAOsala implements InterfaceSalas.InterfaceDAOSala{
     private static Connection conexion;
     private PropertiesBBDD propiedadesBBDD;
+    public boolean error;
 
     public DAOsala(){
         try {
@@ -65,23 +66,23 @@ public class DAOsala implements InterfaceSalas.InterfaceDAOSala{
 
     public void modificarSala(Sala sala) {
         PreparedStatement ps = null;
-        String sql = "UPDATE "+ propiedadesBBDD.getTblSala()+ " SET NumSala=?, DadaAlta=?, Tamanio=? , Aforo=? , Numplanta=? WHERE NumSala=?";
+        String sql = "UPDATE "+ propiedadesBBDD.getTblSala()+ " SET NumSala=?, DadaAlta=?, Tamanio=?, Aforo=?, Numplanta=? WHERE NumSala=?";
 
         try{
             ps = conexion.prepareStatement(sql);
             ps.setInt(1, sala.getNumSala());
             ps.setInt(2, sala.getDadaAlta());
             ps.setInt(3, sala.getTamanio());
-            ps.setInt(4, sala.getNumSala());
-            ps.setInt(5,sala.getAforo());
-            ps.setInt(6,sala.getNumPlanta());
+            ps.setInt(4,sala.getAforo());
+            ps.setInt(5,sala.getNumPlanta());
+            ps.setInt(6, sala.getNumSala());
 
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Se ha modificado la sala", "Información", JOptionPane.INFORMATION_MESSAGE);
         }catch(SQLException e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al modificar la sala");
-
+            this.error=true;
         }
     }
 
