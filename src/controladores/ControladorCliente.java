@@ -111,6 +111,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
 
     public void actualizarTabla(){
+        listarClietes();
         modeloTabla.fireTableDataChanged();
     }
 
