@@ -6,6 +6,9 @@ import vistas.Paneles.VistaReserva;
 
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaReserva extends JFrame implements InterfaceReserva.InterfaceVistaReserva {
 
@@ -28,6 +31,13 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         this.desactivarBotones();
     }
 
+    public void filtro() {
+        TableRowSorter trsfiltro = new TableRowSorter(guiReservas.getTableReserva().getModel());
+        guiReservas.getTableReserva().setRowSorter(trsfiltro);
+
+        String filtro = guiReservas.getTxtBuscador().getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(guiReservas.getTxtBuscador().getText(), 1));
+    }
 
     @Override
     public void setController(ControladorReserva controller) {
@@ -39,6 +49,15 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         guiReservas.getBtnActualizarTabla().addActionListener(controller);
         guiReservas.getTableReserva().addMouseListener(controller);
         guiReservas.getBtnActulizarDatos().addActionListener(controller);
+        guiReservas.getTxtBuscador().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (guiReservas.getTxtBuscador().getText());
+                guiReservas.getTxtBuscador().setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
     }
 
 

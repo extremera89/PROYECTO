@@ -1,13 +1,14 @@
 package vistas.Paneles;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 
 public class VistaSalas {
     private JPanel PanelPrincipal;
     private JPanel PanelSuperior;
     private JPanel PanelIzquierdo;
     private JPanel PanelDerecho;
-    private JTable tblSalas;
+    public JTable tblSalas;
     private JTextField txtNumSala;
     private JTextField txtDadaAlta;
     private JTextField txtTamanio;
@@ -29,6 +30,11 @@ public class VistaSalas {
     private JTextField txtNumPlanta;
     private JLabel lblAforo;
     private JLabel lblNumPlanta;
+    private JTextField txtBuscador;
+
+    public void setTblSalas(JTable tblSalas) {
+        this.tblSalas = tblSalas;
+    }
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -78,6 +84,14 @@ public class VistaSalas {
         return btnEliminar;
     }
 
+    public JTextField getTxtBuscador() {
+        return txtBuscador;
+    }
+
+    public void setTxtBuscador(JTextField txtBuscador) {
+        this.txtBuscador = txtBuscador;
+    }
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
@@ -86,6 +100,9 @@ public class VistaSalas {
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
         btnActulizarDatos.setActionCommand("ACTUALIZAR");
     }
+
+
+
 
     public void limpiarCampoTxt(){
             txtNumSala.setText("");

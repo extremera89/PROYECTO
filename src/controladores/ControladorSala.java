@@ -6,6 +6,7 @@ import modelo.Sala;
 import modelotablas.ModeloTablaSala;
 import vistas.Ventanas.VentanaSalas;
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -18,6 +19,10 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
     private VentanaSalas ventanaSala;
     private ModeloTablaSala modeloTabla;
     private int filaPulsada=-1;
+
+
+
+
 
     public ControladorSala(DAOsala dao, VentanaSalas guiCliente){
         this.dao=dao;
@@ -77,12 +82,16 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
 
     @Override
     public void eliminarSala() {
-        dao.eliminarSala(Integer.parseInt(ventanaSala.guiSalas.getTblSalas().getValueAt(filaPulsada, 0).toString()));
-        modeloTabla.eliminarSala(filaPulsada);
-        ventanaSala.guiSalas.desactivarBotonEliminar();
-        ventanaSala.guiSalas.limpiarCampoTxt();
-        ventanaSala.guiSalas.desactivarBotonActualizar();
-        filaPulsada = -1;
+        if (JOptionPane.showConfirmDialog(null,"¿Estas seguro que desea eliminar esta sala?")==0){
+            if (JOptionPane.showConfirmDialog(null,"Todas las exposiciones que contenga la sala seran eliminadas,¿Esta seguro?")==0) {
+                dao.eliminarSala(Integer.parseInt(ventanaSala.guiSalas.getTblSalas().getValueAt(filaPulsada, 0).toString()));
+                modeloTabla.eliminarSala(filaPulsada);
+                ventanaSala.guiSalas.desactivarBotonEliminar();
+                ventanaSala.guiSalas.limpiarCampoTxt();
+                ventanaSala.guiSalas.desactivarBotonActualizar();
+                filaPulsada = -1;
+            }
+        }
     }
 
     @Override

@@ -29,6 +29,8 @@ public class VistaReserva {
     private JButton btnActualizarTabla;
     private JButton btnEliminar;
     private JLabel lblTitulo;
+    private JTextField txtBuscador;
+    private JLabel lblBusca;
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -83,6 +85,10 @@ public class VistaReserva {
     }
 
     public JTable getTableReserva(){return tableReserva;}
+
+    public JTextField getTxtBuscador() {
+        return txtBuscador;
+    }
 
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
