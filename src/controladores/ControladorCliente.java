@@ -51,17 +51,21 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         String rTexto="^[a-zA-Z]+$";
         String rTelefono="^[6|7|9][0-9]{8}$";
         String rCorreo="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        String rExpositor="[0|1]";
+        String rExpositor="[si|sí|SI|SÍ|no|NO]";
 
 
         if (!dni.equals("")&&!nombre.equals("")&&!apellido1.equals("")&&!apellido2.equals("")&&!telefono.equals("")&&!email.equals("")&&!expositor.equals("")) {
             if ((Pattern.matches(rDNI, dni) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rTexto, apellido1) == true) && (Pattern.matches(rTexto, apellido2) == true)
-                    && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true) && (Pattern.matches(rExpositor, expositor) == true)) {
+                    && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true))  {
+                int numExpo = -1;
+                if (expositor.equals("SI") == true || expositor.equals("si") == true || expositor.equals("SÍ") == true || expositor.equals("sí") == true) {
+                    numExpo = 1;
+                } else
+                    numExpo = 0;
                 if (daoMonitor.buscarMonitor(dni) == null) {
                     if (dao.buscarCliente(dni) == null) {
-                        int expositorI = Integer.parseInt(expositor);
-                        modeloTabla.crearCliente(dni, nombre, apellido1, apellido2, telefono, email, expositorI);
-                        dao.insertarCliente(new Cliente(dni, nombre, apellido1, apellido2, telefono, email, expositorI));
+                        modeloTabla.crearCliente(dni, nombre, apellido1, apellido2, telefono, email, numExpo);
+                        dao.insertarCliente(new Cliente(dni, nombre, apellido1, apellido2, telefono, email, numExpo));
                         ventanaCliente.guiClientes.desactivarBotonGuardar();
                         ventanaCliente.guiClientes.limpiarCampoTxt();
                         ventanaCliente.guiClientes.activaCamposTxt();
@@ -89,8 +93,13 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         String apellido2=ventanaCliente.guiClientes.getTxtApellido2().getText();
         String telefono=ventanaCliente.guiClientes.getTxtTelefono().getText();
         String email=ventanaCliente.guiClientes.getTxtEmail().getText();
-        int expositor=Integer.parseInt(ventanaCliente.guiClientes.getTxtExpositor().getText());
-        dao.modificarCliente(dni,nombre,apellido1,apellido2,telefono,email,expositor);
+        String exposi=ventanaCliente.guiClientes.getTxtExpositor().getText();
+        int numExpo = -1;
+        if (exposi.equals("SI") == true || exposi.equals("si") == true || exposi.equals("SÍ") == true || exposi.equals("sí") == true) {
+            numExpo = 1;
+        } else
+            numExpo = 0;
+        dao.modificarCliente(dni,nombre,apellido1,apellido2,telefono,email,numExpo);
         modeloTabla.fireTableDataChanged();
         ventanaCliente.guiClientes.activarBotonLimpiar();
     }

@@ -60,7 +60,11 @@ public class ModeloTablaCliente extends AbstractTableModel {
             case 5:
                 return listaClientes.get(fila).getEmail();
             case 6:
-                return listaClientes.get(fila).getEs_Expositor();
+                if(listaClientes.get(fila).getEs_Expositor()==1){
+                    return "SÍ";
+                }
+                else
+                    return "NO";
             default:
                 return null;
         }

@@ -140,10 +140,6 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
 
 
 
-
-
-
-
     @Override
     public void mousePressed(MouseEvent e) {
 

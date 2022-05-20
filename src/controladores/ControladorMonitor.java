@@ -34,6 +34,8 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         ventanaMonitor.guiMonitor.limpiarCampoTxt();
         ventanaMonitor.guiMonitor.activaCamposTxt();
         ventanaMonitor.guiMonitor.activarBotonGuardar();
+        ventanaMonitor.guiMonitor.getCmbox().setVisible(true);
+
     }
 
 
@@ -56,14 +58,14 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
 
         if (!dni.equals("")&&!nombre.equals("")&&!apellido1.equals("")&&!apellido2.equals("")&&!telefono.equals("")&&!email.equals("")&&!titulacion.equals("")){
             if ((Pattern.matches(rDNI, dni) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rTexto, apellido1) == true) && (Pattern.matches(rTexto, apellido2) == true)
-                    && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true) && (Pattern.matches(rTexto, titulacion) == true)) {
+                    && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true)) {
                 if(daoCliente.buscarCliente(dni)==null){
                     if (dao.buscarMonitor(dni)==null){
                         modeloTabla.crearMonitor(dni, nombre, apellido1, apellido2, telefono, email, titulacion);
                         dao.insertarMonitor(new Monitor(dni, nombre, apellido1, apellido2, telefono, email, titulacion));
                         ventanaMonitor.guiMonitor.desactivarBotonGuardar();
                         ventanaMonitor.guiMonitor.limpiarCampoTxt();
-                        ventanaMonitor.guiMonitor.activaCamposTxt();
+                        ventanaMonitor.guiMonitor.dasactivarCampoTxt();
                     }else JOptionPane.showMessageDialog(null, "Ya se cuenta con un monitor con dichos datos");
                 }else JOptionPane.showMessageDialog(null, "No se puede registrar este monitor");
             } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");
@@ -132,7 +134,7 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         ventanaMonitor.guiMonitor.getTxtTelefono().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,4).toString());
         ventanaMonitor.guiMonitor.getTxtEmail().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,5).toString());
         ventanaMonitor.guiMonitor.getTxtTitulacion().setText(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(row,6).toString());
-        ventanaMonitor.guiMonitor.getCmbox().setSelectedIndex(modeloTabla.saberTitulacion(row,6));
+        //ventanaMonitor.guiMonitor.getCmbox().setVisible(false);
         ventanaMonitor.guiMonitor.desactivarBotonLimpiar();
         ventanaMonitor.guiMonitor.activaCamposTxt();
         ventanaMonitor.guiMonitor.desactivarTXTNIF();
