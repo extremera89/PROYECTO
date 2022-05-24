@@ -72,7 +72,14 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
 
     @Override
     public void actualizarCentro() {
-
+        String codCentro=ventanaCentro.guiCentro.getTxtCodCentro().getText();
+        String nombre=ventanaCentro.guiCentro.getTxtNombre().getText();
+        int numVisita=Integer.parseInt(ventanaCentro.guiCentro.getTxtNumVisita().getText());
+        String dni_cliente=(String) ventanaCentro.guiCentro.getCmboxCliente().getSelectedItem();
+        String dni_monitor=(String) ventanaCentro.guiCentro.getComBoxMonitor().getSelectedItem();
+        dao.modificarCentro(codCentro,nombre,numVisita,dni_cliente,dni_monitor);
+        modeloTabla.fireTableDataChanged();
+        ventanaCentro.guiCentro.activarBotonLimpiar();
     }
 
 

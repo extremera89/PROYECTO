@@ -103,7 +103,7 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
 
         PreparedStatement pStatement=null;
         try {
-            String sql = "UPDATE " + propiedadesBBDD.getTblCentro() + " SET " + "codCentro=?, nombre=?,numVisita=?,DNI_cliente=?,DNI_monitor=?, WHERE codCentro='" + codCentro + "'";
+            String sql = "UPDATE " + propiedadesBBDD.getTblCentro() + " SET " + "CODCENTRO=?, NOMBRE=?,NUMVISITA=?,DNI_CLIENTE=?,DNI_MONITOR=? WHERE CODCENTRO='" + codCentro + "'";
             pStatement = conexion.prepareStatement(sql);
 
             pStatement.setString(1, codCentro);

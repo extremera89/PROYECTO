@@ -1,5 +1,6 @@
 package principal;
 
+import vistas.Ventanas.VentanaInformacion;
 import vistas.Ventanas.VentanaPrincipal;
 
 public class GuiPrincipal {
@@ -16,6 +17,8 @@ public class GuiPrincipal {
 
     GuiCentro guiCentro=new GuiCentro();
 
+    VentanaInformacion ventanaInformacion= new VentanaInformacion();
+
     public GuiPrincipal() {
         ventanaPrincipal=new VentanaPrincipal();
         ventanaPrincipal.añadirPestaña(guiExposicion.menu.getVista().getPanelPrincipal(), "Exposición");
@@ -25,6 +28,7 @@ public class GuiPrincipal {
         ventanaPrincipal.añadirPestaña(guiCentro.ventanaCentro.guiCentro.getPanelPrincipal(),"Centros");
         ventanaPrincipal.añadirPestaña(guiCliente.ventanaCliente.guiClientes.getPanelPrincipal(),"Clientes");
         ventanaPrincipal.añadirPestaña(guiMonitor.ventanaMonitor.guiMonitor.getPanelPrincipal(),"Monitores");
+        ventanaPrincipal.añadirPestaña(ventanaInformacion.guiInformacion.getPanelPrincipal(),"Informacion");
 
     }
 

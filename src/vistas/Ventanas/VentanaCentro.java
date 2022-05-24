@@ -20,6 +20,7 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         guiCentro.desactivarBotonEliminar();
         guiCentro.desactivarBotonActualizar();
         guiCentro.insertarImagenes();
+        this.desactivarBotones();
         this.setContentPane(guiCentro.getPanelPrincipal());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Centros");
