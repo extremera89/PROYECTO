@@ -48,6 +48,10 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         String numVisita=ventanaCentro.guiCentro.getTxtNumVisita().getText();
         String dniCliente= (String) ventanaCentro.guiCentro.getCmboxCliente().getSelectedItem();;
         String dniMonitor=(String) ventanaCentro.guiCentro.getComBoxMonitor().getSelectedItem();
+        Cliente client=new Cliente();
+        Monitor monitor=new Monitor();
+        client.setDNI(dniCliente);
+        monitor.setDNI(dniMonitor);
 
         //COMPROBACION CON EXPRESIONES REGULARES
         String rcodCentro="[0-9]{8}";
@@ -60,8 +64,8 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
                 int numVisit = Integer.parseInt(numVisita);
                 if (numVisit >= 0) {
                     if (dao.buscarCentro(codCentro) == null) {
-                        modeloTabla.crearMonitor(codCentro, nombre, numVisit, dniCliente, dniMonitor);
-                        dao.insertarCentro(new Centro(codCentro, nombre, numVisit, dniCliente, dniMonitor));
+                        modeloTabla.crearMonitor(codCentro, nombre, numVisit, client, monitor);
+                        dao.insertarCentro(new Centro(codCentro, nombre, numVisit, client, monitor));
                         ventanaCentro.guiCentro.desactivarBotonGuardar();
                         ventanaCentro.guiCentro.limpiarCampoTxt();
                         ventanaCentro.guiCentro.activaCamposTxt();
@@ -87,9 +91,16 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         String codCentro=ventanaCentro.guiCentro.getTxtCodCentro().getText();
         String nombre=ventanaCentro.guiCentro.getTxtNombre().getText();
         int numVisita=Integer.parseInt(ventanaCentro.guiCentro.getTxtNumVisita().getText());
+
         String dni_cliente=(String) ventanaCentro.guiCentro.getCmboxCliente().getSelectedItem();
         String dni_monitor=(String) ventanaCentro.guiCentro.getComBoxMonitor().getSelectedItem();
-        dao.modificarCentro(codCentro,nombre,numVisita,dni_cliente,dni_monitor);
+        Cliente client=new Cliente();
+        Monitor monitor=new Monitor();
+        client.setDNI(dni_cliente);
+        monitor.setDNI(dni_monitor);
+
+        Centro cent=new Centro(codCentro,nombre,numVisita,client,monitor);
+        dao.modificarCentro(cent);
         modeloTabla.fireTableDataChanged();
         ventanaCentro.guiCentro.activarBotonLimpiar();
     }

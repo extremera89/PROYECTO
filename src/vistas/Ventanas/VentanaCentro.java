@@ -32,7 +32,6 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
 
     @Override
     public void setController(ControladorCentro controller) {
-
         this.controller=controller;
         controller.cargarDNIClientes();
         controller.cargarDNIMonitores();
@@ -43,7 +42,6 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         guiCentro.getBtnActualizarTabla().addActionListener(controller);
         guiCentro.getTablaCentros().addMouseListener(controller);
         guiCentro.getBtnActulizarDatos().addActionListener(controller);
-
     }
 
     @Override

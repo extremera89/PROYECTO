@@ -72,6 +72,9 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
                         ventanaCliente.guiClientes.desactivarBotonGuardar();
                         ventanaCliente.guiClientes.limpiarCampoTxt();
                         ventanaCliente.guiClientes.activaCamposTxt();
+
+
+
                     } else JOptionPane.showMessageDialog(null, "Ya se cuenta con un cliente con dichos datos");
                 } else JOptionPane.showMessageDialog(null, "No se puede registrar este cliente");
             } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");

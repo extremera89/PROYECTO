@@ -5,12 +5,15 @@ public class Centro {
     private String codCentro;
     private String nombre;
     private int numVisita;
-    private String dniCliente;
-    private String dniMonitor;
+    private Cliente dniCliente;
+    private Monitor dniMonitor;
 
-    public Centro(){}
+    public Centro(){
+        this.dniCliente = new Cliente();
+        this.dniMonitor = new Monitor();
+    }
 
-    public Centro(String codCentro, String nombre, int numVisita, String dniCliente, String dniMonitor) {
+    public Centro(String codCentro, String nombre, int numVisita, Cliente dniCliente, Monitor dniMonitor) {
         this.codCentro = codCentro;
         this.nombre = nombre;
         this.numVisita = numVisita;
@@ -42,19 +45,19 @@ public class Centro {
         this.numVisita = numVisita;
     }
 
-    public String getDniCliente() {
+    public Cliente getDniCliente() {
         return dniCliente;
     }
 
-    public void setDniCliente(String dniCliente) {
+    public void setDniCliente(Cliente dniCliente) {
         this.dniCliente = dniCliente;
     }
 
-    public String getDniMonitor() {
+    public Monitor getDniMonitor() {
         return dniMonitor;
     }
 
-    public void setDniMonitor(String dniMonitor) {
+    public void setDniMonitor(Monitor dniMonitor) {
         this.dniMonitor = dniMonitor;
     }
 

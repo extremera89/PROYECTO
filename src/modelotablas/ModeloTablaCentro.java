@@ -28,7 +28,7 @@ public class ModeloTablaCentro extends AbstractTableModel {
         listaCentros=centros;
     }
 
-    public void crearMonitor(String codCentro, String nombre, int numVisita, String dni_Cliente, String dni_Monitor){
+    public void crearMonitor(String codCentro, String nombre, int numVisita, Cliente dni_Cliente, Monitor dni_Monitor){
         listaCentros.add(new Centro(codCentro,nombre,numVisita,dni_Cliente,dni_Monitor));
         fireTableDataChanged();
     }
@@ -49,9 +49,9 @@ public class ModeloTablaCentro extends AbstractTableModel {
             case 2:
                 return listaCentros.get(fila).getNumVisita();
             case 3:
-                return listaCentros.get(fila).getDniCliente();
+                return listaCentros.get(fila).getDniCliente().getDNI();
             case 4:
-                return listaCentros.get(fila).getDniMonitor();
+                return listaCentros.get(fila).getDniMonitor().getDNI();
             default:
                 return null;
         }
@@ -68,9 +68,9 @@ public class ModeloTablaCentro extends AbstractTableModel {
             case 2:
                 listaCentros.get(fila).setNumVisita(Integer.parseInt(aValue.toString()));
             case 3:
-                listaCentros.get(fila).setDniCliente(aValue.toString());
+                listaCentros.get(fila).getDniCliente().setDNI(((Centro)aValue).getDniCliente().getDNI());
             case 4:
-                listaCentros.get(fila).setDniMonitor(aValue.toString());
+                listaCentros.get(fila).getDniMonitor().setDNI(((Centro)aValue).getDniMonitor().getDNI());
 
             default:
                 ;
@@ -87,7 +87,7 @@ public class ModeloTablaCentro extends AbstractTableModel {
         ArrayList<Cliente> dniCliente=daOcliente.listarClientes();
         for(int i=0;i<dniCliente.size();i++){
             Cliente cliente= dniCliente.get(i);
-            if (listaCentros.get(fila).getDniCliente().equals(cliente.getDNI())){
+            if (listaCentros.get(fila).getDniCliente().getDNI().equals(cliente.getDNI())){
                 return numCmbox;
             }
             numCmbox++;
@@ -101,7 +101,7 @@ public class ModeloTablaCentro extends AbstractTableModel {
         ArrayList<Monitor> dniMonitor=daoMonitor.listarMonitores();
         for(int i=0;i<dniMonitor.size();i++){
             Monitor monitor= dniMonitor.get(i);
-            if (listaCentros.get(fila).getDniMonitor().equals(monitor.getDNI())){
+            if (listaCentros.get(fila).getDniMonitor().getDNI().equals(monitor.getDNI())){
                 return numCmbox;
             }
             numCmbox++;

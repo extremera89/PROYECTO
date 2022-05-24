@@ -2,6 +2,7 @@ package controladores;
 
 import Interfaces.InterfaceSalas;
 import dao.DAOsala;
+import modelo.Cliente;
 import modelo.Sala;
 import modelotablas.ModeloTablaSala;
 import vistas.Ventanas.VentanaSalas;
@@ -82,6 +83,8 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         int numSala = Integer.parseInt(ventanaSala.guiSalas.getTxtNumSala().getText());
         int dadaAlta = Integer.parseInt(ventanaSala.guiSalas.getTxtDadaAlta().getText());
         int tamanio = Integer.parseInt(ventanaSala.guiSalas.getTxtTamanio().getText());
+
+
 
         Sala sala = new Sala(numSala,dadaAlta,tamanio);
         dao.modificarSala(sala);

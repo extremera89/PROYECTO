@@ -1,9 +1,5 @@
 package vistas.Paneles;
 
-import controladores.ControladorCentro;
-import dao.DAOcentro;
-import modelo.Centro;
-
 import javax.swing.*;
 
 public class VistaCentro {
@@ -31,6 +27,8 @@ public class VistaCentro {
     private JLabel lblDNIMonitor;
     private JComboBox comBoxMonitor;
     private JComboBox cmboxCliente;
+    private JButton btnActualizarMonitor;
+    private JButton btnActualizarCliente;
 
 
     public JButton getBtnActualizarTabla() {
@@ -89,6 +87,15 @@ public class VistaCentro {
         return comBoxMonitor;
     }
 
+    public JButton getBtnActualizarMonitor() {
+        return btnActualizarMonitor;
+    }
+
+    public JButton getBtnActualizarCliente() {
+        return btnActualizarCliente;
+    }
+
+
     public void setComBoxMonitor(JComboBox comBoxMonitor) {
         this.comBoxMonitor = comBoxMonitor;
     }
@@ -109,6 +116,7 @@ public class VistaCentro {
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
         btnActulizarDatos.setActionCommand("ACTUALIZAR");
+
     }
 
     public void limpiarCampoTxt(){

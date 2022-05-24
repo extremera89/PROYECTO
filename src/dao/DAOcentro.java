@@ -3,6 +3,7 @@ package dao;
 import Interfaces.InterfaceCentro;
 import conexion.Conexion;
 import modelo.Centro;
+import modelo.Cliente;
 import otros.PropertiesBBDD;
 
 import javax.swing.*;
@@ -38,6 +39,7 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
 
     @Override
     public void insertarCentro(Centro centro) {
+
         String sql = "INSERT INTO " + propiedadesBBDD.getTblCentro() + " (codCentro,nombre,numVisita,DNI_cliente,DNI_monitor) values (?, ?, ?, ?, ?)";
         int filasAfectadas = 0;
 
@@ -46,8 +48,8 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
             pStatement.setString(1, centro.getCodCentro());
             pStatement.setString(2, centro.getNombre());
             pStatement.setInt(3, centro.getNumVisita());
-            pStatement.setString(4, centro.getDniCliente());
-            pStatement.setString(5, centro.getDniMonitor());
+            pStatement.setString(4, centro.getDniCliente().getDNI());
+            pStatement.setString(5, centro.getDniMonitor().getDNI());
             filasAfectadas = pStatement.executeUpdate();
         }
         catch (SQLException e){
@@ -73,6 +75,7 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
 
     @Override
     public Centro buscarCentro(String codCentro) {
+        Cliente dni_cliente=new Cliente();
 
         Centro centro = null;
         try {
@@ -84,8 +87,8 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
                 centro.setCodCentro(rs.getString("codCentro"));
                 centro.setNombre(rs.getString("nombre"));
                 centro.setNumVisita(Integer.parseInt(rs.getString("numVisita")));
-                centro.setDniCliente(rs.getString("dni_cliente"));
-                centro.setDniMonitor(rs.getString("dni_monitor"));
+                centro.getDniCliente().setDNI(rs.getString("dni_cliente"));
+                centro.getDniMonitor().setDNI(rs.getString("dni_monitor"));
             }
             rs.close();
             consulta.close();
@@ -99,18 +102,18 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
     }
 
     @Override
-    public void modificarCentro(String codCentro, String nombre, int numVisita, String dniCliente, String dniMonitor) {
+    public void modificarCentro(Centro centro) {
 
         PreparedStatement pStatement=null;
         try {
-            String sql = "UPDATE " + propiedadesBBDD.getTblCentro() + " SET " + "CODCENTRO=?, NOMBRE=?,NUMVISITA=?,DNI_CLIENTE=?,DNI_MONITOR=? WHERE CODCENTRO='" + codCentro + "'";
+            String sql = "UPDATE " + propiedadesBBDD.getTblCentro() + " SET " + "CODCENTRO=?, NOMBRE=?,NUMVISITA=?,DNI_CLIENTE=?,DNI_MONITOR=? WHERE CODCENTRO='" + centro.getCodCentro() + "'";
             pStatement = conexion.prepareStatement(sql);
 
-            pStatement.setString(1, codCentro);
-            pStatement.setString(2, nombre);
-            pStatement.setInt(3, numVisita);
-            pStatement.setString(4, dniCliente);
-            pStatement.setString(5, dniMonitor);
+            pStatement.setString(1, centro.getCodCentro());
+            pStatement.setString(2, centro.getNombre());
+            pStatement.setInt(3,  centro.getNumVisita());
+            pStatement.setString(4, centro.getDniCliente().getDNI());
+            pStatement.setString(5, centro.getDniMonitor().getDNI());
 
             pStatement.executeUpdate();
         }
@@ -135,8 +138,8 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
                 centro.setCodCentro(rs.getString("codCentro"));
                 centro.setNombre(rs.getString("nombre"));
                 centro.setNumVisita(Integer.parseInt(rs.getString("numVisita")));
-                centro.setDniCliente(rs.getString("DNI_cliente"));
-                centro.setDniMonitor(rs.getString("DNI_monitor"));
+                centro.getDniCliente().setDNI(rs.getString("dni_cliente"));
+                centro.getDniMonitor().setDNI(rs.getString("dni_monitor"));
 
                 listaCentros.add(centro);
             }
@@ -158,15 +161,4 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
         }
     }
 
-    public static void main(String[] args) {
-
-        Centro c1= new Centro("acfwe","virgen del carmen",0,"94465347T","12345678A");
-        DAOcentro dao=new DAOcentro();
-
-        //dao.insertarCentro(c1);
-        //dao.eliminarCentro("cen12");
-        //System.out.println(dao.buscarCentro("cen12"));
-        dao.modificarCentro("cen12","virgen del carmen",2,"94465347T","12345678A");
-        //dao.listarCen();
-    }
 }

@@ -11,7 +11,7 @@ public class InterfaceCentro {
         public void insertarCentro(Centro centro);
         public void eliminarCentro(String codCentro);
         public Centro buscarCentro(String codCentro);
-        public void modificarCentro(String codCentro, String nombre, int numVisita, String dniCliente, String dniMonitor);
+        public void modificarCentro(Centro centro);
         public ArrayList<Centro> listarCentros();
     }
     public interface InterfaceControladorCentro{
