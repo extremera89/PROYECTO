@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ControladorCentro implements InterfaceCentro.InterfaceControladorCentro, ActionListener, MouseListener {
 
@@ -48,15 +49,26 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         String dniCliente= (String) ventanaCentro.guiCentro.getCmboxCliente().getSelectedItem();;
         String dniMonitor=(String) ventanaCentro.guiCentro.getComBoxMonitor().getSelectedItem();
 
+        //COMPROBACION CON EXPRESIONES REGULARES
+        String rcodCentro="[0-9]{8}";
+        String rTexto="[a-zA-ZñÑáéíóúÁÉÍÓÚ[\\s]*]+(\\s[a-zA-ZñÑáéíóúÁÉÍÓÚ]+)*";
+        String rnumVisita="[0-9]{1,}";
+
+
         if (!codCentro.equals("")&&!nombre.equals("")&&!numVisita.equals("")&&!dniCliente.equals("")&&!dniMonitor.equals("")){
-                if(dao.buscarCentro(codCentro)==null){
-                    int numVisit=Integer.parseInt(numVisita);
+            if ((Pattern.matches(rcodCentro, codCentro) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rnumVisita,numVisita)==true)){
+                int numVisit = Integer.parseInt(numVisita);
+                if (numVisit >= 0) {
+                    if (dao.buscarCentro(codCentro) == null) {
                         modeloTabla.crearMonitor(codCentro, nombre, numVisit, dniCliente, dniMonitor);
                         dao.insertarCentro(new Centro(codCentro, nombre, numVisit, dniCliente, dniMonitor));
                         ventanaCentro.guiCentro.desactivarBotonGuardar();
                         ventanaCentro.guiCentro.limpiarCampoTxt();
                         ventanaCentro.guiCentro.activaCamposTxt();
-                }else JOptionPane.showMessageDialog(null, "No se puede registrar este monitor");
+
+                    } else JOptionPane.showMessageDialog(null, "No se puede registrar este monitor");
+                } else JOptionPane.showMessageDialog(null, "El número de la visita no puede ser menor que 0");
+            } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");
         }else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 
     }

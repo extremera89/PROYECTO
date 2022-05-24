@@ -7,6 +7,9 @@ import dao.DAOlogin;
 import vistas.Paneles.VistaClientes;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaCliente extends JFrame implements InterfaceCliente.InterfaceVistaCliente {
 
@@ -31,7 +34,13 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
         desactivarBotones();
 
     }
+    public void filtro() {
+        TableRowSorter trsfiltro = new TableRowSorter(guiClientes.getTablaClientes().getModel());
+        guiClientes.getTablaClientes().setRowSorter(trsfiltro);
 
+        String filtro = guiClientes.getTxtBuscadorDNI().getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(guiClientes.getTxtBuscadorDNI().getText(),0));
+    }
 
     @Override
     public void setController(ControladorCliente controller) {
@@ -43,6 +52,15 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
         guiClientes.getBtnActualizarTabla().addActionListener(controller);
         guiClientes.getBtnActulizarDatos().addActionListener(controller);
         guiClientes.getTablaClientes().addMouseListener(controller);
+        guiClientes.getTxtBuscadorDNI().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (guiClientes.getTxtBuscadorDNI().getText());
+                guiClientes.getTxtBuscadorDNI().setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
     }
 
     @Override

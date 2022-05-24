@@ -47,6 +47,8 @@ public class VistaMonitor extends JFrame{
 
     private JComboBox cmbox;
     private JTextField txtTitulacion;
+    private JLabel lblBuscador;
+    private JTextField txtBuscadorMonitor;
 
 
     public JPanel getPanelPrincipal() {
@@ -104,6 +106,10 @@ public class VistaMonitor extends JFrame{
 
     public JButton getBtnActulizarDatos() {
         return btnActulizarDatos;
+    }
+
+    public JTextField getTxtBuscadorMonitor() {
+        return txtBuscadorMonitor;
     }
 
     public void asignaCommandBotones(){

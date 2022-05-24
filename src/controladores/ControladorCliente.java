@@ -1,8 +1,10 @@
 package controladores;
 
 import Interfaces.InterfaceCliente;
+import dao.DAOcentro;
 import dao.DAOcliente;
 import dao.DAOmonitor;
+import modelo.Centro;
 import modelo.Cliente;
 import modelotablas.ModeloTablaCliente;
 import vistas.Ventanas.VentanaCliente;
@@ -12,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class ControladorCliente implements InterfaceCliente.InterfaceControladorCliente, ActionListener, MouseListener {
@@ -48,7 +51,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
         //COMPROBACION CON EXPRESIONES REGULARES
         String rDNI="[0-9]{8}[A-Z]";
-        String rTexto="^[a-zA-Z]+$";
+        String rTexto="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+";
         String rTelefono="^[6|7|9][0-9]{8}$";
         String rCorreo="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         String rExpositor="[si|sí|SI|SÍ|no|NO]";
@@ -78,11 +81,25 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
 
     @Override
     public void eliminarCliente() {
-        dao.eliminarCliente(ventanaCliente.guiClientes.getTablaClientes().getValueAt(filaPulsada,0).toString());
-        modeloTabla.eliminarCliente(filaPulsada);
+        DAOcentro daOcentro= new DAOcentro();
+        ArrayList<Centro> listCentro=daOcentro.listarCentros();
+        Centro centros;
+        for(int i=0;i<listCentro.size();i++){
+            centros=listCentro.get(i);
+            if(centros.getDniCliente().equals(ventanaCliente.guiClientes.getTablaClientes().getValueAt(filaPulsada,0).toString())){
+                JOptionPane.showMessageDialog(null, "Tiene un centro asociado");
+            }
+            else {
+                dao.eliminarCliente(ventanaCliente.guiClientes.getTablaClientes().getValueAt(filaPulsada,0).toString());
+                modeloTabla.eliminarCliente(filaPulsada);
+
+
+            }
+        }
         ventanaCliente.guiClientes.desactivarBotonEliminar();
         ventanaCliente.guiClientes.limpiarCampoTxt();
         filaPulsada=-1;
+
     }
 
     @Override
@@ -94,14 +111,24 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         String telefono=ventanaCliente.guiClientes.getTxtTelefono().getText();
         String email=ventanaCliente.guiClientes.getTxtEmail().getText();
         String exposi=ventanaCliente.guiClientes.getTxtExpositor().getText();
-        int numExpo = -1;
-        if (exposi.equals("SI") == true || exposi.equals("si") == true || exposi.equals("SÍ") == true || exposi.equals("sí") == true) {
-            numExpo = 1;
-        } else
-            numExpo = 0;
-        dao.modificarCliente(dni,nombre,apellido1,apellido2,telefono,email,numExpo);
-        modeloTabla.fireTableDataChanged();
-        ventanaCliente.guiClientes.activarBotonLimpiar();
+        String rDNI="[0-9]{8}[A-Z]";
+        String rTexto="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+";
+        String rTelefono="^[6|7|9][0-9]{8}$";
+        String rCorreo="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        String rExpositor="[si|sí|SI|SÍ|no|NO]";
+
+        if ((Pattern.matches(rDNI, dni) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rTexto, apellido1) == true) && (Pattern.matches(rTexto, apellido2) == true)
+                && (Pattern.matches(rTelefono, telefono) == true) && (Pattern.matches(rCorreo, email) == true))  {
+            int numExpo = 0;
+            if (exposi.equals("SI") == true || exposi.equals("si") == true || exposi.equals("SÍ") == true || exposi.equals("sí") == true) {
+                numExpo = 1;
+            } else
+                numExpo = 0;
+            dao.modificarCliente(dni,nombre,apellido1,apellido2,telefono,email,numExpo);
+            modeloTabla.fireTableDataChanged();
+            ventanaCliente.guiClientes.activarBotonLimpiar();
+        } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");
+
     }
 
     @Override

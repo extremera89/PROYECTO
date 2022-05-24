@@ -29,6 +29,8 @@ public class VistaClientes{
     private JButton btnActualizarTabla;
     private JButton btnEliminar;
     private JLabel lblTitulo;
+    private JTextField txtBuscadorDNI;
+    private JLabel lblBuscador;
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -88,6 +90,10 @@ public class VistaClientes{
 
     public JButton getBtnActulizarDatos() {
         return btnActulizarDatos;
+    }
+
+    public JTextField getTxtBuscadorDNI() {
+        return txtBuscadorDNI;
     }
 
     public void asignaCommandBotones(){

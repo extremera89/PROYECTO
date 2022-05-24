@@ -1,8 +1,10 @@
 package controladores;
 
 import Interfaces.InterfaceMonitor;
+import dao.DAOcentro;
 import dao.DAOcliente;
 import dao.DAOmonitor;
+import modelo.Centro;
 import modelo.Cliente;
 import modelo.Monitor;
 import modelotablas.ModeloTablaMonitor;
@@ -13,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class ControladorMonitor implements InterfaceMonitor.InterfaceControladorMonitor, ActionListener, MouseListener {
@@ -51,10 +54,9 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
 
         //COMPROBACION CON EXPRESIONES REGULARES
         String rDNI="[0-9]{8}[A-Z]";
-        String rTexto="^[a-zA-Z]+$";
+        String rTexto="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+";
         String rTelefono="^[6|7|9][0-9]{8}$";
         String rCorreo="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        String rExpositor="[0|1]";
 
         if (!dni.equals("")&&!nombre.equals("")&&!apellido1.equals("")&&!apellido2.equals("")&&!telefono.equals("")&&!email.equals("")&&!titulacion.equals("")){
             if ((Pattern.matches(rDNI, dni) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rTexto, apellido1) == true) && (Pattern.matches(rTexto, apellido2) == true)
@@ -75,11 +77,24 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
 
     @Override
     public void eliminarMonitor() {
-        dao.eliminarMonitor(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(filaPulsada,0).toString());
-        modeloTabla.eliminarMonitor(filaPulsada);
-        ventanaMonitor.guiMonitor.desactivarBotonEliminar();
-        ventanaMonitor.guiMonitor.limpiarCampoTxt();
-        filaPulsada=-1;
+
+        DAOcentro daOcentro= new DAOcentro();
+        ArrayList<Centro>listCentro=daOcentro.listarCentros();
+        Centro centros;
+        for(int i=0;i<listCentro.size();i++){
+            centros=listCentro.get(i);
+            if(centros.getDniMonitor().equals(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(filaPulsada,0).toString())){
+                JOptionPane.showMessageDialog(null, "Tiene un centro asociado");
+            }
+            else {
+                dao.eliminarMonitor(ventanaMonitor.guiMonitor.getTablaMonitores().getValueAt(filaPulsada,0).toString());
+                modeloTabla.eliminarMonitor(filaPulsada);
+                ventanaMonitor.guiMonitor.desactivarBotonEliminar();
+                ventanaMonitor.guiMonitor.limpiarCampoTxt();
+                filaPulsada=-1;
+            }
+        }
+
     }
 
     @Override
