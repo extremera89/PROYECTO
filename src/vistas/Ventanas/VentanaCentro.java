@@ -3,6 +3,7 @@ package vistas.Ventanas;
 import Interfaces.InterfaceCentro;
 import controladores.ControladorCentro;
 import controladores.ControladorCliente;
+import principal.GuiCentro;
 import vistas.Paneles.VistaCentro;
 
 import javax.swing.*;
@@ -42,6 +43,8 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         guiCentro.getBtnActualizarTabla().addActionListener(controller);
         guiCentro.getTablaCentros().addMouseListener(controller);
         guiCentro.getBtnActulizarDatos().addActionListener(controller);
+        guiCentro.getBtnComMonitor().addActionListener(controller);
+        guiCentro.getBtnComCliente().addActionListener(controller);
     }
 
     @Override
@@ -60,6 +63,8 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
             guiCentro.getBtnLimpiar().setVisible(false);
             guiCentro.getBtnActulizarDatos().setVisible(false);
             guiCentro.getBtnActualizarTabla().setVisible(false);
+            guiCentro.getBtnComCliente().setVisible(false);
+            guiCentro.getBtnComMonitor().setVisible(false);
         }
     }
 }

@@ -27,8 +27,9 @@ public class VistaCentro {
     private JLabel lblDNIMonitor;
     private JComboBox comBoxMonitor;
     private JComboBox cmboxCliente;
-    private JButton btnActualizarMonitor;
-    private JButton btnActualizarCliente;
+    private JButton btnComMonitor;
+    private JButton btnComCliente;
+
 
 
     public JButton getBtnActualizarTabla() {
@@ -87,14 +88,13 @@ public class VistaCentro {
         return comBoxMonitor;
     }
 
-    public JButton getBtnActualizarMonitor() {
-        return btnActualizarMonitor;
+    public JButton getBtnComMonitor() {
+        return btnComMonitor;
     }
 
-    public JButton getBtnActualizarCliente() {
-        return btnActualizarCliente;
+    public JButton getBtnComCliente() {
+        return btnComCliente;
     }
-
 
     public void setComBoxMonitor(JComboBox comBoxMonitor) {
         this.comBoxMonitor = comBoxMonitor;
@@ -116,6 +116,8 @@ public class VistaCentro {
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
         btnActulizarDatos.setActionCommand("ACTUALIZAR");
+        btnComCliente.setActionCommand("ACTCLIENTE");
+        btnComMonitor.setActionCommand("ACTUMONI");
 
     }
 
@@ -149,6 +151,8 @@ public class VistaCentro {
         btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
         btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
+        btnComMonitor.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        btnComCliente.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
     }
 
 

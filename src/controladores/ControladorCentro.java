@@ -149,6 +149,14 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         else if (e.getActionCommand().equals("ACTUALIZAR")){
             actualizarCentro();
         }
+        else if(e.getActionCommand().equals("ACTCLIENTE")){
+            System.out.println("a");
+            cargarDNIClientes();
+        }
+        else if (e.getActionCommand().equals("ACTUMONI")){
+            System.out.println("o");
+            cargarDNIMonitores();
+        }
     }
 
     @Override

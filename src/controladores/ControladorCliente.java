@@ -4,8 +4,10 @@ import Interfaces.InterfaceCliente;
 import dao.DAOcentro;
 import dao.DAOcliente;
 import dao.DAOmonitor;
+import dao.DAOreserva;
 import modelo.Centro;
 import modelo.Cliente;
+import modelo.Reserva;
 import modelotablas.ModeloTablaCliente;
 import vistas.Ventanas.VentanaCliente;
 
@@ -91,8 +93,18 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
             centros=listCentro.get(i);
             if(centros.getDniCliente().equals(ventanaCliente.guiClientes.getTablaClientes().getValueAt(filaPulsada,0).toString())){
                 JOptionPane.showMessageDialog(null, "Tiene un centro asociado");
+
+
             }
             else {
+                DAOreserva daOreserva=new DAOreserva();
+                ArrayList<Reserva>listReservas=daOreserva.listarReserva();
+                for(int j=0;i<listReservas.size();i++){
+                    Reserva reserva=listReservas.get(i);
+                    if(reserva.getDNI().equals(ventanaCliente.guiClientes.getTablaClientes().getValueAt(filaPulsada,0).toString())){
+                        daOreserva.eliminarReserva(reserva.getCodigoReserva());
+                    }
+                }
                 dao.eliminarCliente(ventanaCliente.guiClientes.getTablaClientes().getValueAt(filaPulsada,0).toString());
                 modeloTabla.eliminarCliente(filaPulsada);
 
