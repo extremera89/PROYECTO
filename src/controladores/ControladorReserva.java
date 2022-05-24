@@ -2,7 +2,9 @@ package controladores;
 
 import Interfaces.InterfaceReserva;
 import dao.DAOreserva;
+import modelo.Cliente;
 import modelo.Reserva;
+import modelo.Sala;
 import modelotablas.ModeloTablaReserva;
 import vistas.Ventanas.VentanaReserva;
 import javax.swing.*;
@@ -76,10 +78,14 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
 
 
                     if (dao.buscarReserva(CodigoReserva) == null) {
-                        Reserva nuevaReserva = new Reserva(CodigoReserva, DNI, NumSala, fechainicio, fechafin, confirmado, MotivoReserva);
+                        Sala sala = new Sala();
+                        sala.setNumSala(NumSala);
+                        Cliente cliente = new Cliente();
+                        cliente.setDNI(DNI);
+                        Reserva nuevaReserva = new Reserva(CodigoReserva, cliente, sala, fechainicio, fechafin, confirmado, MotivoReserva);
                         dao.insertarReserva(nuevaReserva);
                         if (dao.buscarReserva(nuevaReserva.getCodigoReserva()) != null) {
-                            modeloTabla.crearReserva(CodigoReserva, DNI, NumSala, fechainicio, fechafin, confirmado, MotivoReserva);
+                            modeloTabla.crearReserva(CodigoReserva, cliente, sala, fechainicio, fechafin, confirmado, MotivoReserva);
                         }
                         ventanaReserva.guiReservas.desactivarBotonGuardar();
                         ventanaReserva.guiReservas.limpiarCampoTxt();
@@ -133,8 +139,11 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
                       confirmado = 1;
                   } else
                       confirmado = 0;
-
-                  Reserva reserva = new Reserva(codigoReserva, DNI, NumSala, fechareserva, fechafin, confirmado, Motivo);
+                  Sala sala = new Sala();
+                  sala.setNumSala(NumSala);
+                  Cliente cliente = new Cliente();
+                  cliente.setDNI(DNI);
+                  Reserva reserva = new Reserva(codigoReserva,cliente, sala, fechareserva, fechafin, confirmado, Motivo);
 
                   dao.modificarReserva(reserva);
 

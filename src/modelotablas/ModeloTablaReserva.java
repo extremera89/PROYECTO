@@ -1,7 +1,10 @@
 package modelotablas;
 
 import dao.DAOreserva;
+import modelo.Cliente;
 import modelo.Reserva;
+import modelo.Sala;
+
 import javax.swing.table.AbstractTableModel;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -43,7 +46,7 @@ public class ModeloTablaReserva extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void crearReserva(String codigoReserva, String DNI, int numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva){
+    public void crearReserva(String codigoReserva, Cliente DNI, Sala numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva){
         listaReserva.add(new Reserva(codigoReserva,DNI,numSala,fechaReserva,fechaFin,confirmado,motivoReserva));
         fireTableDataChanged();
     }
@@ -74,9 +77,9 @@ public class ModeloTablaReserva extends AbstractTableModel {
             case 0:
                 return listaReserva.get(rowIndex).getCodigoReserva();
             case 1:
-                return listaReserva.get(rowIndex).getDNI();
+                return listaReserva.get(rowIndex).getDNI().getDNI();
             case 2:
-                return listaReserva.get(rowIndex).getNumSala();
+                return listaReserva.get(rowIndex).getNumSala().getNumSala();
             case 3:
                 return formatoFecha.format(fechaReserva);
             case 4:
@@ -107,11 +110,11 @@ public class ModeloTablaReserva extends AbstractTableModel {
                 break;
 
             case 1:
-                listaReserva.get(fila).setDNI(aValue.toString());
+                listaReserva.get(fila).getDNI().setDNI((((Reserva)aValue).getDNI().getDNI()));
                 break;
 
             case 2:
-                listaReserva.get(fila).setNumSala(Integer.parseInt(aValue.toString()));
+                listaReserva.get(fila).getNumSala().setNumSala((((Reserva)aValue).getNumSala().getNumSala()));
                 break;
             case 3:
                 listaReserva.get(fila).setFechaReserva(Date.valueOf(aValue.toString()));

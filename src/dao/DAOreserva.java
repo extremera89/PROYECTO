@@ -43,8 +43,8 @@ public class DAOreserva implements InterfaceReserva {
         try{
             ps = conexion.prepareStatement(insert);
             ps.setString(1, reserva.getCodigoReserva());
-            ps.setString(2, reserva.getDNI());
-            ps.setInt(3, reserva.getNumSala());
+            ps.setString(2, reserva.getDNI().getDNI());
+            ps.setInt(3, reserva.getNumSala().getNumSala());
             ps.setDate(4, reserva.getFechaReserva());
             ps.setDate(5, reserva.getFechaFin());
             ps.setInt(6, reserva.getConfirmado());
@@ -100,8 +100,8 @@ public class DAOreserva implements InterfaceReserva {
 
             while (rs.next()){
                 reser = new Reserva();
-                reser.setDNI(rs.getString("DNI"));
-                reser.setNumSala(rs.getInt("NumSala"));
+                reser.getDNI().setDNI(rs.getString("DNI"));
+                reser.getNumSala().setNumSala(rs.getInt("NumSala"));
                 reser.setFechaReserva(rs.getDate("FechaReserva"));
                 reser.setFechaFin(rs.getDate("FechaFin"));
                 reser.setConfirmado(rs.getInt("Confirmado"));
@@ -125,8 +125,8 @@ public class DAOreserva implements InterfaceReserva {
             ps = conexion.prepareStatement(sql);
 
             ps.setString(1, reserva.getCodigoReserva());
-            ps.setString(2, reserva.getDNI());
-            ps.setInt(3, reserva.getNumSala());
+            ps.setString(2, reserva.getDNI().getDNI());
+            ps.setInt(3, reserva.getNumSala().getNumSala());
             ps.setDate(4, new java.sql.Date(reserva.getFechaReserva().getTime()));
             ps.setDate(5, new java.sql.Date(reserva.getFechaFin().getTime()));
             ps.setInt(6, reserva.getConfirmado());
@@ -154,8 +154,8 @@ public class DAOreserva implements InterfaceReserva {
                 reserva = new Reserva();
 
                 reserva.setCodigoReserva(rs.getString("CodigoReserva"));
-                reserva.setDNI(rs.getString("DNI"));
-                reserva.setNumSala(Integer.parseInt(rs.getString("NumSala")));
+                reserva.getDNI().setDNI(rs.getString("DNI"));
+                reserva.getNumSala().setNumSala(Integer.parseInt(rs.getString("NumSala")));
                 reserva.setFechaReserva((rs.getDate("FechaReserva")));
                 reserva.setFechaFin((rs.getDate("FechaFin")));
                 reserva.setConfirmado(Integer.parseInt(rs.getString("Confirmado")));
