@@ -3,12 +3,13 @@ package controladores;
 import Interfaces.InterfaceExposicion;
 import dao.DAOexposicion;
 import modelo.Exposicion;
+import modelo.Sala;
 import modelotablas.ModeloTablasExposicion;
 import vistas.Ventanas.VentanaExposicion;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class ControladorExposicion implements ActionListener, MouseListener, InterfaceExposicion.InterfaceControladorExposicion {
     private DAOexposicion dao;
@@ -48,57 +50,66 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         this.ventana.getVista().desactivarBotonGuardar();
     }
 
-
+    public void actualizarTabla(){
+        tabla.fireTableDataChanged();
+        listarExposiciones();
+    }
 
 
     @Override
-    public void crearExposicion() throws ParseException {
+    public void crearExposicion(){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+            String nombre = this.ventana.getVista().getTxtNombre().getText();
+            String tematica = this.ventana.getVista().getTxtTematica().getText();
+
+            Date fechain = format.parse(this.ventana.getVista().getTxtFechainicio().getText());
+            Date fechaf = format.parse(this.ventana.getVista().getTxtFechafin().getText());
+
+            java.sql.Date fechainicio = new java.sql.Date(fechain.getTime());
+            java.sql.Date fechafin = new java.sql.Date(fechaf.getTime());
+
+            String descripcion = this.ventana.getVista().getTxtDescripcion().getText();
+            String numsala = this.ventana.getVista().getComboSala().getSelectedItem().toString();
 
 
+            if (!nombre.equals("") && !tematica.equals("") && !fechainicio.equals("") && !fechafin.equals("") && !descripcion.equals("") && !numsala.equals("")) {
+                if (dao.buscarExposicion(nombre) == null) {
+                    int numSala = Integer.parseInt(numsala);
+                    Sala numerosala = new Sala();
+                    numerosala.setNumSala(numSala);
+                    Exposicion prueba = new Exposicion(nombre, tematica, fechainicio, fechafin, descripcion, numerosala);
+                    dao.insertarExposicion(prueba);
+                    ventana.getVista().limpiarCampoTxt();
+                    if(dao.buscarExposicion(prueba.getNombre())!=null) {
+                        prueba.setNumExp(dao.getNumExp(prueba));
+                        tabla.crearExposicion(prueba);
+                    }
 
-    try {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
-        String nombre = this.ventana.getVista().getTxtNombre().getText();
-        String tematica = this.ventana.getVista().getTxtTematica().getText();
-        System.out.println(this.ventana.getVista().getTxtFechainicio().getText());
-
-        Date fechain = format.parse(this.ventana.getVista().getTxtFechainicio().getText());
-        Date fechaf = format.parse(this.ventana.getVista().getTxtFechafin().getText());
-
-        java.sql.Date fechainicio = new java.sql.Date(fechain.getTime());
-        java.sql.Date fechafin = new java.sql.Date(fechaf.getTime());
-
-        String descripcion = this.ventana.getVista().getTxtDescripcion().getText();
-        String numsala = this.ventana.getVista().getTxtNumsala().getText();
-
-        if (!nombre.equals("") && !tematica.equals("") && !fechainicio.equals("") && !fechafin.equals("") && !descripcion.equals("") && !numsala.equals("")) {
-            if (dao.buscarExposicion(nombre) == null) {
-                int numSala = Integer.parseInt(numsala);
-                Exposicion prueba = new Exposicion(nombre, tematica, fechainicio, fechafin, descripcion, numSala);
-                dao.insertarExposicion(prueba);
-                ventana.getVista().limpiarCampoTxt();
-                if(dao.buscarExposicion(prueba.getNombre())!=null) {
-                    prueba.setNumExp(dao.getNumExp(prueba));
-                    tabla.crearExposicion(prueba);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ya existe esa exposición");
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Ya existe esa exposición");
+                JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "No has rellenado el campo numérico con un número");
+        }catch (ParseException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Has introducido la fecha de manera incorrecta");
         }
-    }catch(NumberFormatException e){
-        JOptionPane.showMessageDialog(null, "No has rellenado el campo numérico con un número");
-    }catch (ParseException e){
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null,"Has introducido la fecha de manera incorrecta");
-    }
 
 
     }
+
+
+    public void seleccionaSala(){
+        cargarSalas(this.ventana.getVista().getTxtFechainicio().getText(), this.ventana.getVista().getTxtFechafin().getText());
+    }
+
+
     @Override
    public void modificarExposicion() throws ParseException {
 
@@ -112,27 +123,26 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
             java.sql.Date fechainicio = new java.sql.Date(fechain.getTime());
             java.sql.Date fechafin = new java.sql.Date(fechaf.getTime());
             String desc = ventana.getVista().getTxtDescripcion().getText();
-            int numsala = Integer.parseInt(ventana.getVista().getTxtNumsala().getText());
-            Exposicion prueba = new Exposicion(numexp, nombre, tematica, fechainicio, fechafin, desc, numsala);
-
+            int numsala = Integer.parseInt( ventana.getVista().getComboSala().getSelectedItem().toString());
+            Sala numerosala = new Sala();
+            numerosala.setNumSala(numsala);
+            Exposicion prueba = new Exposicion(numexp, nombre, tematica, fechainicio, fechafin, desc, numerosala);
 
 
             dao.modificarExposicion(prueba);
             tabla.actualizarExposicion(filapul, prueba);
-        }catch (NumberFormatException e){
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Has introducido un carácter que no es un número");
         }catch (ParseException e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Has introducido la fecha de manera incorrecta");
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Has introducido un carácter que no es un número");
         }
     }
     @Override
     public void listarExposiciones(){
         tabla.setExposiciones(dao.listarExposiciones());
     }
-
-
 
     @Override
     public void eliminarExposicion() {
@@ -152,14 +162,11 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         if(e.getActionCommand().equals("NUEVO")){
             anyadirExposicion();
             ventana.getVista().activarBotonLimpiar();
+            ventana.getVista().activarBotonSala();
         }
         else if(e.getActionCommand().equals("GUARDAR")){
-            try {
-                crearExposicion();
-                ventana.getVista().activarBotonLimpiar();
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-            }
+            crearExposicion();
+            ventana.getVista().activarBotonLimpiar();
 
         }
         else if(e.getActionCommand().equals("ELIMINAR")){
@@ -179,13 +186,62 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
             ventana.getVista().limpiarCampoTxt();
         }
         else if(e.getActionCommand().equals("ACTUALIZAR TABLA")){
-            tabla.actualizarTabla();
+            actualizarTabla();
+        }
+        else if(e.getActionCommand().equals("SALA")){
+            seleccionaSala();
         }
 
     }
 
+    public void cargarSalas(String fechainicio, String fechafin) {
+        this.ventana.getVista().getComboSala().removeAllItems();
+        ArrayList<Integer> salasnodisp = null;
+
+
+        if(!fechainicio.equals("") && !fechafin.equals("")) {
+
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                ArrayList<Integer> salas = new ArrayList<>(20);
+
+                Date fechain = format.parse(fechainicio);
+                java.sql.Date fechainic = new java.sql.Date(fechain.getTime());
+
+                Date fechaf = format.parse(fechafin);
+                java.sql.Date fechafi = new java.sql.Date(fechaf.getTime());
+
+                salasnodisp = this.dao.salasNoDisponibles(fechainic, fechafi);
+
+                int contador = 0;
+                while(contador<21){
+                    salas.add(contador);
+                    contador++;
+                }
+
+                salas.removeAll(salasnodisp);
+
+                for(int i : salas){
+                    if(i > 0)
+                        this.ventana.getVista().getComboSala().addItem(i);
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "ERROR en la fecha");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debes rellenar los campos de FECHA");
+        }
+
+
+    }
+
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
+        ventana.getVista().activarBotonSala();
         int row = ventana.getVista().getTable1().rowAtPoint(e.getPoint());
         ventana.getVista().getTxtNumExp().setText(ventana.getVista().getTable1().getValueAt(row,0).toString());
         ventana.getVista().getTxtNombre().setText(ventana.getVista().getTable1().getValueAt(row, 1).toString());
@@ -193,7 +249,15 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         ventana.getVista().getTxtFechainicio().setText(ventana.getVista().getTable1().getValueAt(row, 3).toString());
         ventana.getVista().getTxtFechafin().setText(ventana.getVista().getTable1().getValueAt(row, 4).toString());
         ventana.getVista().getTxtDescripcion().setText(ventana.getVista().getTable1().getValueAt(row, 5).toString());
-        ventana.getVista().getTxtNumsala().setText(ventana.getVista().getTable1().getValueAt(row, 6).toString());
+
+
+        ventana.getVista().getComboSala().addItem(ventana.getVista().getTable1().getValueAt(row, 6).toString());
+        if(e.getClickCount() == 1){
+            ventana.getVista().getComboSala().removeAllItems();
+            ventana.getVista().getComboSala().addItem(ventana.getVista().getTable1().getValueAt(row, 6).toString());
+
+        }
+
         ventana.getVista().activarBotonActualizar();
         ventana.getVista().activarBotonEliminar();
         ventana.getVista().desactivarBotonGuardar();
@@ -202,10 +266,9 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         ventana.getVista().desactivarNumExp();
         if(ventana.getVista().getTable1().isColumnSelected(5))
             ventana.getVista().getTable1().getColumnModel().getColumn(5).setPreferredWidth(1000);
-        else
+        else {
             ventana.getVista().getTable1().getColumnModel().getColumn(5).setPreferredWidth(100);
-
-
+        }
         filapul = row;
     }
 

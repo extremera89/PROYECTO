@@ -48,7 +48,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         int numexp=0;
         try {
             Statement consulta = conexion.createStatement();
-            ResultSet rs = consulta.executeQuery("SELECT NumExp FROM Exposicion WHERE Nombre='" + exposicion.getNombre() + "' AND Tematica='" + exposicion.getTematica() + "' AND NumSala=" + exposicion.getNumsala());
+            ResultSet rs = consulta.executeQuery("SELECT NumExp FROM Exposicion WHERE Nombre='" + exposicion.getNombre() + "' AND Tematica='" + exposicion.getTematica() + "' AND NumSala=" + exposicion.getNumsala().getNumSala());
                 while (rs.next()) {
                     exposicion.setNumExp(rs.getInt("NumExp"));
                     numexp = exposicion.getNumExp();
@@ -70,6 +70,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         String sql = "INSERT INTO "+ propiedadesBBDD.getTblExposicion()+ "(NumExp, Nombre, Tematica, FechaInicio, FechaFin, Descripcion, NumSala) VALUES (NUMEXP.nextval,?,?,?,?,?,?)";
 
         try{
+
             ps = conexion.prepareStatement(sql);
 
             ps.setString(1, exposicion.getNombre());
@@ -77,7 +78,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             ps.setDate(3, new java.sql.Date(exposicion.getFechainicio().getTime()));
             ps.setDate(4, new java.sql.Date(exposicion.getFechafin().getTime()));
             ps.setString(5, exposicion.getDescripcion());
-            ps.setInt(6, exposicion.getNumsala());
+            ps.setInt(6, exposicion.getNumsala().getNumSala());
 
 
             ps.executeQuery();
@@ -86,12 +87,8 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         }catch(SQLException e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al insertar esa exposición");
-
-
         }
     }
-
-
 
     @Override
     public void eliminarExposicion(Exposicion exposicion) {
@@ -128,7 +125,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
                 exposicion.setFechainicio(rs.getDate("FechaInicio"));
                 exposicion.setFechafin(rs.getDate("FechaFin"));
                 exposicion.setDescripcion(rs.getString("Descripcion"));
-                exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
+                exposicion.getNumsala().setNumSala(Integer.parseInt(rs.getString("NumSala")));
 
                 milista.add(exposicion);
 
@@ -158,8 +155,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
                 exposicion.setFechainicio(rs.getDate("FechaInicio"));
                 exposicion.setFechafin(rs.getDate("FechaFin"));
                 exposicion.setDescripcion(rs.getString("Descripcion"));
-                exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
-
+                exposicion.getNumsala().setNumSala(Integer.parseInt(rs.getString("NumSala")));
             }
             rs.close();
             consulta.close();
@@ -168,7 +164,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             JOptionPane.showMessageDialog(null, "Error al consultar esa exposición");
         }
 
-        return null;
+        return exposicion;
     }
 
     @Override
@@ -184,7 +180,7 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
             ps.setDate(3, new java.sql.Date(exposicion.getFechainicio().getTime()));
             ps.setDate(4, new java.sql.Date(exposicion.getFechafin().getTime()));
             ps.setString(5, exposicion.getDescripcion());
-            ps.setInt(6, exposicion.getNumsala());
+            ps.setInt(6, exposicion.getNumsala().getNumSala());
             ps.setInt(7, exposicion.getNumExp());
 
 
@@ -197,8 +193,83 @@ public class DAOexposicion implements InterfaceExposicion.InterfaceDAOExposicion
         }
     }
 
-    public static void main(String[] args) {
+    public ArrayList<Integer> salasNoDisponibles(Date fechainic, Date fechafi){
+        ArrayList<Integer> salasnodisp = null;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            Statement consulta = conexion.createStatement();
 
+            String fechainicio = format.format(fechainic);
+            String fechafin = format.format(fechafi);
+
+            ResultSet rs = consulta.executeQuery("SELECT NumSala FROM "+propiedadesBBDD.getTblExposicion()+" WHERE '"
+                    +fechainicio+"' <= FechaInicio AND '"+fechafin+"' >= FechaFin");
+            salasnodisp = new ArrayList<>();
+
+            for(int i : salasnodisp){
+                System.out.println(i);
+            }
+            while(rs.next()){
+                int sala = Integer.parseInt(rs.getString("NumSala"));
+                salasnodisp.add(sala);
+
+            }
+            rs.close();
+            consulta.close();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar esa exposición");
+        }
+
+        return salasnodisp;
+    }
+
+
+
+    /*public boolean comprobarSala(Exposicion exposicion){
+
+        try{
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblSala()
+                    +" WHERE NumSala = '"+exposicion.getNumsala()+"");
+
+            while(rs.next()){
+                exposicion = new Exposicion();
+                exposicion.setNombre(rs.getString("Nombre"));
+                exposicion.setTematica(rs.getString("Tematica"));
+                exposicion.setFechainicio(rs.getDate("FechaInicio"));
+                exposicion.setFechafin(rs.getDate("FechaFin"));
+                exposicion.setDescripcion(rs.getString("Descripcion"));
+                exposicion.setNumsala(Integer.parseInt(rs.getString("NumSala")));
+
+            }
+            rs.close();
+            consulta.close();
+            return exposicion;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar esa exposición");
+        }
+
+        return exposicion;
+    }*/
+
+    public static void main(String[] args) throws ParseException {
+        DAOexposicion prueba = new DAOexposicion();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechain = format.parse("10/10/1995");
+        Date fechaf = format.parse("29/02/2025");
+
+        java.sql.Date fechainicio = new java.sql.Date(fechain.getTime());
+        java.sql.Date fechafin = new java.sql.Date(fechaf.getTime());
+
+        //Exposicion exp = new Exposicion(1,"pepitp","pep", fechainicio, fechafin, "sadasd", 9);
+        ArrayList<Integer> pruebas = new ArrayList<>();
+
+        pruebas =prueba.salasNoDisponibles(fechainicio, fechafin);
+
+        for(Integer p : pruebas){
+            System.out.println(p);
+        }
     }
 
 

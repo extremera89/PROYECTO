@@ -2,6 +2,7 @@ package vistas.Ventanas;
 
 import Interfaces.InterfaceExposicion;
 import controladores.ControladorExposicion;
+import modelo.Exposicion;
 import vistas.Paneles.VistaExposicion;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
         this.vista.desactivarBotonEliminar();
         this.vista.desactivarBotonGuardar();
         this.vista.desactivarBotonActualizar();
+        this.vista.desactivarBotonSala();
         this.vista.insertarImagenes();
         this.setContentPane(vista.getPanelPrincipal());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,6 +54,7 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
         this.vista.getBtnNuevo().addActionListener(controlador);
         this.vista.getBtnEliminar().addActionListener(controlador);
         this.vista.getTable1().addMouseListener(controlador);
+        this.vista.getBtnSala().addActionListener(controlador);
     }
 
     @Override

@@ -21,14 +21,15 @@ public class VistaExposicion {
     private JTextField txtFechafin;
     private JLabel lblDescripcion;
     private JTextField txtDescripcion;
-    private JLabel lblNumsala;
-    private JTextField txtNumsala;
     private JButton btnNuevo;
     private JButton btnGuardar;
     private JButton btnLimpiar;
     private JButton btnActualizarDatos;
     private JTextField txtNumExp;
     private JLabel lblNumExp;
+    private JLabel lblNumSala;
+    private JComboBox comboSala;
+    private JButton btnSala;
     private JPanel panelTitulo;
     private JPanel panelTabla;
     private JPanel panelFormulario;
@@ -41,6 +42,7 @@ public class VistaExposicion {
         this.btnLimpiar.setActionCommand("LIMPIAR");
         this.btnNuevo.setActionCommand("NUEVO");
         this.btnEliminar.setActionCommand("ELIMINAR");
+        this.btnSala.setActionCommand("SALA");
     }
 
     public void desactivaCamposTexto(){
@@ -49,7 +51,6 @@ public class VistaExposicion {
         txtFechainicio.setEnabled(false);
         txtFechafin.setEnabled(false);
         txtDescripcion.setEnabled(false);
-        txtNumsala.setEnabled(false);
         txtNumExp.setEnabled(false);
 
     }
@@ -60,17 +61,17 @@ public class VistaExposicion {
         txtFechainicio.setEnabled(true);
         txtFechafin.setEnabled(true);
         txtDescripcion.setEnabled(true);
-        txtNumsala.setEnabled(true);
+
     }
 
     public void limpiarCampoTxt(){
         txtNombre.setText("");
-        txtNumsala.setText("");
         txtDescripcion.setText("");
         txtFechafin.setText("");
         txtTematica.setText("");
         txtFechainicio.setText("");
         txtNumExp.setText("");
+        comboSala.removeAllItems();
 
     }
 
@@ -83,11 +84,34 @@ public class VistaExposicion {
         btnActualizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
     }
 
+
+    public JComboBox getComboSala() {
+        return comboSala;
+    }
+
+    public void setComboSala(JComboBox comboSala) {
+        this.comboSala = comboSala;
+    }
+
     public void desactivarNumExp(){
         txtNumExp.setEnabled(false);
     }
 
+    public JButton getBtnSala() {
+        return btnSala;
+    }
 
+    public void setBtnSala(JButton btnSala) {
+        this.btnSala = btnSala;
+    }
+
+    public void desactivarBotonSala(){
+        btnSala.setEnabled(false);
+    }
+
+    public void activarBotonSala(){
+        btnSala.setEnabled(true);
+    }
 
     public void desactivarBotonEliminar(){
         btnEliminar.setEnabled(false);
@@ -289,21 +313,7 @@ public class VistaExposicion {
         this.txtDescripcion = txtDescripcion;
     }
 
-    public JLabel getLblNumsala() {
-        return lblNumsala;
-    }
 
-    public void setLblNumsala(JLabel lblNumsala) {
-        this.lblNumsala = lblNumsala;
-    }
-
-    public JTextField getTxtNumsala() {
-        return txtNumsala;
-    }
-
-    public void setTxtNumsala(JTextField txtNumsala) {
-        this.txtNumsala = txtNumsala;
-    }
 
     public JButton getBtnNuevo() {
         return btnNuevo;
@@ -333,33 +343,6 @@ public class VistaExposicion {
         return btnActualizarDatos;
     }
 
-    public void setBtnActualizarDatos(JButton btnActualizarDatos) {
-        this.btnActualizarDatos = btnActualizarDatos;
-    }
-
-    public JPanel getPanelTitulo() {
-        return panelTitulo;
-    }
-
-    public void setPanelTitulo(JPanel panelTitulo) {
-        this.panelTitulo = panelTitulo;
-    }
-
-    public JPanel getPanelTabla() {
-        return panelTabla;
-    }
-
-    public void setPanelTabla(JPanel panelTabla) {
-        this.panelTabla = panelTabla;
-    }
-
-    public JPanel getPanelFormulario() {
-        return panelFormulario;
-    }
-
-    public void setPanelFormulario(JPanel panelFormulario) {
-        this.panelFormulario = panelFormulario;
-    }
 
 
 }
