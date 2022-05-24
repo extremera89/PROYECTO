@@ -102,6 +102,7 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
     }
 
     public void actualizarTabla(){
+        listarMonitores();
         modeloTabla.fireTableDataChanged();
     }
 

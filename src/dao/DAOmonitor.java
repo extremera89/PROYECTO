@@ -153,10 +153,11 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
             pStatement.setString(6,email);
 
             pStatement.executeUpdate();
+
             try {
                 PreparedStatement pStatement2=null;
-                String sqlMonitor="UPDATE "+propiedadesBBDD.getTblMonitor()+" SET "+ "DNI=?, ESEXPOSITOR=? WHERE DNI='"+DNI+"'";
-                pStatement2=conexion.prepareStatement(sqlPersona);
+                String sqlMonitor="UPDATE "+propiedadesBBDD.getTblMonitor()+" SET "+ "DNI=?, TITULACION=? WHERE DNI='"+DNI+"'";
+                pStatement2=conexion.prepareStatement(sqlMonitor);
                 pStatement2.setString(1,DNI);
                 pStatement2.setString(2,titulación);
 
@@ -222,4 +223,3 @@ public class DAOmonitor implements InterfaceMonitor.InterfaceDaoMonitor {
         }
     }
 }
-

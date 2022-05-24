@@ -155,7 +155,7 @@ public class DAOcliente implements InterfaceCliente.InterfaceDAOCliente {
             pStatement.executeUpdate();
             try {
                 PreparedStatement pStatement2=null;
-                String sqlCliente="UPDATE "+propiedadesBBDD.getTblCliente()+" SET "+ "DNI=?, ESEXPOSITOR=? WHERE DNI='"+DNI+"'";
+                String sqlCliente="UPDATE "+propiedadesBBDD.getTblCliente()+" SET "+ "ESEXPOSITOR=?,DNI=? WHERE DNI='"+DNI+"'";
                 pStatement2=conexion.prepareStatement(sqlCliente);
                 pStatement2.setString(1,DNI);
                 pStatement2.setInt(2,es_Expositor);

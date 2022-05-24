@@ -98,6 +98,7 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
     }
 
     public void actualizarTabla(){
+        listarCentros();
         modeloTabla.fireTableDataChanged();
     }
 
