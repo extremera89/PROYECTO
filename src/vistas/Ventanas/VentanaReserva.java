@@ -31,6 +31,7 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         this.desactivarBotones();
         guiReservas.getTxtNumeroSala().setVisible(false);
         guiReservas.getTxtDNI().setVisible(false);
+        guiReservas.getTxtMotivo().setVisible(false);
     }
 
     public void filtro() {
@@ -39,6 +40,14 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
 
         String filtro = guiReservas.getTxtBuscador().getText();
         trsfiltro.setRowFilter(RowFilter.regexFilter(guiReservas.getTxtBuscador().getText(), 1));
+    }
+
+    public void filtro2() {
+        TableRowSorter trsfiltro = new TableRowSorter(guiReservas.getTableReserva().getModel());
+        guiReservas.getTableReserva().setRowSorter(trsfiltro);
+
+        String filtro = guiReservas.getTxTBuscador2().getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(guiReservas.getTxTBuscador2().getText(), 2));
     }
 
     @Override
@@ -62,6 +71,15 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
                 guiReservas.getTxtBuscador().setText(cadena);
                 repaint();
                 filtro();
+            }
+        });
+        guiReservas.getTxTBuscador2().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (guiReservas.getTxTBuscador2().getText());
+                guiReservas.getTxTBuscador2().setText(cadena);
+                repaint();
+                filtro2();
             }
         });
     }

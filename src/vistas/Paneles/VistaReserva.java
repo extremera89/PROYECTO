@@ -35,6 +35,9 @@ public class VistaReserva {
     private JComboBox combSala;
     private JButton actDNI;
     private JButton actNumSala;
+    private JLabel lblBuscador2;
+    private JTextField TxTBuscador2;
+    private JTextArea textArea;
 
 
     public JPanel getPanelPrincipal() {
@@ -99,8 +102,20 @@ public class VistaReserva {
 
     public JTable getTableReserva(){return tableReserva;}
 
+    public JTextField getTxTBuscador2() {
+        return TxTBuscador2;
+    }
+
     public JTextField getTxtBuscador() {
         return txtBuscador;
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(JTextArea textArea) {
+        this.textArea = textArea;
     }
 
     public JComboBox getCombDNI() {
@@ -130,6 +145,7 @@ public class VistaReserva {
             txtFechaFin.setText("");
             txtConfirmado.setText("");
             txtMotivo.setText("");
+            textArea.setText("");
     }
 
     public void dasactivarCampoTxt(){
@@ -140,6 +156,7 @@ public class VistaReserva {
         txtFechaFin.setEnabled(false);
         txtConfirmado.setEnabled(false);
         txtMotivo.setEnabled(false);
+        textArea.setEnabled(false);
     }
 
     public void activaCamposTxt(){
@@ -150,6 +167,7 @@ public class VistaReserva {
         txtFechaFin.setEnabled(true);
         txtConfirmado.setEnabled(true);
         txtMotivo.setEnabled(true);
+        textArea.setEnabled(true);
     }
 
     public void insertarImagenes() {

@@ -55,7 +55,7 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
             String CodigoReserva = getRandomString(5);
 
             String DNI = (String) ventanaReserva.guiReservas.getCombDNI().getSelectedItem();
-            int NumSala = Integer.parseInt((String) ventanaReserva.guiReservas.getCombSala().getSelectedItem());
+            int NumSala = (int) ventanaReserva.guiReservas.getCombSala().getSelectedItem();
 
             java.util.Date FechaReserva =  formatoFecha.parse((ventanaReserva.guiReservas.getTxtFechaReserva().getText()));
             Date FechaFin =  formatoFecha.parse((ventanaReserva.guiReservas.getTxtFechaFin().getText()));
@@ -63,15 +63,16 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
             java.sql.Date fechainicio = new java.sql.Date(FechaReserva.getTime());
             java.sql.Date fechafin = new java.sql.Date(FechaFin.getTime());
 
-            //int Confirmado = Integer.parseInt((ventanaReserva.guiReservas.getTxtConfirmado().getText()));
-            String MotivoReserva = ventanaReserva.guiReservas.getTxtMotivo().getText();
+
+            //String MotivoReserva = ventanaReserva.guiReservas.getTxtMotivo().getText();
+            String MotivoReserva = ventanaReserva.guiReservas.getTextArea().getText();
 
             String NumSalaStr = ventanaReserva.guiReservas.getTxtNumeroSala().getText();
             String ConfirmadoStr = ventanaReserva.guiReservas.getTxtConfirmado().getText();
 
             String confirmadorgx="si|sí|SI|SÍ|no|NO";
 
-            if (!DNI.equals("")&&!NumSalaStr.equals("")&&!FechaReserva.equals("")&&!FechaFin.equals("")&&!MotivoReserva.equals("")&&!ConfirmadoStr.equals("")) {
+            if (!FechaReserva.equals("")&&!FechaFin.equals("")&&!MotivoReserva.equals("")&&!ConfirmadoStr.equals("")) {
                 if (Pattern.matches(confirmadorgx, ConfirmadoStr)) {
                     int confirmado = 3;
                     if (ConfirmadoStr.equals("SI") || ConfirmadoStr.equals("si") || ConfirmadoStr.equals("SÍ") || ConfirmadoStr.equals("sí")) {
@@ -132,7 +133,8 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         java.sql.Date fechareserva = new java.sql.Date(fechaReserva.getTime());
         java.sql.Date fechafin = new java.sql.Date(fechaFin.getTime());
         //int Confirmado = Integer.parseInt(ventanaReserva.guiReservas.getTxtConfirmado().getText());
-        String Motivo = ventanaReserva.guiReservas.getTxtMotivo().getText();
+          String Motivo = ventanaReserva.guiReservas.getTextArea().getText();
+        //String Motivo = ventanaReserva.guiReservas.getTxtMotivo().getText();
         String ConfirmadoStr = (ventanaReserva.guiReservas.getTxtConfirmado().getText());
         String confirmadorgx="si|sí|SI|SÍ|no|NO";
 
@@ -236,6 +238,9 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         ventanaReserva.guiReservas.getTxtFechaFin().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,4).toString());
         ventanaReserva.guiReservas.getTxtConfirmado().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,5).toString());
         ventanaReserva.guiReservas.getTxtMotivo().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,6).toString());
+
+        ventanaReserva.guiReservas.getTextArea().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,6).toString());
+
         ventanaReserva.guiReservas.getCombSala().setSelectedIndex(modeloTabla.saberCmboxSala(row,3));
         ventanaReserva.guiReservas.getCombDNI().setSelectedIndex(modeloTabla.saberCmboxCliente(row,2));
 

@@ -14,10 +14,7 @@ public class AlphaNumericStringGenerator {
         bytearray = new byte[256];
         new Random().nextBytes(bytearray);
 
-        mystring
-                = new String(bytearray, Charset.forName("UTF-8"));
-
-        // Create the StringBuffer
+        mystring = new String(bytearray, Charset.forName("UTF-8"));
         thebuffer = new StringBuffer();
 
         for (int m = 0; m < mystring.length(); m++) {
@@ -32,17 +29,13 @@ public class AlphaNumericStringGenerator {
                 i--;
             }
         }
-
-        // resulting string
         return thebuffer.toString();
     }
 
     public static void main(String[] args)
     {
-        // the random string length
-        int i = 5;
 
-        // output
+        int i = 5;
         System.out.println("A random string: " +  getRandomString(i));
 
 
