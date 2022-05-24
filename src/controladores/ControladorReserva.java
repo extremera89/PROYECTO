@@ -1,7 +1,9 @@
 package controladores;
 
 import Interfaces.InterfaceReserva;
+import dao.DAOcliente;
 import dao.DAOreserva;
+import dao.DAOsala;
 import modelo.Cliente;
 import modelo.Reserva;
 import modelo.Sala;
@@ -15,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -51,8 +54,8 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             String CodigoReserva = getRandomString(5);
 
-            String DNI = (ventanaReserva.guiReservas.getTxtDNI().getText());
-            int NumSala = Integer.parseInt(ventanaReserva.guiReservas.getTxtNumeroSala().getText());
+            String DNI = (String) ventanaReserva.guiReservas.getCombDNI().getSelectedItem();
+            int NumSala = Integer.parseInt((String) ventanaReserva.guiReservas.getCombSala().getSelectedItem());
 
             java.util.Date FechaReserva =  formatoFecha.parse((ventanaReserva.guiReservas.getTxtFechaReserva().getText()));
             Date FechaFin =  formatoFecha.parse((ventanaReserva.guiReservas.getTxtFechaFin().getText()));
@@ -121,9 +124,9 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
       try {
 
         String codigoReserva = ventanaReserva.guiReservas.getTxtCodigoReserva().getText();
-        String DNI = ventanaReserva.guiReservas.getTxtDNI().getText();
+        String DNI = (String) ventanaReserva.guiReservas.getCombDNI().getSelectedItem();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        int NumSala = Integer.parseInt(ventanaReserva.guiReservas.getTxtNumeroSala().getText());
+        int NumSala = (int) ventanaReserva.guiReservas.getCombSala().getSelectedItem();
         Date fechaReserva = formatoFecha.parse(this.ventanaReserva.guiReservas.getTxtFechaReserva().getText());
         Date fechaFin = formatoFecha.parse(this.ventanaReserva.guiReservas.getTxtFechaFin().getText());
         java.sql.Date fechareserva = new java.sql.Date(fechaReserva.getTime());
@@ -168,6 +171,33 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         modeloTabla.setReserva(dao.listarReserva());
     }
 
+
+
+    public void cargarDNIClientes(){
+        ventanaReserva.guiReservas.getCombDNI().removeAllItems();
+        DAOcliente daoCliente=new DAOcliente();
+        ArrayList<Cliente> dniCliente=daoCliente.listarClientes();
+        for(int i=0;i<dniCliente.size();i++){
+            Cliente cliente= dniCliente.get(i);
+            ventanaReserva.guiReservas.getCombDNI().addItem(cliente.getDNI());
+        }
+    }
+    public void cargarNumSala(){
+        ventanaReserva.guiReservas.getCombSala().removeAllItems();
+        DAOsala daoSala=new DAOsala();
+        ArrayList<Sala> numSalas= daoSala.listarSala();
+        for(int i=0;i<numSalas.size();i++){
+            Sala sala= numSalas.get(i);
+            //if (sala.getDadaAlta() == 1)
+            ventanaReserva.guiReservas.getCombSala().addItem(sala.getNumSala());
+        }
+    }
+
+    public void actualizarTabla(){
+        listarReserva();
+        modeloTabla.fireTableDataChanged();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("NUEVO"))
@@ -186,7 +216,12 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         else if(e.getActionCommand().equals("LIMPIAR")){
             ventanaReserva.guiReservas.limpiarCampoTxt();
         }else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
-            modeloTabla.actualizarTabla();
+            actualizarTabla();
+        }else if(e.getActionCommand().equals("ACTDNI")){
+            cargarDNIClientes();
+        }
+        else if (e.getActionCommand().equals("ACTNUMSALA")){
+            cargarNumSala();
         }
     }
 
@@ -201,6 +236,8 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         ventanaReserva.guiReservas.getTxtFechaFin().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,4).toString());
         ventanaReserva.guiReservas.getTxtConfirmado().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,5).toString());
         ventanaReserva.guiReservas.getTxtMotivo().setText(ventanaReserva.guiReservas.getTableReserva().getValueAt(row,6).toString());
+        ventanaReserva.guiReservas.getCombSala().setSelectedIndex(modeloTabla.saberCmboxSala(row,3));
+        ventanaReserva.guiReservas.getCombDNI().setSelectedIndex(modeloTabla.saberCmboxCliente(row,2));
 
         ventanaReserva.guiReservas.activarBotonActualizar();
         ventanaReserva.guiReservas.activaCamposTxt();

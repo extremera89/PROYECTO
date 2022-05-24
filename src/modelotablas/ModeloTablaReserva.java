@@ -1,6 +1,8 @@
 package modelotablas;
 
+import dao.DAOcliente;
 import dao.DAOreserva;
+import dao.DAOsala;
 import modelo.Cliente;
 import modelo.Reserva;
 import modelo.Sala;
@@ -139,9 +141,38 @@ public class ModeloTablaReserva extends AbstractTableModel {
 
     }
 
+
+    public int saberCmboxCliente(int fila, int columna){
+        int numCmbox=0;
+        DAOcliente daOcliente=new DAOcliente();
+        ArrayList<Cliente> dniCliente=daOcliente.listarClientes();
+        for(int i=0;i<dniCliente.size();i++){
+            Cliente cliente= dniCliente.get(i);
+            if (listaReserva.get(fila).getDNI().getDNI().equals(cliente.getDNI())){
+                return numCmbox;
+            }
+            numCmbox++;
+        }
+        return numCmbox;
+    }
+
+    public int saberCmboxSala(int fila, int columna){
+        int numCmbox=0;
+        DAOsala daoSala=new DAOsala();
+        ArrayList<Sala> numSala=daoSala.listarSala();
+        for(int i=0;i<numSala.size();i++){
+            Sala sala= numSala.get(i);
+            if (listaReserva.get(fila).getNumSala().getNumSala()==(sala.getNumSala())){
+                return numCmbox;
+            }
+            numCmbox++;
+        }
+        return numCmbox;
+    }
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return false;
     }
 
 

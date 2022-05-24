@@ -29,6 +29,8 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         this.setTitle("Reservas");
         this.pack();
         this.desactivarBotones();
+        guiReservas.getTxtNumeroSala().setVisible(false);
+        guiReservas.getTxtDNI().setVisible(false);
     }
 
     public void filtro() {
@@ -42,6 +44,8 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
     @Override
     public void setController(ControladorReserva controller) {
         this.controller=controller;
+        controller.cargarDNIClientes();
+        controller.cargarNumSala();
         guiReservas.getBtnEliminar().addActionListener(controller);
         guiReservas.getBtnGuardar().addActionListener(controller);
         guiReservas.getBtnLimpiar().addActionListener(controller);
@@ -49,6 +53,8 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         guiReservas.getBtnActualizarTabla().addActionListener(controller);
         guiReservas.getTableReserva().addMouseListener(controller);
         guiReservas.getBtnActulizarDatos().addActionListener(controller);
+        guiReservas.getActDNI().addActionListener(controller);
+        guiReservas.getActNumSala().addActionListener(controller);
         guiReservas.getTxtBuscador().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
@@ -78,6 +84,9 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
             guiReservas.getBtnLimpiar().setVisible(false);
             guiReservas.getBtnActulizarDatos().setVisible(false);
             guiReservas.getBtnActualizarTabla().setVisible(false);
+            guiReservas.getActDNI().setVisible(false);
+            guiReservas.getActNumSala().setVisible(false);
+
         }
     }
 }

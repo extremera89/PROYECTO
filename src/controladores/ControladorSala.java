@@ -89,7 +89,7 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
     @Override
     public void eliminarSala() {
         if (JOptionPane.showConfirmDialog(null,"¿Estas seguro que desea eliminar esta sala?")==0){
-            if (JOptionPane.showConfirmDialog(null,"Todas las exposiciones que contenga la sala seran eliminadas,¿Esta seguro?")==0) {
+            if (JOptionPane.showConfirmDialog(null,"Todas las exposiciones y reservas que contenga la sala seran eliminadas,¿Esta seguro?")==0) {
                 dao.eliminarSala(Integer.parseInt(ventanaSala.guiSalas.getTblSalas().getValueAt(filaPulsada, 0).toString()));
                 modeloTabla.eliminarSala(filaPulsada);
                 ventanaSala.guiSalas.desactivarBotonEliminar();
@@ -138,6 +138,11 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         modeloTabla.setSalas(dao.listarSala());
     }
 
+    public void actualizarTabla(){
+        listarSala();
+        modeloTabla.fireTableDataChanged();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("NUEVO"))
@@ -149,12 +154,14 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         else if (e.getActionCommand().equals("ACTUALIZAR")) {
             actualizarSala();
         }else if(e.getActionCommand().equals("ACTUALIZAR_TABLA")){
-            modeloTabla.actualizarTabla();
+            actualizarTabla();
         }
         else if(e.getActionCommand().equals("LIMPIAR")){
             ventanaSala.guiSalas.limpiarCampoTxt();
         }
     }
+
+
 
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -31,6 +31,11 @@ public class VistaReserva {
     private JLabel lblTitulo;
     private JTextField txtBuscador;
     private JLabel lblBusca;
+    private JComboBox combDNI;
+    private JComboBox combSala;
+    private JButton actDNI;
+    private JButton actNumSala;
+
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -64,6 +69,14 @@ public class VistaReserva {
         return txtMotivo;
     }
 
+    public JButton getActDNI() {
+        return actDNI;
+    }
+
+    public JButton getActNumSala() {
+        return actNumSala;
+    }
+
     public JButton getBtnNuevo() {
         return btnNuevo;
     }
@@ -90,6 +103,14 @@ public class VistaReserva {
         return txtBuscador;
     }
 
+    public JComboBox getCombDNI() {
+        return combDNI;
+    }
+
+    public JComboBox getCombSala() {
+        return combSala;
+    }
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
@@ -97,6 +118,8 @@ public class VistaReserva {
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
         btnActulizarDatos.setActionCommand("ACTUALIZAR");
+        actDNI.setActionCommand("ACTDNI");
+        actNumSala.setActionCommand("ACTNUMSALA");
     }
 
     public void limpiarCampoTxt(){
@@ -136,6 +159,8 @@ public class VistaReserva {
         btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
         btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
+        actDNI.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        actNumSala.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
     }
 
     public void desactivarBotonEliminar(){
@@ -168,5 +193,9 @@ public class VistaReserva {
 
     public void setBtnActulizarDatos(JButton btnActulizarDatos) {
         this.btnActulizarDatos = btnActulizarDatos;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
