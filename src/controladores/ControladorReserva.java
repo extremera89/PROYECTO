@@ -111,6 +111,7 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         ventanaReserva.guiReservas.desactivarBotonEliminar();
         ventanaReserva.guiReservas.limpiarCampoTxt();
         ventanaReserva.guiReservas.desactivarBotonActualizar();
+        ventanaReserva.guiReservas.dasactivarCampoTxt();
         filaPulsada = -1;
     }
 

@@ -42,6 +42,7 @@ public class DAOsala implements InterfaceSalas.InterfaceDAOSala{
                 ps.setInt(4,sala.getAforo());
                 ps.setInt(5,sala.getNumPlanta());
                 ps.executeUpdate();
+
         }catch(SQLException e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al insertar la sala");

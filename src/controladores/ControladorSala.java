@@ -95,6 +95,7 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
                 ventanaSala.guiSalas.desactivarBotonEliminar();
                 ventanaSala.guiSalas.limpiarCampoTxt();
                 ventanaSala.guiSalas.desactivarBotonActualizar();
+                ventanaSala.guiSalas.dasactivarCampoTxt();
                 filaPulsada = -1;
             }
         }
