@@ -82,7 +82,11 @@ public class ModeloTablaReserva extends AbstractTableModel {
             case 4:
                 return formatoFecha.format(fechaFin);
             case 5:
-                return listaReserva.get(rowIndex).getConfirmado();
+                if(listaReserva.get(rowIndex).getConfirmado()==1){
+                    return "SÍ";
+                }
+                else
+                    return "NO";
             case 6:
                 return listaReserva.get(rowIndex).getMotivoReserva();
 

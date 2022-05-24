@@ -64,7 +64,11 @@ public class ModeloTablaSala extends AbstractTableModel {
                 return listaSalas.get(rowIndex).getNumSala();
 
             case 1:
-                return listaSalas.get(rowIndex).getDadaAlta();
+            if(listaSalas.get(rowIndex).getDadaAlta()==1){
+                return "SÍ";
+            }
+            else
+                return "NO";
 
             case 2:
                 return listaSalas.get(rowIndex).getTamanio();

@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import static otros.AlphaNumericStringGenerator.getRandomString;
 
@@ -47,7 +48,7 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             String CodigoReserva = getRandomString(5);
-            //String CodigoReserva = (ventanaReserva.guiReservas.getTxtCodigoReserva().getText());
+
             String DNI = (ventanaReserva.guiReservas.getTxtDNI().getText());
             int NumSala = Integer.parseInt(ventanaReserva.guiReservas.getTxtNumeroSala().getText());
 
@@ -57,29 +58,38 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
             java.sql.Date fechainicio = new java.sql.Date(FechaReserva.getTime());
             java.sql.Date fechafin = new java.sql.Date(FechaFin.getTime());
 
-            int Confirmado = Integer.parseInt((ventanaReserva.guiReservas.getTxtConfirmado().getText()));
+            //int Confirmado = Integer.parseInt((ventanaReserva.guiReservas.getTxtConfirmado().getText()));
             String MotivoReserva = ventanaReserva.guiReservas.getTxtMotivo().getText();
 
             String NumSalaStr = ventanaReserva.guiReservas.getTxtNumeroSala().getText();
             String ConfirmadoStr = ventanaReserva.guiReservas.getTxtConfirmado().getText();
-            //20839184B
-            if (!DNI.equals("")&&!NumSalaStr.equals("")&&!FechaReserva.equals("")&&!FechaFin.equals("")&&!MotivoReserva.equals("")&&!ConfirmadoStr.equals("")){
-                if (dao.buscarReserva(CodigoReserva)==null){
-                    Reserva nuevaReserva = new Reserva(CodigoReserva,DNI,NumSala,fechainicio,fechafin,Confirmado,MotivoReserva);
-                    dao.insertarReserva(nuevaReserva);
-                    if (dao.buscarReserva(nuevaReserva.getCodigoReserva())!=null) {
-                        modeloTabla.crearReserva(CodigoReserva,DNI,NumSala,fechainicio,fechafin,Confirmado,MotivoReserva);
-                    }
-                    ventanaReserva.guiReservas.desactivarBotonGuardar();
-                    ventanaReserva.guiReservas.limpiarCampoTxt();
-                    ventanaReserva.guiReservas.activaCamposTxt();
-                    ventanaReserva.guiReservas.desactivarBotonActualizar();
-                    ventanaReserva.guiReservas.dasactivarCampoTxt();
 
-                }
-                else JOptionPane.showMessageDialog(null, "Ya existe una Reserva con ese codigo");
-            }
-            else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+            String confirmadorgx="si|sí|SI|SÍ|no|NO";
+
+            if (!DNI.equals("")&&!NumSalaStr.equals("")&&!FechaReserva.equals("")&&!FechaFin.equals("")&&!MotivoReserva.equals("")&&!ConfirmadoStr.equals("")) {
+                if (Pattern.matches(confirmadorgx, ConfirmadoStr)) {
+                    int confirmado = 3;
+                    if (ConfirmadoStr.equals("SI") || ConfirmadoStr.equals("si") || ConfirmadoStr.equals("SÍ") || ConfirmadoStr.equals("sí")) {
+                        confirmado = 1;
+                    } else
+                        confirmado = 0;
+
+
+                    if (dao.buscarReserva(CodigoReserva) == null) {
+                        Reserva nuevaReserva = new Reserva(CodigoReserva, DNI, NumSala, fechainicio, fechafin, confirmado, MotivoReserva);
+                        dao.insertarReserva(nuevaReserva);
+                        if (dao.buscarReserva(nuevaReserva.getCodigoReserva()) != null) {
+                            modeloTabla.crearReserva(CodigoReserva, DNI, NumSala, fechainicio, fechafin, confirmado, MotivoReserva);
+                        }
+                        ventanaReserva.guiReservas.desactivarBotonGuardar();
+                        ventanaReserva.guiReservas.limpiarCampoTxt();
+                        ventanaReserva.guiReservas.activaCamposTxt();
+                        ventanaReserva.guiReservas.desactivarBotonActualizar();
+                        ventanaReserva.guiReservas.dasactivarCampoTxt();
+
+                    } else JOptionPane.showMessageDialog(null, "Ya existe una Reserva con ese codigo");
+                } else {JOptionPane.showMessageDialog(null,"No insertastes si o no");}
+            } else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
         }catch (ParseException e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Fecha mal introducida");
@@ -111,19 +121,29 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         Date fechaFin = formatoFecha.parse(this.ventanaReserva.guiReservas.getTxtFechaFin().getText());
         java.sql.Date fechareserva = new java.sql.Date(fechaReserva.getTime());
         java.sql.Date fechafin = new java.sql.Date(fechaFin.getTime());
-        int Confirmado = Integer.parseInt(ventanaReserva.guiReservas.getTxtConfirmado().getText());
+        //int Confirmado = Integer.parseInt(ventanaReserva.guiReservas.getTxtConfirmado().getText());
         String Motivo = ventanaReserva.guiReservas.getTxtMotivo().getText();
+        String ConfirmadoStr = (ventanaReserva.guiReservas.getTxtConfirmado().getText());
+        String confirmadorgx="si|sí|SI|SÍ|no|NO";
 
+          if (!DNI.equals("")&&!codigoReserva.equals("")&&!fechaReserva.equals("")&&!fechaFin.equals("")&&!Motivo.equals("")&&!ConfirmadoStr.equals("")) {
+              if (Pattern.matches(confirmadorgx, ConfirmadoStr)) {
+                  int confirmado = 3;
+                  if (ConfirmadoStr.equals("SI") || ConfirmadoStr.equals("si") || ConfirmadoStr.equals("SÍ") || ConfirmadoStr.equals("sí")) {
+                      confirmado = 1;
+                  } else
+                      confirmado = 0;
 
-        Reserva reserva = new Reserva(codigoReserva,DNI,NumSala,fechareserva,fechafin,Confirmado,Motivo);
+                  Reserva reserva = new Reserva(codigoReserva, DNI, NumSala, fechareserva, fechafin, confirmado, Motivo);
 
-        dao.modificarReserva(reserva);
+                  dao.modificarReserva(reserva);
 
-        if (!dao.error){
-        modeloTabla.actualizarReserva(filaPulsada, reserva);
-        }
-        this.dao.error = false;
-
+                  if (!dao.error) {
+                      modeloTabla.actualizarReserva(filaPulsada, reserva);
+                  }
+                  this.dao.error = false;
+              } else {JOptionPane.showMessageDialog(null,"No insertastes si o no");}
+          } else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
       }catch (NumberFormatException e){
         e.printStackTrace();
         JOptionPane.showMessageDialog(null,"Has introducido un carácter que no es un número");

@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.regex.Pattern;
 
 
 public class ControladorSala implements InterfaceSalas.InterfaceControladorSala, ActionListener , MouseListener {
@@ -47,7 +48,6 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
 
 
         int numSala= Integer.parseInt(ventanaSala.guiSalas.getTxtNumSala().getText());
-        int dadaAlta= Integer.parseInt(ventanaSala.guiSalas.getTxtDadaAlta().getText());
         int tamanio= Integer.parseInt(ventanaSala.guiSalas.getTxtTamanio().getText());
         int aforo= Integer.parseInt(ventanaSala.guiSalas.getTxtAforo().getText());
         int numPlanta= Integer.parseInt(ventanaSala.guiSalas.getTxtNumPlanta().getText());
@@ -56,27 +56,33 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         String tamanioStr= (ventanaSala.guiSalas.getTxtTamanio().getText());
         String aforoStr=(ventanaSala.guiSalas.getTxtAforo().getText());
         String numPlantatr= (ventanaSala.guiSalas.getTxtNumPlanta().getText());
+        String dadaAltaregx="si|sí|SI|SÍ|no|NO";
 
-        if (!numSalaStr.equals("")&&!dadaAltaStr.equals("")&&!tamanioStr.equals("")&&!aforoStr.equals("")&&!numPlantatr.equals("")){
-            if (dao.buscarSala(numSala)==null){
-                Sala nuevaSala = new Sala(numSala,dadaAlta,tamanio,aforo,numPlanta);
-                dao.insertarSala(nuevaSala);
-                if (dao.buscarSala(nuevaSala.getNumSala())!=null){
-                    modeloTabla.crearSalas(numSala,dadaAlta,tamanio,aforo,numPlanta);
-                }
-                //PROBAR
-                ventanaSala.guiSalas.desactivarBotonGuardar();
-                ventanaSala.guiSalas.limpiarCampoTxt();
-                ventanaSala.guiSalas.activaCamposTxt();
-                ventanaSala.guiSalas.desactivarBotonActualizar();
-                ventanaSala.guiSalas.dasactivarCampoTxt();
-            }
-            else JOptionPane.showMessageDialog(null, "Ya existe una Sala con ese numero");
-        }
-        else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+        if (!numSalaStr.equals("")&&!dadaAltaStr.equals("")&&!tamanioStr.equals("")&&!aforoStr.equals("")&&!numPlantatr.equals("")) {
+            if (Pattern.matches(dadaAltaregx, dadaAltaStr)) {
+                int dadaAltai = 3;
+                if (dadaAltaStr.equals("SI") || dadaAltaStr.equals("si")  || dadaAltaStr.equals("SÍ")  || dadaAltaStr.equals("sí")) {
+                    dadaAltai = 1;
+                } else
+                    dadaAltai = 0;
 
+                if (dao.buscarSala(numSala) == null) {
+                    Sala nuevaSala = new Sala(numSala, dadaAltai, tamanio, aforo, numPlanta);
+                    dao.insertarSala(nuevaSala);
+                    if (dao.buscarSala(nuevaSala.getNumSala()) != null) {
+                        modeloTabla.crearSalas(numSala, dadaAltai, tamanio, aforo, numPlanta);
+                    }
+                    ventanaSala.guiSalas.desactivarBotonGuardar();
+                    ventanaSala.guiSalas.limpiarCampoTxt();
+                    ventanaSala.guiSalas.activaCamposTxt();
+                    ventanaSala.guiSalas.desactivarBotonActualizar();
+                    ventanaSala.guiSalas.dasactivarCampoTxt();
+                } else JOptionPane.showMessageDialog(null, "Ya existe una Sala con ese numero");
+            } else {JOptionPane.showMessageDialog(null,"No insertastes si o no");}
+        }else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
         }catch (Exception e){
             System.out.println("Error en crear Sala del controlador");
+            e.printStackTrace();
         }
     }
 
@@ -97,18 +103,33 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
     @Override
     public void actualizarSala() {
         int numSala = Integer.parseInt(ventanaSala.guiSalas.getTxtNumSala().getText());
-        int dadaAlta = Integer.parseInt(ventanaSala.guiSalas.getTxtDadaAlta().getText());
         int tamanio = Integer.parseInt(ventanaSala.guiSalas.getTxtTamanio().getText());
         int aforo= Integer.parseInt(ventanaSala.guiSalas.getTxtAforo().getText());
         int numPlanta= Integer.parseInt(ventanaSala.guiSalas.getTxtNumPlanta().getText());
+        String numSalaStr = (ventanaSala.guiSalas.getTxtNumSala().getText());
+        String tamanioStr = (ventanaSala.guiSalas.getTxtTamanio().getText());
+        String aforoStr = (ventanaSala.guiSalas.getTxtAforo().getText());
+        String numPlantaStr = (ventanaSala.guiSalas.getTxtNumPlanta().getText());
+        String dadaAltastr = (ventanaSala.guiSalas.getTxtDadaAlta().getText());
+        String dadaAltaregx="si|sí|SI|SÍ|no|NO";
 
-        Sala sala = new Sala(numSala,dadaAlta,tamanio,aforo,numPlanta);
-        dao.modificarSala(sala);
+        if (!numSalaStr.equals("")&&!tamanioStr.equals("")&&!dadaAltastr.equals("")&&!aforoStr.equals("")&&!numPlantaStr.equals("")) {
+            if (Pattern.matches(dadaAltaregx, dadaAltastr)) {
+                int dadaAltai = 3;
+                if (dadaAltastr.equals("SI") || dadaAltastr.equals("si") || dadaAltastr.equals("SÍ") || dadaAltastr.equals("sí")) {
+                    dadaAltai = 1;
+                } else
+                    dadaAltai = 0;
 
-        if (!dao.error){
-            modeloTabla.actualizarSala(filaPulsada, sala);
-        }
-        this.dao.error = false;
+                Sala sala = new Sala(numSala, dadaAltai, tamanio, aforo, numPlanta);
+                dao.modificarSala(sala);
+
+                if (!dao.error) {
+                    modeloTabla.actualizarSala(filaPulsada, sala);
+                }
+                this.dao.error = false;
+            }else {JOptionPane.showMessageDialog(null,"No insertastes si o no");}
+        }else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
     }
 
     @Override
