@@ -2,15 +2,15 @@ package modelotablas;
 
 import dao.DAOexposicion;
 import modelo.Exposicion;
+import vistas.Ventanas.VentanaExposicion;
 
 import javax.swing.table.AbstractTableModel;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+//BORRAR SI DA PROBLEMAS CON EL EXTREMERIN
 public class ModeloTablasExposicion extends AbstractTableModel {
-
-
 
     private ArrayList<Exposicion> exposiciones;
     private Class[] tipoColumnas;
@@ -34,7 +34,6 @@ public class ModeloTablasExposicion extends AbstractTableModel {
         exposiciones.get(fila).setDescripcion(((Exposicion)expAct).getDescripcion());
         exposiciones.get(fila).setNumsala(((Exposicion)expAct).getNumsala());
 
-
     }
 
     public void eliminarExposicion(int pos){
@@ -51,6 +50,11 @@ public class ModeloTablasExposicion extends AbstractTableModel {
     public void setExposiciones(ArrayList<Exposicion> exposiciones){
         this.exposiciones = exposiciones;
     }
+
+    public void actualizarTabla(){
+        fireTableDataChanged();
+    }
+
 
 
     @Override
@@ -87,7 +91,7 @@ public class ModeloTablasExposicion extends AbstractTableModel {
                 return exposiciones.get(fila).getDescripcion();
 
             case 6:
-                return exposiciones.get(fila).getNumsala().getNumSala();
+                return exposiciones.get(fila).getNumsala();
 
             default:
                 return null;
@@ -118,7 +122,7 @@ public class ModeloTablasExposicion extends AbstractTableModel {
                     exposiciones.get(fila).setDescripcion(((Exposicion)aValue).getDescripcion());
 
                 case 6:
-                    exposiciones.get(fila).getNumsala().setNumSala( ((Exposicion)aValue).getNumsala().getNumSala() );
+                    exposiciones.get(fila).setNumsala(((Exposicion)aValue).getNumsala());
 
                 default:
 
