@@ -38,6 +38,7 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         ventanaCentro.guiCentro.limpiarCampoTxt();
         ventanaCentro.guiCentro.activaCamposTxt();
         ventanaCentro.guiCentro.activarBotonGuardar();
+        ventanaCentro.guiCentro.activarBotonLimpiar();
     }
 
     @Override

@@ -38,6 +38,7 @@ public class ControladorMonitor implements InterfaceMonitor.InterfaceControlador
         ventanaMonitor.guiMonitor.activaCamposTxt();
         ventanaMonitor.guiMonitor.activarBotonGuardar();
         ventanaMonitor.guiMonitor.getCmbox().setVisible(true);
+        ventanaMonitor.guiMonitor.activarBotonLimpiar();
 
     }
 
