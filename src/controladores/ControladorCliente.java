@@ -188,6 +188,10 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         ventanaCliente.guiClientes.getTxtTelefono().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,4).toString());
         ventanaCliente.guiClientes.getTxtEmail().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,5).toString());
         ventanaCliente.guiClientes.getTxtExpositor().setText(ventanaCliente.guiClientes.getTablaClientes().getValueAt(row,6).toString());
+
+        if(ventanaCliente.tipoPerfil()==0){
+            ventanaCliente.desactivarBotones();
+        }else {
         ventanaCliente.guiClientes.desactivarBotonLimpiar();
         ventanaCliente.guiClientes.activaCamposTxt();
         ventanaCliente.guiClientes.desactivarTXTNIF();
@@ -195,7 +199,7 @@ public class ControladorCliente implements InterfaceCliente.InterfaceControlador
         ventanaCliente.guiClientes.activarBotonActualizar();
         ventanaCliente.guiClientes.desactivarBotonGuardar();
         modeloTabla.fireTableDataChanged();
-        filaPulsada = row;
+        filaPulsada = row;}
 
     }
 

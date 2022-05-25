@@ -221,6 +221,9 @@ public class VistaVisita {
         btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
         btnActualizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
+        btnCli.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        btnExp.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        btnMon.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
     }
 
 

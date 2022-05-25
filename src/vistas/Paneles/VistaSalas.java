@@ -137,6 +137,7 @@ public class VistaSalas {
         btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
     }
 
+
     public void desactivarBotonEliminar(){
         btnEliminar.setEnabled(false);
     }

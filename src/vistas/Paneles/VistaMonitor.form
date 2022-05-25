@@ -195,7 +195,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <disabledTextColor color="-12514751"/>
+                </properties>
               </component>
               <component id="3e3b9" class="javax.swing.JLabel" binding="lblApellido1">
                 <constraints>

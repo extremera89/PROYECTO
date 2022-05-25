@@ -73,7 +73,9 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
         controller.listarMonitores();
         //this.setVisible(true);
     }
-
+    public int tipoPerfil(){
+        return VentanaLogin.tipoPerfil;
+    }
     public void desactivarBotones(){
         int tipoperfil = VentanaLogin.tipoPerfil;
         if (tipoperfil==0){
@@ -83,7 +85,7 @@ public class VentanaMonitor extends JFrame implements InterfaceMonitor.Interface
             guiMonitor.getBtnGuardar().setVisible(false);
             guiMonitor.getBtnLimpiar().setVisible(false);
             guiMonitor.getBtnActulizarDatos().setVisible(false);
-            guiMonitor.getBtnActualizarTabla().setVisible(false);
+
             guiMonitor.getCmbox().setVisible(false);
         }
     }

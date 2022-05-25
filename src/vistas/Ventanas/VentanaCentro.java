@@ -73,6 +73,9 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         controller.listarCentros();
         //this.setVisible(true);
     }
+    public int tipoPerfil(){
+        return VentanaLogin.tipoPerfil;
+    }
 
     public void desactivarBotones(){
         int tipoperfil = VentanaLogin.tipoPerfil;
@@ -83,7 +86,9 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
             guiCentro.getBtnGuardar().setVisible(false);
             guiCentro.getBtnLimpiar().setVisible(false);
             guiCentro.getBtnActulizarDatos().setVisible(false);
-            guiCentro.getBtnActualizarTabla().setVisible(false);
+            guiCentro.getCmboxCliente().setEnabled(false);
+            guiCentro.getComBoxMonitor().setEnabled(false);
+
             guiCentro.getBtnComCliente().setVisible(false);
             guiCentro.getBtnComMonitor().setVisible(false);
         }

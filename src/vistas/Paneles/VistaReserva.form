@@ -329,6 +329,7 @@
               </grid>
             </constraints>
             <properties>
+              <foreground color="-4473925"/>
               <model/>
             </properties>
           </component>

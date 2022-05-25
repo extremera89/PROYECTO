@@ -91,7 +91,9 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
         controller.listarReserva();
         //this.setVisible(true);
     }
-
+    public int tipoPerfil(){
+        return VentanaLogin.tipoPerfil;
+    }
     public void desactivarBotones(){
         int tipoperfil = VentanaLogin.tipoPerfil;
         if (tipoperfil==0){
@@ -101,9 +103,12 @@ public class VentanaReserva extends JFrame implements InterfaceReserva.Interface
             guiReservas.getBtnGuardar().setVisible(false);
             guiReservas.getBtnLimpiar().setVisible(false);
             guiReservas.getBtnActulizarDatos().setVisible(false);
-            guiReservas.getBtnActualizarTabla().setVisible(false);
+            guiReservas.getCombSala().setEnabled(false);
+            guiReservas.getCombDNI().setEnabled(false);
             guiReservas.getActDNI().setVisible(false);
             guiReservas.getActNumSala().setVisible(false);
+
+
 
         }
     }

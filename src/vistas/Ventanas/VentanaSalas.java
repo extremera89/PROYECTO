@@ -65,6 +65,10 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
 
     }
 
+    public int tipoPerfil(){
+        return VentanaLogin.tipoPerfil;
+    }
+
     public void desactivarBotones(){
         int tipoperfil = VentanaLogin.tipoPerfil;
         if (tipoperfil==0){
@@ -74,7 +78,7 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
             guiSalas.getBtnGuardar().setVisible(false);
             guiSalas.getBtnLimpiar().setVisible(false);
             guiSalas.getBtnActulizarDatos().setVisible(false);
-            guiSalas.getBtnActualizarTabla().setVisible(false);
+
         }
     }
 }

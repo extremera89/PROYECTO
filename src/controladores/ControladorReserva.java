@@ -244,13 +244,18 @@ public class ControladorReserva implements InterfaceReserva.InterfaceControlador
         ventanaReserva.guiReservas.getCombSala().setSelectedIndex(modeloTabla.saberCmboxSala(row,3));
         ventanaReserva.guiReservas.getCombDNI().setSelectedIndex(modeloTabla.saberCmboxCliente(row,2));
 
+        if(ventanaReserva.tipoPerfil()==0){
+            ventanaReserva.desactivarBotones();
+        }else {
+
         ventanaReserva.guiReservas.activarBotonActualizar();
         ventanaReserva.guiReservas.activaCamposTxt();
         ventanaReserva.guiReservas.desactivarTXTCodigoReserva();
         ventanaReserva.guiReservas.activarBotonEliminar();
         ventanaReserva.guiReservas.desactivarBotonGuardar();
         ventanaReserva.guiReservas.desactivarBotonLimpiar();
-        filaPulsada = row;
+
+            filaPulsada = row;}
     }
 
     @Override

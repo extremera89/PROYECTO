@@ -172,13 +172,16 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         ventanaSala.guiSalas.getTxtAforo().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,3).toString());
         ventanaSala.guiSalas.getTxtNumPlanta().setText(ventanaSala.guiSalas.getTblSalas().getValueAt(row,4).toString());
 
+        if(ventanaSala.tipoPerfil()==0){
+            ventanaSala.desactivarBotones();
+        }else {
         ventanaSala.guiSalas.activarBotonActualizar();
         ventanaSala.guiSalas.activaCamposTxt();
         ventanaSala.guiSalas.desactivarTXTNumSala();
         ventanaSala.guiSalas.activarBotonEliminar();
         ventanaSala.guiSalas.desactivarBotonGuardar();
         ventanaSala.guiSalas.desactivarBotonLimpiar();
-        filaPulsada = row;
+        filaPulsada = row;}
     }
 
     @Override

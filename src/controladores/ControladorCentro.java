@@ -163,13 +163,17 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         ventanaCentro.guiCentro.getTxtNombre().setText(ventanaCentro.guiCentro.getTablaCentros().getValueAt(row,1).toString());
         ventanaCentro.guiCentro.getCmboxCliente().setSelectedIndex(modeloTabla.saberCmboxCliente(row,3));
         ventanaCentro.guiCentro.getComBoxMonitor().setSelectedIndex(modeloTabla.saberCmboxMonitor(row,4));
+
+        if(ventanaCentro.tipoPerfil()==0){
+            ventanaCentro.desactivarBotones();
+        }else {
         ventanaCentro.guiCentro.desactivarBotonLimpiar();
         ventanaCentro.guiCentro.activaCamposTxt();
         ventanaCentro.guiCentro.activarBotonEliminar();
         ventanaCentro.guiCentro.activarBotonActualizar();
         ventanaCentro.guiCentro.desactivarBotonGuardar();
         modeloTabla.fireTableDataChanged();
-        filaPulsada = row;
+        filaPulsada = row;}
     }
 
 

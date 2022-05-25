@@ -157,6 +157,8 @@ public class VistaReserva {
         txtConfirmado.setEnabled(false);
         txtMotivo.setEnabled(false);
         textArea.setEnabled(false);
+        getCombSala().setEnabled(false);
+        getCombDNI().setEnabled(false);
     }
 
     public void activaCamposTxt(){
@@ -168,6 +170,8 @@ public class VistaReserva {
         txtConfirmado.setEnabled(true);
         txtMotivo.setEnabled(true);
         textArea.setEnabled(true);
+        getCombSala().setEnabled(true);
+        getCombDNI().setEnabled(true);
     }
 
     public void insertarImagenes() {

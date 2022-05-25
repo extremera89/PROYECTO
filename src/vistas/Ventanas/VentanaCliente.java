@@ -68,7 +68,9 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
         controller.listarClietes();
         //this.setVisible(true);
     }
-
+    public int tipoPerfil(){
+        return VentanaLogin.tipoPerfil;
+    }
     public void desactivarBotones(){
         int tipoperfil = VentanaLogin.tipoPerfil;
         if (tipoperfil==0){
@@ -78,7 +80,7 @@ public class VentanaCliente extends JFrame implements InterfaceCliente.Interface
             guiClientes.getBtnGuardar().setVisible(false);
             guiClientes.getBtnLimpiar().setVisible(false);
             guiClientes.getBtnActulizarDatos().setVisible(false);
-            guiClientes.getBtnActualizarTabla().setVisible(false);
+
         }
     }
 }
