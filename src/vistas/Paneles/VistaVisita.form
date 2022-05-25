@@ -190,16 +190,6 @@
               <text value="Centro:"/>
             </properties>
           </component>
-          <component id="dc650" class="javax.swing.JTextField" binding="txtCentro">
-            <constraints>
-              <grid row="7" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <disabledTextColor color="-12514751"/>
-            </properties>
-          </component>
           <component id="6a58e" class="javax.swing.JLabel" binding="lblDnimonitor">
             <constraints>
               <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -315,6 +305,20 @@
               <grid row="13" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="20" height="-1"/>
               </grid>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="5b3c8" class="javax.swing.JComboBox" binding="comboBoxCentro">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="72bc3" class="javax.swing.JButton" binding="btnCentro">
+            <constraints>
+              <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value=""/>

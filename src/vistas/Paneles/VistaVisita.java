@@ -11,7 +11,6 @@ public class VistaVisita {
     private JTextField txtNumVisita;
     private JTextField txtNumPersonas;
     private JTextField txtFecha;
-    private JTextField txtCentro;
     private JTextField TxtDnimonitor;
     private JButton btnNuevo;
     private JButton btnGuardar;
@@ -36,6 +35,8 @@ public class VistaVisita {
     private JButton btnMon;
     private JButton btnCli;
     private JTextField txtFiltro;
+    private JComboBox comboBoxCentro;
+    private JButton btnCentro;
 
 
     public JTable getTable1() {
@@ -54,9 +55,6 @@ public class VistaVisita {
         this.txtFecha = txtFecha;
     }
 
-    public void setTxtCentro(JTextField txtCentro) {
-        this.txtCentro = txtCentro;
-    }
 
     public void setTxtDnimonitor(JTextField txtDnimonitor) {
         this.TxtDnimonitor = txtDnimonitor;
@@ -84,9 +82,6 @@ public class VistaVisita {
         return txtFecha;
     }
 
-    public JTextField getTxtCentro() {
-        return txtCentro;
-    }
 
     public JTextField getTxtDnimonitor() {
         return TxtDnimonitor;
@@ -125,8 +120,24 @@ public class VistaVisita {
         return txtFiltro;
     }
 
+    public JButton getBtnCentro() {
+        return btnCentro;
+    }
+
+    public void setBtnCentro(JButton btnCentro) {
+        this.btnCentro = btnCentro;
+    }
+
     public void setTxtFiltro(JTextField txtFiltro) {
         this.txtFiltro = txtFiltro;
+    }
+
+    public JComboBox getComboBoxCentro() {
+        return comboBoxCentro;
+    }
+
+    public void setComboBoxCentro(JComboBox comboBoxCentro) {
+        this.comboBoxCentro = comboBoxCentro;
     }
 
     public void desactivarBotonEliminar(){
@@ -212,6 +223,7 @@ public class VistaVisita {
         btnExp.setActionCommand("EXPOSICIONES");
         btnCli.setActionCommand("CLIENTES");
         btnMon.setActionCommand("MONITORES");
+        btnCentro.setActionCommand("CENTROS");
     }
 
     public void insertarImagenes() {
@@ -224,6 +236,8 @@ public class VistaVisita {
         btnCli.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnExp.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnMon.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        btnCentro.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+
     }
 
 
@@ -232,20 +246,17 @@ public class VistaVisita {
         txtNumVisita.setText("");
         txtNumPersonas.setText("");
         txtFecha.setText("");
-        txtCentro.setText("");
     }
 
     public void dasactivarCampoTxt(){
         txtNumVisita.setEnabled(false);
         txtNumPersonas.setEnabled(false);
         txtFecha.setEnabled(false);
-        txtCentro.setEnabled(false);
     }
 
     public void activaCamposTxt(){
         txtNumPersonas.setEnabled(true);
         txtFecha.setEnabled(true);
-        txtCentro.setEnabled(true);
     }
 
 }

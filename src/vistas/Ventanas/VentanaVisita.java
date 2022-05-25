@@ -61,6 +61,7 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
         controlador.cargarDNIClientes();
         controlador.cargarDNIMonitores();
         controlador.cargarExposiciones();
+        controlador.cargarCentros();
         this.vista.getBtnActualizarDatos().addActionListener(controlador);
         this.vista.getBtnActualizarTabla().addActionListener(controlador);
         this.vista.getBtnGuardar().addActionListener(controlador);
@@ -71,6 +72,7 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
         this.vista.getBtnExp().addActionListener(controlador);
         this.vista.getBtnCli().addActionListener(controlador);
         this.vista.getBtnMon().addActionListener(controlador);
+        this.vista.getBtnCentro().addActionListener(controlador);
         this.vista.getTxtFiltro().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {

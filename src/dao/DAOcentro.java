@@ -40,7 +40,7 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
     @Override
     public void insertarCentro(Centro centro) {
 
-        String sql = "INSERT INTO " + propiedadesBBDD.getTblCentro() + " (codCentro,nombre,numVisita,DNI_cliente,DNI_monitor) values (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + propiedadesBBDD.getTblCentro() + " (codCentro,nombre,DNI_cliente,DNI_monitor) values (?, ?, ?, ?)";
         int filasAfectadas = 0;
 
         try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {

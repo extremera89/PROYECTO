@@ -1,10 +1,7 @@
 package controladores;
 
 import Interfaces.InterfaceVisitaGuiada;
-import dao.DAOcliente;
-import dao.DAOexposicion;
-import dao.DAOmonitor;
-import dao.DAOvisitaguiada;
+import dao.*;
 import modelo.*;
 import modelotablas.ModeloTablasVisita;
 import vistas.Paneles.VentanaModalVisita;
@@ -65,6 +62,15 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
             ventana.getVista().getComboBoxExp().addItem(exp.getNumExp());
         }
     }
+
+    public void cargarCentros(){
+        DAOcentro dao = new DAOcentro();
+        ArrayList<Centro> centros = dao.listarCentros();
+        for(Centro p : centros){
+            ventana.getVista().getComboBoxCentro().addItem(p.getCodCentro());
+        }
+    }
+
     @Override
     public void crearVisita() {
 
@@ -78,7 +84,7 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
             Cliente cliente = new Cliente();
             Monitor monitor = new Monitor();
             Exposicion exp = new Exposicion();
-            String codcentro = this.ventana.getVista().getTxtCentro().getText();
+            String codcentro = (String) this.ventana.getVista().getComboBoxCentro().getSelectedItem();
             String dnicliente = (String) this.ventana.getVista().getComboBoxCliente().getSelectedItem();
             String dnimonitor = (String) this.ventana.getVista().getComboBoxMonitor().getSelectedItem();
             String numexp = this.ventana.getVista().getComboBoxExp().getSelectedItem().toString();
@@ -128,7 +134,7 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
             Cliente cliente = new Cliente();
             Monitor monitor = new Monitor();
             Exposicion exp = new Exposicion();
-            String codcentro = this.ventana.getVista().getTxtCentro().getText();
+            String codcentro = (String) this.ventana.getVista().getComboBoxCentro().getSelectedItem();
             String dnicliente = (String) this.ventana.getVista().getComboBoxCliente().getSelectedItem();
             String dnimonitor = (String) this.ventana.getVista().getComboBoxMonitor().getSelectedItem();
             String numexp = this.ventana.getVista().getComboBoxExp().getSelectedItem().toString();
@@ -233,13 +239,18 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
             actualizarTabla();
         }
 
+        else if(e.getActionCommand().equals("CENTROS")){
+            this.ventana.getVista().getComboBoxCentro().removeAllItems();
+            cargarCentros();
+        }
+
 
     }
     @Override
     public void ponerDatosModal(){
         modal.getTxtNumvisita().setText((ventana.getVista().getTxtNumVisita().getText()));
         modal.getTxtNumpersonas().setText((ventana.getVista().getTxtNumPersonas().getText()));
-        modal.getTxtCentro().setText((ventana.getVista().getTxtCentro().getText()));
+        modal.getTxtCentro().setText((String) ventana.getVista().getComboBoxCentro().getSelectedItem());
         modal.getTxtFecha().setText((ventana.getVista().getTxtFecha().getText()));
         modal.getTxtDnimonitor().setText((String) ventana.getVista().getComboBoxMonitor().getSelectedItem());
         modal.getTxtDnicliente().setText((String) ventana.getVista().getComboBoxCliente().getSelectedItem());
@@ -285,7 +296,7 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
             visita = dao.saberDatos(Integer.parseInt(ventana.getVista().getTable1().getValueAt(row,0).toString()), Integer.parseInt(ventana.getVista().getTable1().getValueAt(row, 1).toString()));
 
 
-            ventana.getVista().getTxtCentro().setText(visita.getCentro().getCodCentro());
+            ventana.getVista().getComboBoxCentro().setSelectedItem(visita.getCentro().getCodCentro());
             if(e.getClickCount() == 1){
                 ventana.getVista().getComboBoxCliente().removeAllItems();
                 ventana.getVista().getComboBoxCliente().addItem(visita.getDnicliente().getDNI());
