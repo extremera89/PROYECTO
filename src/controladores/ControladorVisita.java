@@ -210,6 +210,7 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
                 for (int i : exp) {
                     ventana.getVista().getComboBoxExp().addItem(i);
                 }
+
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }

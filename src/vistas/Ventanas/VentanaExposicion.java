@@ -6,6 +6,9 @@ import modelo.Exposicion;
 import vistas.Paneles.VistaExposicion;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaExposicion extends JFrame implements InterfaceExposicion.InterfaceVistaExposicion {
     private ControladorExposicion controlador;
@@ -77,6 +80,22 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
         this.vista.getBtnEliminar().addActionListener(controlador);
         this.vista.getTable1().addMouseListener(controlador);
         this.vista.getBtnSala().addActionListener(controlador);
+        this.vista.getTxtFiltro().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (vista.getTxtFiltro().getText());
+                vista.getTxtFiltro().setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
+    }
+
+    public void filtro(){
+        TableRowSorter filtro = new TableRowSorter(vista.getTable1().getModel());
+        vista.getTable1().setRowSorter(filtro);
+        String fil = vista.getTxtFiltro().getText();
+        filtro.setRowFilter(RowFilter.regexFilter(vista.getTxtFiltro().getText(),0));
     }
 
     @Override

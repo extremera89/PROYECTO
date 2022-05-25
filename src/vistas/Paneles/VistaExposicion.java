@@ -30,6 +30,7 @@ public class VistaExposicion {
     private JLabel lblNumSala;
     private JComboBox comboSala;
     private JButton btnSala;
+    private JTextField txtFiltro;
     private JPanel panelTitulo;
     private JPanel panelTabla;
     private JPanel panelFormulario;
@@ -153,6 +154,13 @@ public class VistaExposicion {
         btnLimpiar.setEnabled(true);
     }
 
+    public JTextField getTxtFiltro() {
+        return txtFiltro;
+    }
+
+    public void setTxtFiltro(JTextField txtFiltro) {
+        this.txtFiltro = txtFiltro;
+    }
 
     public JTextField getTxtNumExp() {
         return txtNumExp;

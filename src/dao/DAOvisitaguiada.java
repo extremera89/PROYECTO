@@ -87,10 +87,9 @@ public class DAOvisitaguiada implements InterfaceVisitaGuiada.InterfaceDAOVisita
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try{
             Statement consulta = conexion.createStatement();
-            String fechainicio = format.format(fecha);
+            String fecha2 = format.format(fecha);
 
-            ResultSet rs = consulta.executeQuery("SELECT "+propiedadesBBDD.getTblVisita()+".NumExp FROM "+propiedadesBBDD.getTblVisita()+" INNER JOIN "+
-                    propiedadesBBDD.getTblExposicion() +" ON "+propiedadesBBDD.getTblVisita()+".numexp = "+propiedadesBBDD.getTblExposicion()+".numexp"+" WHERE '"+fechainicio+"' BETWEEN FechaInicio AND FechaFin" );
+            ResultSet rs = consulta.executeQuery("SELECT NumExp FROM "+propiedadesBBDD.getTblExposicion()+" WHERE FechaInicio<= '"+fecha2+"' AND FechaFin >= '"+fecha2+"'"  );
             expnodisp = new ArrayList<>();
 
             while(rs.next()){
@@ -260,26 +259,6 @@ public class DAOvisitaguiada implements InterfaceVisitaGuiada.InterfaceDAOVisita
 
     }
 
-
-    public static void main(String[] args) throws ParseException {
-        DAOvisitaguiada prueba = new DAOvisitaguiada();
-
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        java.util.Date fechain = format.parse("20/03/2022");
-
-        java.sql.Date fechainicio = new java.sql.Date(fechain.getTime());
-
-        ///prueba.insertarvisita(new VisitaGuiada(50, fechainicio, "cent1", "75483467A", "70611743H", 61));
-
-        ArrayList<Integer> visitas = new ArrayList<>();
-        //visitas = prueba.listarVisitas();
-
-        visitas = prueba.expNoDisponibles(fechainicio);
-
-        for(int i: visitas){
-            System.out.println(i);
-        }
-    }
 
 
 }

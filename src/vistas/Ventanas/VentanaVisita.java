@@ -5,6 +5,9 @@ import controladores.ControladorVisita;
 import vistas.Paneles.VistaVisita;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.InterfaceVistaVisita {
 
@@ -43,6 +46,10 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
             this.vista.getBtnEliminar().setVisible(false);
             this.vista.getBtnGuardar().setVisible(false);
             this.vista.getBtnActualizarDatos().setVisible(false);
+            this.vista.getComboBoxExp().setEnabled(false);
+            this.vista.getComboBoxMonitor().setEnabled(false);
+            this.vista.getComboBoxCliente().setEnabled(false);
+
         }
     }
 
@@ -62,7 +69,23 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
         this.vista.getBtnExp().addActionListener(controlador);
         this.vista.getBtnCli().addActionListener(controlador);
         this.vista.getBtnMon().addActionListener(controlador);
+        this.vista.getTxtFiltro().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (vista.getTxtFiltro().getText());
+                vista.getTxtFiltro().setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
 
+    }
+
+    public void filtro(){
+        TableRowSorter filtro = new TableRowSorter(vista.getTable1().getModel());
+        vista.getTable1().setRowSorter(filtro);
+        String fil = vista.getTxtFiltro().getText();
+        filtro.setRowFilter(RowFilter.regexFilter(vista.getTxtFiltro().getText(),0));
     }
 
     @Override

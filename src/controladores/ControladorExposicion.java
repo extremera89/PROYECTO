@@ -263,6 +263,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
             ventana.getVista().activaCamposTxt();
             ventana.getVista().desactivarBotonLimpiar();
             ventana.getVista().desactivarNumExp();
+            ventana.getVista().activarBotonSala();
         }
         if(ventana.getVista().getTable1().isColumnSelected(5))
             ventana.getVista().getTable1().getColumnModel().getColumn(5).setPreferredWidth(1000);

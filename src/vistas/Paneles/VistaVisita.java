@@ -35,6 +35,7 @@ public class VistaVisita {
     private JButton btnExp;
     private JButton btnMon;
     private JButton btnCli;
+    private JTextField txtFiltro;
 
 
     public JTable getTable1() {
@@ -149,6 +150,14 @@ public class VistaVisita {
         txtNumPersonas.setEnabled(true);
         txtFecha.setEnabled(true);
         txtCentro.setEnabled(true);
+    }
+
+    public JTextField getTxtFiltro() {
+        return txtFiltro;
+    }
+
+    public void setTxtFiltro(JTextField txtFiltro) {
+        this.txtFiltro = txtFiltro;
     }
 
     public void desactivarBotonEliminar(){
