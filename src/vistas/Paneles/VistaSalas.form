@@ -139,7 +139,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <disabledTextColor color="-12514751"/>
+            </properties>
           </component>
           <component id="8410b" class="javax.swing.JLabel" binding="lblDadaAlta">
             <constraints>
@@ -155,7 +157,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <disabledTextColor color="-12514751"/>
+            </properties>
           </component>
           <component id="57d1a" class="javax.swing.JLabel" binding="lblTamanio">
             <constraints>
@@ -172,6 +176,7 @@
               </grid>
             </constraints>
             <properties>
+              <disabledTextColor color="-12514751"/>
               <text value=""/>
             </properties>
           </component>
@@ -232,6 +237,7 @@
               </grid>
             </constraints>
             <properties>
+              <disabledTextColor color="-12514751"/>
               <text value=""/>
             </properties>
           </component>
@@ -242,6 +248,7 @@
               </grid>
             </constraints>
             <properties>
+              <disabledTextColor color="-12514751"/>
               <text value=""/>
             </properties>
           </component>

@@ -177,7 +177,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <disabledTextColor color="-12514751"/>
+                </properties>
               </component>
               <component id="525c6" class="javax.swing.JLabel" binding="lblNombre">
                 <constraints>
@@ -209,7 +211,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <disabledTextColor color="-12514751"/>
+                </properties>
               </component>
               <component id="7b186" class="javax.swing.JLabel" binding="lblApellido2">
                 <constraints>
@@ -225,7 +229,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <disabledTextColor color="-12514751"/>
+                </properties>
               </component>
               <component id="c543" class="javax.swing.JLabel" binding="lblTelefono">
                 <constraints>
@@ -241,7 +247,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <disabledTextColor color="-12514751"/>
+                </properties>
               </component>
               <component id="45941" class="javax.swing.JLabel" binding="lblEmail">
                 <constraints>
@@ -257,7 +265,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <disabledTextColor color="-12514751"/>
+                </properties>
               </component>
               <component id="94cde" class="javax.swing.JLabel" binding="lblTitulacion">
                 <constraints>
@@ -321,7 +331,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <disabledTextColor color="-12514751"/>
+                </properties>
               </component>
               <vspacer id="43571">
                 <constraints>

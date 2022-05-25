@@ -40,16 +40,15 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
     @Override
     public void insertarCentro(Centro centro) {
 
-        String sql = "INSERT INTO " + propiedadesBBDD.getTblCentro() + " (codCentro,nombre,numVisita,DNI_cliente,DNI_monitor) values (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + propiedadesBBDD.getTblCentro() + " (codCentro,nombre,numVisita,DNI_cliente,DNI_monitor) values (?, ?, ?, ?)";
         int filasAfectadas = 0;
 
         try (PreparedStatement pStatement = conexion.prepareStatement(sql);) {
 
             pStatement.setString(1, centro.getCodCentro());
             pStatement.setString(2, centro.getNombre());
-            pStatement.setInt(3, centro.getNumVisita());
-            pStatement.setString(4, centro.getDniCliente().getDNI());
-            pStatement.setString(5, centro.getDniMonitor().getDNI());
+            pStatement.setString(3, centro.getDniCliente().getDNI());
+            pStatement.setString(4, centro.getDniMonitor().getDNI());
             filasAfectadas = pStatement.executeUpdate();
         }
         catch (SQLException e){
@@ -86,7 +85,6 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
                 centro = new Centro();
                 centro.setCodCentro(rs.getString("codCentro"));
                 centro.setNombre(rs.getString("nombre"));
-                centro.setNumVisita(Integer.parseInt(rs.getString("numVisita")));
                 centro.getDniCliente().setDNI(rs.getString("dni_cliente"));
                 centro.getDniMonitor().setDNI(rs.getString("dni_monitor"));
             }
@@ -106,14 +104,13 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
 
         PreparedStatement pStatement=null;
         try {
-            String sql = "UPDATE " + propiedadesBBDD.getTblCentro() + " SET " + "CODCENTRO=?, NOMBRE=?,NUMVISITA=?,DNI_CLIENTE=?,DNI_MONITOR=? WHERE CODCENTRO='" + centro.getCodCentro() + "'";
+            String sql = "UPDATE " + propiedadesBBDD.getTblCentro() + " SET " + "CODCENTRO=?, NOMBRE=?,DNI_CLIENTE=?,DNI_MONITOR=? WHERE CODCENTRO='" + centro.getCodCentro() + "'";
             pStatement = conexion.prepareStatement(sql);
 
             pStatement.setString(1, centro.getCodCentro());
             pStatement.setString(2, centro.getNombre());
-            pStatement.setInt(3,  centro.getNumVisita());
-            pStatement.setString(4, centro.getDniCliente().getDNI());
-            pStatement.setString(5, centro.getDniMonitor().getDNI());
+            pStatement.setString(3, centro.getDniCliente().getDNI());
+            pStatement.setString(4, centro.getDniMonitor().getDNI());
 
             pStatement.executeUpdate();
         }
@@ -137,7 +134,6 @@ public class DAOcentro implements InterfaceCentro.InterfaceDAOCentro {
                 centro = new Centro();
                 centro.setCodCentro(rs.getString("codCentro"));
                 centro.setNombre(rs.getString("nombre"));
-                centro.setNumVisita(Integer.parseInt(rs.getString("numVisita")));
                 centro.getDniCliente().setDNI(rs.getString("dni_cliente"));
                 centro.getDniMonitor().setDNI(rs.getString("dni_monitor"));
 

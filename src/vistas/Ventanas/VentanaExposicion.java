@@ -48,6 +48,7 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
             this.vista.getBtnSala().setVisible(false);
             this.vista.getBtnGuardar().setVisible(false);
             this.vista.getBtnActualizarDatos().setVisible(false);
+            this.vista.getComboSala().setEnabled(false);
 
         }
     }

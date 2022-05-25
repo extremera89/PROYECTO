@@ -19,8 +19,8 @@ public class ModeloTablaCentro extends AbstractTableModel {
 
     public ModeloTablaCentro (DAOcentro dao){
         listaCentros = new ArrayList();
-        tipoColumnas = new Class [] {String.class, String.class, String.class,String.class,String.class,String.class,String.class};
-        nombreColumnas = new String [] {"CodigoCentro", "Nombre", "NumeroVisita", "DNI_Cliente", "DNI_Monitor"};
+        tipoColumnas = new Class [] {String.class, String.class, String.class,String.class,String.class,String.class};
+        nombreColumnas = new String [] {"CodigoCentro", "Nombre", "DNI_Cliente", "DNI_Monitor"};
         this.dao = dao;
     }
 
@@ -28,8 +28,8 @@ public class ModeloTablaCentro extends AbstractTableModel {
         listaCentros=centros;
     }
 
-    public void crearMonitor(String codCentro, String nombre, int numVisita, Cliente dni_Cliente, Monitor dni_Monitor){
-        listaCentros.add(new Centro(codCentro,nombre,numVisita,dni_Cliente,dni_Monitor));
+    public void crearMonitor(String codCentro, String nombre, Cliente dni_Cliente, Monitor dni_Monitor){
+        listaCentros.add(new Centro(codCentro,nombre,dni_Cliente,dni_Monitor));
         fireTableDataChanged();
     }
 
@@ -47,10 +47,8 @@ public class ModeloTablaCentro extends AbstractTableModel {
             case 1:
                 return listaCentros.get(fila).getNombre();
             case 2:
-                return listaCentros.get(fila).getNumVisita();
-            case 3:
                 return listaCentros.get(fila).getDniCliente().getDNI();
-            case 4:
+            case 3:
                 return listaCentros.get(fila).getDniMonitor().getDNI();
             default:
                 return null;
@@ -66,10 +64,8 @@ public class ModeloTablaCentro extends AbstractTableModel {
             case 1:
                 listaCentros.get(fila).setNombre(aValue.toString());
             case 2:
-                listaCentros.get(fila).setNumVisita(Integer.parseInt(aValue.toString()));
-            case 3:
                 listaCentros.get(fila).getDniCliente().setDNI(((Centro)aValue).getDniCliente().getDNI());
-            case 4:
+            case 3:
                 listaCentros.get(fila).getDniMonitor().setDNI(((Centro)aValue).getDniMonitor().getDNI());
 
             default:

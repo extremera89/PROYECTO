@@ -14,7 +14,7 @@ public class VentanaInformacion extends JFrame {
 
         this.setContentPane(guiInformacion.getPanelPrincipal());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setTitle("Información");
+        this.setTitle("Acerca de");
         this.pack();
     }
 

@@ -63,6 +63,7 @@ public class VistaVisita {
     }
 
 
+
     public JButton getBtnActualizarDatos(){
         return this.btnActualizarDatos;
     }
@@ -112,44 +113,12 @@ public class VistaVisita {
         return btnEliminar;
     }
 
-    public void asignaCommandBotones(){
-        btnNuevo.setActionCommand("NUEVO");
-        btnGuardar.setActionCommand("GUARDAR");
-        btnEliminar.setActionCommand("ELIMINAR");
-        btnLimpiar.setActionCommand("LIMPIAR");
-        btnActualizarTabla.setActionCommand("ACTUALIZAR TABLA");
-        btnActualizarDatos.setActionCommand("ACTUALIZAR DATOS");
-        btnExp.setActionCommand("EXPOSICIONES");
-        btnCli.setActionCommand("CLIENTES");
-        btnMon.setActionCommand("MONITORES");
-    }
-
     public JButton getBtnExp() {
         return btnExp;
     }
 
     public void setBtnExp(JButton btnExp) {
         this.btnExp = btnExp;
-    }
-
-    public void limpiarCampoTxt(){
-            txtNumVisita.setText("");
-            txtNumPersonas.setText("");
-            txtFecha.setText("");
-            txtCentro.setText("");
-    }
-
-    public void dasactivarCampoTxt(){
-        txtNumVisita.setEnabled(false);
-        txtNumPersonas.setEnabled(false);
-        txtFecha.setEnabled(false);
-        txtCentro.setEnabled(false);
-    }
-
-    public void activaCamposTxt(){
-        txtNumPersonas.setEnabled(true);
-        txtFecha.setEnabled(true);
-        txtCentro.setEnabled(true);
     }
 
     public JTextField getTxtFiltro() {
@@ -184,7 +153,6 @@ public class VistaVisita {
 
     public void activarBotonActualizar(){
         btnActualizarDatos.setEnabled(true);}
-
 
     public void setPanelPrincipal(JPanel panelPrincipal) {
         PanelPrincipal = panelPrincipal;
@@ -233,4 +201,48 @@ public class VistaVisita {
     public JComboBox getComboBoxExp() {
         return comboBoxExp;
     }
+
+    public void asignaCommandBotones(){
+        btnNuevo.setActionCommand("NUEVO");
+        btnGuardar.setActionCommand("GUARDAR");
+        btnEliminar.setActionCommand("ELIMINAR");
+        btnLimpiar.setActionCommand("LIMPIAR");
+        btnActualizarTabla.setActionCommand("ACTUALIZAR TABLA");
+        btnActualizarDatos.setActionCommand("ACTUALIZAR DATOS");
+        btnExp.setActionCommand("EXPOSICIONES");
+        btnCli.setActionCommand("CLIENTES");
+        btnMon.setActionCommand("MONITORES");
+    }
+
+    public void insertarImagenes() {
+        btnNuevo.setIcon(new ImageIcon("src\\imagenes\\iconoNuevo.png"));
+        btnEliminar.setIcon(new ImageIcon("src\\imagenes\\iconoEliminar.png"));
+        btnLimpiar.setIcon(new ImageIcon("src\\imagenes\\inconoLimpiar.png"));
+        btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
+        btnActualizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
+    }
+
+
+
+    public void limpiarCampoTxt(){
+        txtNumVisita.setText("");
+        txtNumPersonas.setText("");
+        txtFecha.setText("");
+        txtCentro.setText("");
+    }
+
+    public void dasactivarCampoTxt(){
+        txtNumVisita.setEnabled(false);
+        txtNumPersonas.setEnabled(false);
+        txtFecha.setEnabled(false);
+        txtCentro.setEnabled(false);
+    }
+
+    public void activaCamposTxt(){
+        txtNumPersonas.setEnabled(true);
+        txtFecha.setEnabled(true);
+        txtCentro.setEnabled(true);
+    }
+
 }

@@ -15,8 +15,6 @@ public class VistaCentro {
     private JTextField txtCodCentro;
     private JLabel lblNombre;
     private JTextField txtNombre;
-    private JLabel lblNumVisita;
-    private JTextField txtNumVisita;
     private JButton btnNuevo;
     private JButton btnGuardar;
     private JButton btnLimpiar;
@@ -47,10 +45,6 @@ public class VistaCentro {
 
     public JTextField getTxtNombre() {
         return txtNombre;
-    }
-
-    public JTextField getTxtNumVisita() {
-        return txtNumVisita;
     }
 
     public JButton getBtnNuevo() {
@@ -128,7 +122,6 @@ public class VistaCentro {
     public void limpiarCampoTxt(){
         txtCodCentro.setText("");
         txtNombre.setText("");
-        txtNumVisita.setText("");
         txtDNICliente.setText("");
         txtDNIMonitor.setText("");
     }
@@ -136,7 +129,6 @@ public class VistaCentro {
     public void dasactivarCampoTxt(){
         txtCodCentro.setEnabled(false);
         txtNombre.setEnabled(false);
-        txtNumVisita.setEnabled(false);
         txtDNICliente.setEnabled(false);
         txtDNIMonitor.setEnabled(false);
     }
@@ -144,7 +136,6 @@ public class VistaCentro {
     public void activaCamposTxt(){
         txtCodCentro.setEnabled(true);
         txtNombre.setEnabled(true);
-        txtNumVisita.setEnabled(true);
 
     }
 

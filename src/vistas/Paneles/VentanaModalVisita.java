@@ -27,6 +27,7 @@ public class VentanaModalVisita extends JDialog {
     public VentanaModalVisita(VentanaVisita padre, boolean modal) {
         super(padre, modal);
         this.setSize(900,400);
+        this.setTitle("Información de visita.");
         setContentPane(contentPane);
         setModal(true);
 

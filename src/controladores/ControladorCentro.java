@@ -45,7 +45,6 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
 
         String codCentro=ventanaCentro.guiCentro.getTxtCodCentro().getText();
         String nombre=ventanaCentro.guiCentro.getTxtNombre().getText();
-        String numVisita=ventanaCentro.guiCentro.getTxtNumVisita().getText();
         String dniCliente= (String) ventanaCentro.guiCentro.getCmboxCliente().getSelectedItem();;
         String dniMonitor=(String) ventanaCentro.guiCentro.getComBoxMonitor().getSelectedItem();
         Cliente client=new Cliente();
@@ -56,22 +55,18 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         //COMPROBACION CON EXPRESIONES REGULARES
         String rcodCentro="[0-9]{8}";
         String rTexto="[a-zA-ZñÑáéíóúÁÉÍÓÚ[\\s]*]+(\\s[a-zA-ZñÑáéíóúÁÉÍÓÚ]+)*";
-        String rnumVisita="[0-9]{1,}";
 
 
-        if (!codCentro.equals("")&&!nombre.equals("")&&!numVisita.equals("")&&!dniCliente.equals("")&&!dniMonitor.equals("")){
-            if ((Pattern.matches(rcodCentro, codCentro) == true) && (Pattern.matches(rTexto, nombre) == true) && (Pattern.matches(rnumVisita,numVisita)==true)){
-                int numVisit = Integer.parseInt(numVisita);
-                if (numVisit >= 0) {
-                    if (dao.buscarCentro(codCentro) == null) {
-                        modeloTabla.crearMonitor(codCentro, nombre, numVisit, client, monitor);
-                        dao.insertarCentro(new Centro(codCentro, nombre, numVisit, client, monitor));
-                        ventanaCentro.guiCentro.desactivarBotonGuardar();
-                        ventanaCentro.guiCentro.limpiarCampoTxt();
-                        ventanaCentro.guiCentro.activaCamposTxt();
+        if (!codCentro.equals("")&&!nombre.equals("")&&!dniCliente.equals("")&&!dniMonitor.equals("")){
+            if ((Pattern.matches(rcodCentro, codCentro) == true) && (Pattern.matches(rTexto, nombre) == true)){
+                if (dao.buscarCentro(codCentro) == null) {
+                    modeloTabla.crearMonitor(codCentro, nombre, client, monitor);
+                    dao.insertarCentro(new Centro(codCentro, nombre, client, monitor));
+                    ventanaCentro.guiCentro.desactivarBotonGuardar();
+                    ventanaCentro.guiCentro.limpiarCampoTxt();
+                    ventanaCentro.guiCentro.activaCamposTxt();
 
-                    } else JOptionPane.showMessageDialog(null, "No se puede registrar este monitor");
-                } else JOptionPane.showMessageDialog(null, "El número de la visita no puede ser menor que 0");
+                } else JOptionPane.showMessageDialog(null, "No se puede registrar este monitor");
             } else JOptionPane.showMessageDialog(null, "Algún dato no esta bien introducido");
         }else JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 
@@ -90,7 +85,6 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
     public void actualizarCentro() {
         String codCentro=ventanaCentro.guiCentro.getTxtCodCentro().getText();
         String nombre=ventanaCentro.guiCentro.getTxtNombre().getText();
-        int numVisita=Integer.parseInt(ventanaCentro.guiCentro.getTxtNumVisita().getText());
 
         String dni_cliente=(String) ventanaCentro.guiCentro.getCmboxCliente().getSelectedItem();
         String dni_monitor=(String) ventanaCentro.guiCentro.getComBoxMonitor().getSelectedItem();
@@ -99,7 +93,7 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         client.setDNI(dni_cliente);
         monitor.setDNI(dni_monitor);
 
-        Centro cent=new Centro(codCentro,nombre,numVisita,client,monitor);
+        Centro cent=new Centro(codCentro,nombre,client,monitor);
         dao.modificarCentro(cent);
         modeloTabla.fireTableDataChanged();
         ventanaCentro.guiCentro.activarBotonLimpiar();
@@ -167,7 +161,6 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         int row = ventanaCentro.guiCentro.getTablaCentros().rowAtPoint(e.getPoint());
         ventanaCentro.guiCentro.getTxtCodCentro().setText(ventanaCentro.guiCentro.getTablaCentros().getValueAt(row, 0).toString());
         ventanaCentro.guiCentro.getTxtNombre().setText(ventanaCentro.guiCentro.getTablaCentros().getValueAt(row,1).toString());
-        ventanaCentro.guiCentro.getTxtNumVisita().setText(ventanaCentro.guiCentro.getTablaCentros().getValueAt(row, 2).toString());
         ventanaCentro.guiCentro.getCmboxCliente().setSelectedIndex(modeloTabla.saberCmboxCliente(row,3));
         ventanaCentro.guiCentro.getComBoxMonitor().setSelectedIndex(modeloTabla.saberCmboxMonitor(row,4));
         ventanaCentro.guiCentro.desactivarBotonLimpiar();

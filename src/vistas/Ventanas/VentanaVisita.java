@@ -22,6 +22,7 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
         this.vista.desactivarBotonEliminar();
         this.vista.desactivarBotonGuardar();
         this.vista.desactivarBotonActualizar();
+        this.vista.insertarImagenes();
         this.vista.getTxtNumVisita().setEnabled(false);
         this.setContentPane(vista.getPanelPrincipal());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,9 +39,9 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
     public void validarUsuario(){
         if(VentanaLogin.tipoPerfil==0){
             this.vista.dasactivarCampoTxt();
-            this.vista.getBtnExp().setEnabled(false);
-            this.vista.getBtnMon().setEnabled(false);
-            this.vista.getBtnCli().setEnabled(false);
+            this.vista.getBtnExp().setVisible(false);
+            this.vista.getBtnMon().setVisible(false);
+            this.vista.getBtnCli().setVisible(false);
             this.vista.getBtnNuevo().setVisible(false);
             this.vista.getBtnLimpiar().setVisible(false);
             this.vista.getBtnEliminar().setVisible(false);
@@ -49,6 +50,7 @@ public class VentanaVisita extends JFrame implements InterfaceVisitaGuiada.Inter
             this.vista.getComboBoxExp().setEnabled(false);
             this.vista.getComboBoxMonitor().setEnabled(false);
             this.vista.getComboBoxCliente().setEnabled(false);
+
 
         }
     }

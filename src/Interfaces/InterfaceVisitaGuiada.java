@@ -1,6 +1,7 @@
 package Interfaces;
 
 import controladores.ControladorVisita;
+import modelo.Cliente;
 import modelo.Exposicion;
 import modelo.VisitaGuiada;
 
@@ -20,6 +21,7 @@ public interface InterfaceVisitaGuiada {
         public ArrayList<Integer> expNoDisponibles(java.util.Date fecha);
         public ArrayList<VisitaGuiada> listarVisitas();
         public VisitaGuiada buscarvisita(int numExp);
+        public ArrayList<Cliente> saberExpositores();
         public int buscarSala(Exposicion exposicion);
         public void modificarVisita(VisitaGuiada visita);
         public VisitaGuiada saberDatos(int numvisita, int numPersonas);

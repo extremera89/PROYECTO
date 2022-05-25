@@ -28,7 +28,7 @@ public class GuiPrincipal {
         ventanaPrincipal.añadirPestaña(guiCentro.ventanaCentro.guiCentro.getPanelPrincipal(),"Centros");
         ventanaPrincipal.añadirPestaña(guiCliente.ventanaCliente.guiClientes.getPanelPrincipal(),"Clientes");
         ventanaPrincipal.añadirPestaña(guiMonitor.ventanaMonitor.guiMonitor.getPanelPrincipal(),"Monitores");
-        ventanaPrincipal.añadirPestaña(ventanaInformacion.guiInformacion.getPanelPrincipal(),"Informacion");
+        ventanaPrincipal.añadirPestaña(ventanaInformacion.guiInformacion.getPanelPrincipal(),"Acerca de");
 
     }
 

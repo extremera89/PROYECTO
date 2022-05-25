@@ -25,7 +25,7 @@ public class VentanaPrincipal extends JFrame {
         else
             this.setTitle("Proyecto Museo - ADMINISTRADOR");
         activar();
-        this.setSize(1000,550);
+        this.setSize(1300,550);
 
     }
 

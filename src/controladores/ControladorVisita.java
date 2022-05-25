@@ -40,12 +40,12 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
     }
     @Override
     public void cargarDNIClientes(){
-        DAOcliente daOcliente=new DAOcliente();
-        ArrayList<Cliente> dniCliente=daOcliente.listarClientes();
-        for(int i=0;i<dniCliente.size();i++){
-            Cliente cliente= dniCliente.get(i);
-            ventana.getVista().getComboBoxCliente().addItem(cliente.getDNI());
+        ArrayList<Cliente> dniCliente=dao.saberExpositores();
+
+        for(Cliente p : dniCliente) {
+            ventana.getVista().getComboBoxCliente().addItem(p.getDNI());
         }
+
     }
     @Override
     public void cargarDNIMonitores(){
@@ -230,7 +230,7 @@ public class ControladorVisita implements ActionListener, MouseListener, Interfa
         }
 
         else if(e.getActionCommand().equals("ACTUALIZAR TABLA")){
-                actualizarTabla();
+            actualizarTabla();
         }
 
 

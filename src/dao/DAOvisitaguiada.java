@@ -2,6 +2,7 @@ package dao;
 
 import Interfaces.InterfaceVisitaGuiada;
 import conexion.Conexion;
+import modelo.Cliente;
 import modelo.Exposicion;
 import modelo.VisitaGuiada;
 import otros.PropertiesBBDD;
@@ -10,7 +11,6 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -164,6 +164,27 @@ public class DAOvisitaguiada implements InterfaceVisitaGuiada.InterfaceDAOVisita
         }
 
         return visita;
+    }
+
+    @Override
+    public ArrayList<Cliente> saberExpositores(){
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        try {
+            Statement consulta = conexion.createStatement();
+            ResultSet rs = consulta.executeQuery("SELECT * FROM "+propiedadesBBDD.getTblCliente() +" WHERE EsExpositor=1");
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setDNI(rs.getString("DNI"));
+                clientes.add(cliente);
+            }
+            rs.close();
+            consulta.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR, no tiene dnis de cliente");
+        }
+
+        return clientes;
     }
 
     @Override
