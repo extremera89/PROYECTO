@@ -12,6 +12,7 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
     private VistaExposicion vista;
 
 
+
     public VentanaExposicion() {
         vista = new VistaExposicion();
         this.vista.asignaCommandBotones();
@@ -23,8 +24,29 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
         this.vista.insertarImagenes();
         this.setContentPane(vista.getPanelPrincipal());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if(tipoPerfil()==0){
+            validarUsuario();
+        }
+
         this.setTitle("Exposiciones.");
         this.pack();
+    }
+
+    public int tipoPerfil(){
+        return VentanaLogin.tipoPerfil;
+    }
+
+    public void validarUsuario(){
+        if(VentanaLogin.tipoPerfil==0){
+            this.vista.desactivaCamposTexto();
+            this.vista.getBtnNuevo().setVisible(false);
+            this.vista.getBtnLimpiar().setVisible(false);
+            this.vista.getBtnEliminar().setVisible(false);
+            this.vista.getBtnSala().setVisible(false);
+            this.vista.getBtnGuardar().setVisible(false);
+            this.vista.getBtnActualizarDatos().setVisible(false);
+
+        }
     }
 
 
@@ -60,7 +82,6 @@ public class VentanaExposicion extends JFrame implements InterfaceExposicion.Int
     @Override
     public void iniciar() {
         controlador.listarExposiciones();
-        //this.setVisible(true);
     }
 
 }

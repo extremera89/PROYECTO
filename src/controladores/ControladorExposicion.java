@@ -8,7 +8,6 @@ import modelotablas.ModeloTablasExposicion;
 import vistas.Ventanas.VentanaExposicion;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +18,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Objects;
 
 public class ControladorExposicion implements ActionListener, MouseListener, InterfaceExposicion.InterfaceControladorExposicion {
     private DAOexposicion dao;
@@ -44,12 +42,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
 
 
-    public void nuevaExposicion(){
-        this.ventana.getVista().desactivarBotonEliminar();
-        this.ventana.getVista().limpiarCampoTxt();
-        this.ventana.getVista().desactivarBotonGuardar();
-    }
-
+    @Override
     public void actualizarTabla(){
         tabla.fireTableDataChanged();
         listarExposiciones();
@@ -104,7 +97,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
     }
 
-
+    @Override
     public void seleccionaSala(){
         cargarSalas(this.ventana.getVista().getTxtFechainicio().getText(), this.ventana.getVista().getTxtFechafin().getText());
     }
@@ -193,7 +186,7 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
         }
 
     }
-
+    @Override
     public void cargarSalas(String fechainicio, String fechafin) {
         this.ventana.getVista().getComboSala().removeAllItems();
         ArrayList<Integer> salasnodisp = null;
@@ -221,7 +214,11 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
                 salas.removeAll(salasnodisp);
 
-                for(int i : salas){
+
+
+                this.dao.salasDadasAlta().removeAll(salas);
+
+                for(int i : this.dao.salasDadasAlta()){
                     if(i > 0)
                         this.ventana.getVista().getComboSala().addItem(i);
                 }
@@ -239,9 +236,9 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
 
 
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        ventana.getVista().activarBotonSala();
         int row = ventana.getVista().getTable1().rowAtPoint(e.getPoint());
         ventana.getVista().getTxtNumExp().setText(ventana.getVista().getTable1().getValueAt(row,0).toString());
         ventana.getVista().getTxtNombre().setText(ventana.getVista().getTable1().getValueAt(row, 1).toString());
@@ -257,13 +254,16 @@ public class ControladorExposicion implements ActionListener, MouseListener, Int
             ventana.getVista().getComboSala().addItem(ventana.getVista().getTable1().getValueAt(row, 6).toString());
 
         }
-
-        ventana.getVista().activarBotonActualizar();
-        ventana.getVista().activarBotonEliminar();
-        ventana.getVista().desactivarBotonGuardar();
-        ventana.getVista().activaCamposTxt();
-        ventana.getVista().desactivarBotonLimpiar();
-        ventana.getVista().desactivarNumExp();
+        if(ventana.tipoPerfil()==0){
+            ventana.validarUsuario();
+        }else {
+            ventana.getVista().activarBotonActualizar();
+            ventana.getVista().activarBotonEliminar();
+            ventana.getVista().desactivarBotonGuardar();
+            ventana.getVista().activaCamposTxt();
+            ventana.getVista().desactivarBotonLimpiar();
+            ventana.getVista().desactivarNumExp();
+        }
         if(ventana.getVista().getTable1().isColumnSelected(5))
             ventana.getVista().getTable1().getColumnModel().getColumn(5).setPreferredWidth(1000);
         else {

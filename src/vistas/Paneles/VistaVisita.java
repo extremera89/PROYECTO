@@ -20,11 +20,21 @@ public class VistaVisita {
     private JLabel lblNumPersonas;
     private JLabel lblFecha;
     private JLabel lblCentro;
-    private JLabel lblDnimonitor;
     public JButton btnActualizarDatos;
     private JButton btnActualizarTabla;
     private JButton btnEliminar;
     private JLabel lblTitulo;
+    private JTextField txtDnicliente;
+    private JTextField txtNumExp;
+    private JLabel lblNumExp;
+    private JLabel lblDnimonitor;
+    private JLabel lblDnicliente;
+    private JComboBox comboBoxCliente;
+    private JComboBox comboBoxMonitor;
+    private JComboBox comboBoxExp;
+    private JButton btnExp;
+    private JButton btnMon;
+    private JButton btnCli;
 
 
     public JTable getTable1() {
@@ -107,7 +117,18 @@ public class VistaVisita {
         btnEliminar.setActionCommand("ELIMINAR");
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR TABLA");
-        btnActualizarTabla.setActionCommand("ACTUALIZAR DATOS");
+        btnActualizarDatos.setActionCommand("ACTUALIZAR DATOS");
+        btnExp.setActionCommand("EXPOSICIONES");
+        btnCli.setActionCommand("CLIENTES");
+        btnMon.setActionCommand("MONITORES");
+    }
+
+    public JButton getBtnExp() {
+        return btnExp;
+    }
+
+    public void setBtnExp(JButton btnExp) {
+        this.btnExp = btnExp;
     }
 
     public void limpiarCampoTxt(){
@@ -115,7 +136,6 @@ public class VistaVisita {
             txtNumPersonas.setText("");
             txtFecha.setText("");
             txtCentro.setText("");
-            TxtDnimonitor.setText("");
     }
 
     public void dasactivarCampoTxt(){
@@ -123,15 +143,12 @@ public class VistaVisita {
         txtNumPersonas.setEnabled(false);
         txtFecha.setEnabled(false);
         txtCentro.setEnabled(false);
-        TxtDnimonitor.setEnabled(false);
     }
 
     public void activaCamposTxt(){
-        txtNumVisita.setEnabled(true);
         txtNumPersonas.setEnabled(true);
         txtFecha.setEnabled(true);
         txtCentro.setEnabled(true);
-        TxtDnimonitor.setEnabled(true);
     }
 
     public void desactivarBotonEliminar(){
@@ -149,6 +166,9 @@ public class VistaVisita {
     }
     public void desactivarBotonGuardar(){btnGuardar.setEnabled(false);}
     public void activarBotonGuardar(){btnGuardar.setEnabled(true);}
+    public void desactivarBotonLimpiar(){
+        btnLimpiar.setEnabled(false);
+    }
 
     public void desactivarBotonActualizar(){
         btnActualizarDatos.setEnabled(false);}
@@ -156,4 +176,52 @@ public class VistaVisita {
     public void activarBotonActualizar(){
         btnActualizarDatos.setEnabled(true);}
 
+
+    public void setPanelPrincipal(JPanel panelPrincipal) {
+        PanelPrincipal = panelPrincipal;
+    }
+
+    public JTextField getTxtDnicliente() {
+        return txtDnicliente;
+    }
+
+    public void setTxtDnicliente(JTextField txtDnicliente) {
+        this.txtDnicliente = txtDnicliente;
+    }
+
+    public JButton getBtnMon() {
+        return btnMon;
+    }
+
+    public JButton getBtnCli() {
+        return btnCli;
+    }
+
+    public JPanel getPanelSuperior() {
+        return PanelSuperior;
+    }
+
+    public void setPanelSuperior(JPanel panelSuperior) {
+        PanelSuperior = panelSuperior;
+    }
+
+    public JComboBox getComboBoxCliente() {
+        return comboBoxCliente;
+    }
+
+    public void setComboBoxCliente(JComboBox comboBoxCliente) {
+        this.comboBoxCliente = comboBoxCliente;
+    }
+
+    public JComboBox getComboBoxMonitor() {
+        return comboBoxMonitor;
+    }
+
+    public void setComboBoxMonitor(JComboBox comboBoxMonitor) {
+        this.comboBoxMonitor = comboBoxMonitor;
+    }
+
+    public JComboBox getComboBoxExp() {
+        return comboBoxExp;
+    }
 }

@@ -231,7 +231,10 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <disabledTextColor color="-12514751"/>
+              <font style="1"/>
+            </properties>
           </component>
           <component id="e620b" class="javax.swing.JLabel" binding="lblNumSala">
             <constraints>

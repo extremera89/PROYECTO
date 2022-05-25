@@ -140,6 +140,7 @@ public class VistaExposicion {
         btnActualizarDatos.setEnabled(false);
     }
 
+
     public void activarBotonActualizar(){
         btnActualizarDatos.setEnabled(true);
     }

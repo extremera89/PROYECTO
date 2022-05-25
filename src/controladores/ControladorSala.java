@@ -4,6 +4,7 @@ import Interfaces.InterfaceSalas;
 import dao.DAOsala;
 import modelo.Sala;
 import modelotablas.ModeloTablaSala;
+import vistas.Ventanas.VentanaExposicion;
 import vistas.Ventanas.VentanaSalas;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -74,6 +75,7 @@ public class ControladorSala implements InterfaceSalas.InterfaceControladorSala,
         ventanaSala.guiSalas.desactivarBotonEliminar();
         ventanaSala.guiSalas.limpiarCampoTxt();
         ventanaSala.guiSalas.desactivarBotonActualizar();
+
         filaPulsada = -1;
     }
 
