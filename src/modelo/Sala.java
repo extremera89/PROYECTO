@@ -5,14 +5,34 @@ public class Sala {
     private int NumSala; //pk
     private int DadaAlta;
     private int Tamanio;
+    private int Aforo;
+    private int NumPlanta;
 
     public Sala() {
     }
 
-    public Sala(int numSala, int dadaAlta, int tamanio) {
+    public Sala(int numSala, int dadaAlta, int tamanio, int aforo, int numPlanta) {
         NumSala = numSala;
         DadaAlta = dadaAlta;
         Tamanio = tamanio;
+        Aforo = aforo;
+        NumPlanta = numPlanta;
+    }
+
+    public int getAforo() {
+        return Aforo;
+    }
+
+    public void setAforo(int aforo) {
+        Aforo = aforo;
+    }
+
+    public int getNumPlanta() {
+        return NumPlanta;
+    }
+
+    public void setNumPlanta(int numPlanta) {
+        NumPlanta = numPlanta;
     }
 
     public int getNumSala() {
@@ -45,6 +65,8 @@ public class Sala {
                 "NumSala=" + NumSala +
                 ", DadaAlta=" + DadaAlta +
                 ", Tamanio=" + Tamanio +
+                ", Aforo=" + Aforo +
+                ", NumPlanta=" + NumPlanta +
                 '}';
     }
 }

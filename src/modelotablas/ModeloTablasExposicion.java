@@ -9,10 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+//BORRAR SI DA PROBLEMAS CON EL EXTREMERIN
 public class ModeloTablasExposicion extends AbstractTableModel {
-
-
 
     private ArrayList<Exposicion> exposiciones;
     private Class[] tipoColumnas;
@@ -125,7 +123,6 @@ public class ModeloTablasExposicion extends AbstractTableModel {
 
                 case 6:
                     exposiciones.get(fila).setNumsala(((Exposicion)aValue).getNumsala());
-
 
                 default:
 

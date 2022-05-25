@@ -10,5 +10,6 @@
     <orderEntry type="library" name="ojdbc8" level="project" />
     <orderEntry type="library" name="ojdbc10-19.12.0.0" level="project" />
     <orderEntry type="library" name="ojdbc11" level="project" />
+    <orderEntry type="library" name="apidocs" level="project" />
   </component>
 </module>

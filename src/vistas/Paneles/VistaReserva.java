@@ -29,6 +29,16 @@ public class VistaReserva {
     private JButton btnActualizarTabla;
     private JButton btnEliminar;
     private JLabel lblTitulo;
+    private JTextField txtBuscador;
+    private JLabel lblBusca;
+    private JComboBox combDNI;
+    private JComboBox combSala;
+    private JButton actDNI;
+    private JButton actNumSala;
+    private JLabel lblBuscador2;
+    private JTextField TxTBuscador2;
+    private JTextArea textArea;
+
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -62,6 +72,14 @@ public class VistaReserva {
         return txtMotivo;
     }
 
+    public JButton getActDNI() {
+        return actDNI;
+    }
+
+    public JButton getActNumSala() {
+        return actNumSala;
+    }
+
     public JButton getBtnNuevo() {
         return btnNuevo;
     }
@@ -84,6 +102,30 @@ public class VistaReserva {
 
     public JTable getTableReserva(){return tableReserva;}
 
+    public JTextField getTxTBuscador2() {
+        return TxTBuscador2;
+    }
+
+    public JTextField getTxtBuscador() {
+        return txtBuscador;
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(JTextArea textArea) {
+        this.textArea = textArea;
+    }
+
+    public JComboBox getCombDNI() {
+        return combDNI;
+    }
+
+    public JComboBox getCombSala() {
+        return combSala;
+    }
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
@@ -91,6 +133,8 @@ public class VistaReserva {
         btnLimpiar.setActionCommand("LIMPIAR");
         btnActualizarTabla.setActionCommand("ACTUALIZAR_TABLA");
         btnActulizarDatos.setActionCommand("ACTUALIZAR");
+        actDNI.setActionCommand("ACTDNI");
+        actNumSala.setActionCommand("ACTNUMSALA");
     }
 
     public void limpiarCampoTxt(){
@@ -101,6 +145,7 @@ public class VistaReserva {
             txtFechaFin.setText("");
             txtConfirmado.setText("");
             txtMotivo.setText("");
+            textArea.setText("");
     }
 
     public void dasactivarCampoTxt(){
@@ -111,6 +156,7 @@ public class VistaReserva {
         txtFechaFin.setEnabled(false);
         txtConfirmado.setEnabled(false);
         txtMotivo.setEnabled(false);
+        textArea.setEnabled(false);
     }
 
     public void activaCamposTxt(){
@@ -121,6 +167,7 @@ public class VistaReserva {
         txtFechaFin.setEnabled(true);
         txtConfirmado.setEnabled(true);
         txtMotivo.setEnabled(true);
+        textArea.setEnabled(true);
     }
 
     public void insertarImagenes() {
@@ -130,6 +177,8 @@ public class VistaReserva {
         btnActualizarTabla.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
         btnGuardar.setIcon(new ImageIcon(("src\\imagenes\\iconoGuardar.png")));
         btnActulizarDatos.setIcon(new ImageIcon("src\\imagenes\\iconoActualizarDatos.png"));
+        actDNI.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
+        actNumSala.setIcon(new ImageIcon("src\\imagenes\\iconoActualizar.png"));
     }
 
     public void desactivarBotonEliminar(){
@@ -162,5 +211,9 @@ public class VistaReserva {
 
     public void setBtnActulizarDatos(JButton btnActulizarDatos) {
         this.btnActulizarDatos = btnActulizarDatos;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
