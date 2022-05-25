@@ -5,6 +5,7 @@ import modelo.Exposicion;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public interface InterfaceExposicion {
 
@@ -15,8 +16,8 @@ public interface InterfaceExposicion {
         public Exposicion buscarExposicion(String nombre);
         public void modificarExposicion(Exposicion exposicion);
         public int getNumExp(Exposicion exposicion);
-
-
+        public ArrayList<Integer> salasDadasAlta();
+        public ArrayList<Integer> salasNoDisponibles(Date fechainic, Date fechafi);
     }
 
     public interface InterfaceVistaExposicion{
@@ -28,12 +29,14 @@ public interface InterfaceExposicion {
 
 
     public interface InterfaceControladorExposicion{
+        public void actualizarTabla();
         public void crearExposicion() throws ParseException;
         public void eliminarExposicion();
         public void anyadirExposicion();
+        public void seleccionaSala();
         public void modificarExposicion() throws ParseException;
         public void listarExposiciones();
-
+        public void cargarSalas(String fechainicio, String fechafin);
     }
 
 
