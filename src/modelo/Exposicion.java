@@ -11,34 +11,40 @@ public class Exposicion {
     private Date fechainicio;
     private Date fechafin;
     private String descripcion;
-    private int numsala;
-    //private Sala sala;
+    private Sala numsala;
 
 
-    public Exposicion() {
+    public Exposicion(int numExp){
+        this.numExp = numExp;
     }
 
-    public Exposicion(int numExp, String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion, int numsala) {
+    public Exposicion() {
+        this.numsala = new Sala();
+    }
+
+    public Exposicion(int numExp, String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion, Sala numsala) {
+        this.numsala = new Sala();
         this.numExp = numExp;
         this.nombre = nombre;
         this.tematica = tematica;
         this.fechainicio = fechainicio;
         this.fechafin = fechafin;
         this.descripcion = descripcion;
-        this.numsala = numsala;
+        this.numsala.setNumSala(numsala.getNumSala());
     }
 
     public Exposicion(String nombre) {
         this.nombre = nombre;
     }
 
-    public Exposicion(String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion, int numsala) {
+    public Exposicion(String nombre, String tematica, Date fechainicio, Date fechafin, String descripcion, Sala numsala) {
+        this.numsala = new Sala();
         this.nombre = nombre;
         this.tematica = tematica;
         this.fechainicio = fechainicio;
         this.fechafin = fechafin;
         this.descripcion = descripcion;
-        this.numsala = numsala;
+        this.numsala.setNumSala(numsala.getNumSala());
     }
 
     public String getNombre() {
@@ -81,11 +87,11 @@ public class Exposicion {
         this.descripcion = descripcion;
     }
 
-    public int getNumsala() {
+    public Sala getNumsala() {
         return numsala;
     }
 
-    public void setNumsala(int numsala) {
+    public void setNumsala(Sala numsala) {
         this.numsala = numsala;
     }
 
