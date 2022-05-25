@@ -1,13 +1,14 @@
 package vistas.Paneles;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 
 public class VistaSalas {
     private JPanel PanelPrincipal;
     private JPanel PanelSuperior;
     private JPanel PanelIzquierdo;
     private JPanel PanelDerecho;
-    private JTable tblSalas;
+    public JTable tblSalas;
     private JTextField txtNumSala;
     private JTextField txtDadaAlta;
     private JTextField txtTamanio;
@@ -25,6 +26,15 @@ public class VistaSalas {
     private JButton btnActualizarTabla;
     private JButton btnEliminar;
     private JLabel lblTitulo;
+    private JTextField txtAforo;
+    private JTextField txtNumPlanta;
+    private JLabel lblAforo;
+    private JLabel lblNumPlanta;
+    private JTextField txtBuscador;
+
+    public void setTblSalas(JTable tblSalas) {
+        this.tblSalas = tblSalas;
+    }
 
     public JPanel getPanelPrincipal() {
         return PanelPrincipal;
@@ -40,6 +50,14 @@ public class VistaSalas {
 
     public JTextField getTxtTamanio() {
         return txtTamanio;
+    }
+
+    public JTextField getTxtAforo() {
+        return txtAforo;
+    }
+
+    public JTextField getTxtNumPlanta() {
+        return txtNumPlanta;
     }
 
     public JTable getTblSalas() {
@@ -66,6 +84,14 @@ public class VistaSalas {
         return btnEliminar;
     }
 
+    public JTextField getTxtBuscador() {
+        return txtBuscador;
+    }
+
+    public void setTxtBuscador(JTextField txtBuscador) {
+        this.txtBuscador = txtBuscador;
+    }
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
@@ -75,22 +101,31 @@ public class VistaSalas {
         btnActulizarDatos.setActionCommand("ACTUALIZAR");
     }
 
+
+
+
     public void limpiarCampoTxt(){
             txtNumSala.setText("");
             txtDadaAlta.setText("");
             txtTamanio.setText("");
+            txtAforo.setText("");
+            txtNumPlanta.setText("");
     }
 
     public void dasactivarCampoTxt(){
         txtNumSala.setEnabled(false);
         txtDadaAlta.setEnabled(false);
         txtTamanio.setEnabled(false);
+        txtAforo.setEnabled(false);
+        txtNumPlanta.setEnabled(false);
     }
 
     public void activaCamposTxt(){
         txtNumSala.setEnabled(true);
         txtDadaAlta.setEnabled(true);
         txtTamanio.setEnabled(true);
+        txtAforo.setEnabled(true);
+        txtNumPlanta.setEnabled(true);
     }
 
     public void insertarImagenes() {

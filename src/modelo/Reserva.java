@@ -5,16 +5,28 @@ import java.sql.Date;
 public class Reserva {
 
     private String CodigoReserva; //pk
-    private String DNI; // foranea de persona
-    private int NumSala; // foranea de sala
+    private Cliente DNI; // foranea de persona
+    private Sala NumSala; // foranea de sala
     private java.sql.Date FechaReserva;
     private java.sql.Date FechaFin;
     private int Confirmado;
     private String MotivoReserva;
 
     public Reserva() {
+        DNI = new Cliente();
+        NumSala = new Sala();
     }
 
+    public Reserva(String codigoReserva, Cliente DNI, Sala numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva) {
+        CodigoReserva = codigoReserva;
+        this.DNI = DNI;
+        NumSala = numSala;
+        FechaReserva = fechaReserva;
+        FechaFin = fechaFin;
+        Confirmado = confirmado;
+        MotivoReserva = motivoReserva;
+    }
+    /*
     public Reserva(String codigoReserva, String DNI, int numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva) {
         CodigoReserva = codigoReserva;
         this.DNI = DNI;
@@ -38,6 +50,23 @@ public class Reserva {
     }
 
     public void setNumSala(int numSala) {
+        NumSala = numSala;
+    }
+    */
+
+    public Cliente getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(Cliente DNI) {
+        this.DNI = DNI;
+    }
+
+    public Sala getNumSala() {
+        return NumSala;
+    }
+
+    public void setNumSala(Sala numSala) {
         NumSala = numSala;
     }
 

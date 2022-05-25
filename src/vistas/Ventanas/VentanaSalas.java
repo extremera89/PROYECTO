@@ -4,6 +4,9 @@ import Interfaces.InterfaceSalas;
 import controladores.ControladorSala;
 import vistas.Paneles.VistaSalas;
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVistaSala {
 
@@ -26,6 +29,13 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
         this.desactivarBotones();
     }
 
+    public void filtro() {
+        TableRowSorter trsfiltro = new TableRowSorter(guiSalas.tblSalas.getModel());
+        guiSalas.tblSalas.setRowSorter(trsfiltro);
+
+        String filtro = guiSalas.getTxtBuscador().getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(guiSalas.getTxtBuscador().getText(), 0));
+    }
 
     @Override
     public void setController(ControladorSala controller) {
@@ -37,6 +47,15 @@ public class VentanaSalas extends JFrame implements InterfaceSalas.InterfaceVist
         guiSalas.getBtnActualizarTabla().addActionListener(controller);
         guiSalas.getTblSalas().addMouseListener(controller);
         guiSalas.getBtnActulizarDatos().addActionListener(controller);
+        guiSalas.getTxtBuscador().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (guiSalas.getTxtBuscador().getText());
+                guiSalas.getTxtBuscador().setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
     }
 
     @Override

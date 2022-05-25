@@ -1,7 +1,12 @@
 package modelotablas;
 
+import dao.DAOcliente;
 import dao.DAOreserva;
+import dao.DAOsala;
+import modelo.Cliente;
 import modelo.Reserva;
+import modelo.Sala;
+
 import javax.swing.table.AbstractTableModel;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -43,7 +48,7 @@ public class ModeloTablaReserva extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void crearReserva(String codigoReserva, String DNI, int numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva){
+    public void crearReserva(String codigoReserva, Cliente DNI, Sala numSala, Date fechaReserva, Date fechaFin, int confirmado, String motivoReserva){
         listaReserva.add(new Reserva(codigoReserva,DNI,numSala,fechaReserva,fechaFin,confirmado,motivoReserva));
         fireTableDataChanged();
     }
@@ -74,15 +79,19 @@ public class ModeloTablaReserva extends AbstractTableModel {
             case 0:
                 return listaReserva.get(rowIndex).getCodigoReserva();
             case 1:
-                return listaReserva.get(rowIndex).getDNI();
+                return listaReserva.get(rowIndex).getDNI().getDNI();
             case 2:
-                return listaReserva.get(rowIndex).getNumSala();
+                return listaReserva.get(rowIndex).getNumSala().getNumSala();
             case 3:
                 return formatoFecha.format(fechaReserva);
             case 4:
                 return formatoFecha.format(fechaFin);
             case 5:
-                return listaReserva.get(rowIndex).getConfirmado();
+                if(listaReserva.get(rowIndex).getConfirmado()==1){
+                    return "SÍ";
+                }
+                else
+                    return "NO";
             case 6:
                 return listaReserva.get(rowIndex).getMotivoReserva();
 
@@ -103,11 +112,11 @@ public class ModeloTablaReserva extends AbstractTableModel {
                 break;
 
             case 1:
-                listaReserva.get(fila).setDNI(aValue.toString());
+                listaReserva.get(fila).getDNI().setDNI((((Reserva)aValue).getDNI().getDNI()));
                 break;
 
             case 2:
-                listaReserva.get(fila).setNumSala(Integer.parseInt(aValue.toString()));
+                listaReserva.get(fila).getNumSala().setNumSala((((Reserva)aValue).getNumSala().getNumSala()));
                 break;
             case 3:
                 listaReserva.get(fila).setFechaReserva(Date.valueOf(aValue.toString()));
@@ -132,9 +141,38 @@ public class ModeloTablaReserva extends AbstractTableModel {
 
     }
 
+
+    public int saberCmboxCliente(int fila, int columna){
+        int numCmbox=0;
+        DAOcliente daOcliente=new DAOcliente();
+        ArrayList<Cliente> dniCliente=daOcliente.listarClientes();
+        for(int i=0;i<dniCliente.size();i++){
+            Cliente cliente= dniCliente.get(i);
+            if (listaReserva.get(fila).getDNI().getDNI().equals(cliente.getDNI())){
+                return numCmbox;
+            }
+            numCmbox++;
+        }
+        return numCmbox;
+    }
+
+    public int saberCmboxSala(int fila, int columna){
+        int numCmbox=0;
+        DAOsala daoSala=new DAOsala();
+        ArrayList<Sala> numSala=daoSala.listarSala();
+        for(int i=0;i<numSala.size();i++){
+            Sala sala= numSala.get(i);
+            if (listaReserva.get(fila).getNumSala().getNumSala()==(sala.getNumSala())){
+                return numCmbox;
+            }
+            numCmbox++;
+        }
+        return numCmbox;
+    }
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return false;
     }
 
 
