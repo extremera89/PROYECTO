@@ -29,7 +29,8 @@ public class VistaCentro {
     private JComboBox cmboxCliente;
     private JButton btnComMonitor;
     private JButton btnComCliente;
-
+    private JLabel lblBuscador;
+    private JTextField txtBuscador;
 
 
     public JButton getBtnActualizarTabla() {
@@ -108,6 +109,9 @@ public class VistaCentro {
         this.cmboxCliente = cmboxCliente;
     }
 
+    public JTextField getTxtBuscador() {
+        return txtBuscador;
+    }
 
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");

@@ -111,6 +111,7 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
     }
 
     public void cargarDNIClientes(){
+        ventanaCentro.guiCentro.getCmboxCliente().removeAllItems();
         DAOcliente daOcliente=new DAOcliente();
         ArrayList<Cliente> dniCliente=daOcliente.listarClientes();
         for(int i=0;i<dniCliente.size();i++){
@@ -119,6 +120,7 @@ public class ControladorCentro implements InterfaceCentro.InterfaceControladorCe
         }
     }
     public void cargarDNIMonitores(){
+        ventanaCentro.guiCentro.getComBoxMonitor().removeAllItems();
         DAOmonitor daOmonitor=new DAOmonitor();
         ArrayList<Monitor> dniCliente=daOmonitor.listarMonitores();
         for(int i=0;i<dniCliente.size();i++){

@@ -7,6 +7,9 @@ import principal.GuiCentro;
 import vistas.Paneles.VistaCentro;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVistaCentro {
 
@@ -30,6 +33,15 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         guiCentro.getTxtDNIMonitor().setVisible(false);
     }
 
+    public void filtro() {
+        TableRowSorter trsfiltro = new TableRowSorter(guiCentro.getTablaCentros().getModel());
+        guiCentro.getTablaCentros().setRowSorter(trsfiltro);
+
+        String filtro = guiCentro.getTxtBuscador().getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(guiCentro.getTxtBuscador().getText(),0));
+    }
+
+
 
     @Override
     public void setController(ControladorCentro controller) {
@@ -45,6 +57,15 @@ public class VentanaCentro extends JFrame implements InterfaceCentro.InterfaceVi
         guiCentro.getBtnActulizarDatos().addActionListener(controller);
         guiCentro.getBtnComMonitor().addActionListener(controller);
         guiCentro.getBtnComCliente().addActionListener(controller);
+        guiCentro.getTxtBuscador().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (guiCentro.getTxtBuscador().getText());
+                guiCentro.getTxtBuscador().setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
     }
 
     @Override

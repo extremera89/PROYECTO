@@ -96,6 +96,7 @@ public class VistaClientes{
         return txtBuscadorDNI;
     }
 
+
     public void asignaCommandBotones(){
         btnNuevo.setActionCommand("NUEVO");
         btnGuardar.setActionCommand("GUARDAR");
